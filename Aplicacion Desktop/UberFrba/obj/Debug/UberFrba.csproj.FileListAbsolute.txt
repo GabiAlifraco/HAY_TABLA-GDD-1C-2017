@@ -1,0 +1,9 @@
+E:\src\UberFrba\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.pdb
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.exe
+C:\Users\gabi_\Downloads\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.pdb
