@@ -152,6 +152,48 @@ PRIMARY KEY CLUSTERED
 	Turno_Id ASC,
 	Cho_Id ASC
 ))
+
+CREATE TABLE [HAY_TABLA].[ROL] (
+	[Id_Rol]						INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Nombre]					VARCHAR(50) NOT NULL,
+	[Habilitado]				BIT DEFAULT 1
+)
+GO
+
+INSERT INTO [HAY_TABLA].[ROL] (Nombre)
+	VALUES ('Administrador'), ('Cliente'), ('Chofer')
+
+CREATE TABLE [HAY_TABLA].[USUARIO_POR_ROL] (
+	[Id_Rol]					INT NOT NULL REFERENCES [HAY_TABLA].[ROL](Id_Rol),
+	[Usu_Id]					INT NOT NULL REFERENCES [HAY_TABLA].[Usuarios](Usu_Id),
+	[Habilitado]				BIT DEFAULT 1
+)
+GO
+
+INSERT INTO [HAY_TABLA].[USUARIO_POR_ROL] (Id_Rol, Usu_Id)
+	VALUES (1, 1), (2, 1), (3, 1)
+
+CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD] (
+	[Id_Funcionalidad]			INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Descripcion]				VARCHAR(255) NOT NULL	
+)
+GO
+
+INSERT INTO [HAY_TABLA].[FUNCIONALIDAD] (Descripcion)
+	VALUES ('ABM de Rol'), ('Registro de Usuario'), ('ABM de Cliente'), ('ABM de Automóvil'),
+		('ABM de Chofer'), ('Registro de Viajes'), ('Rendición de cuenta del chofer'), ('Facturación a Cliente'), ('Listado Estadístico')
+
+CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (
+	[Id_Funcionalidad]			INT NOT NULL REFERENCES [HAY_TABLA].[FUNCIONALIDAD](Id_Funcionalidad),
+	[Id_Rol]					INT NOT NULL REFERENCES [HAY_TABLA].[ROL](Id_Rol)
+)
+GO
+
+INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
+	VALUES (1, 1),(2, 1),(3,1), (4,1),(5,1),(6,1),(7,1),(8,1),(9,1)
+		   --,(1, 2), (5, 2), (9, 2),
+		   --(9, 3), (11, 3), (12, 3)
+
 /*
 INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)
 SELECT [HAY_TABLA].[Turno].[Turno_Id], [HAY_TABLA].[Chofer].[Cho_Id], [HAY_TABLA].[Automovil].[Auto_Id]
