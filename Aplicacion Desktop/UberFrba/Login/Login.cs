@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using UberFrba.Abm_Turno;
 
 namespace UberFrba.Login
 {
@@ -23,6 +24,7 @@ namespace UberFrba.Login
         private Button button1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
+        private Button button2;
         private TextBox password_txt;
 
         public DBAccess Access { get; set; }
@@ -191,6 +193,7 @@ namespace UberFrba.Login
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -323,12 +326,27 @@ namespace UberFrba.Login
             this.pictureBox3.TabIndex = 22;
             this.pictureBox3.TabStop = false;
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.White;
+            this.button2.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Black;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.Location = new System.Drawing.Point(12, 275);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(172, 37);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "ir a abm turnos";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Login
             // 
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(639, 359);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.iniciar_btn);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -343,6 +361,7 @@ namespace UberFrba.Login
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -352,7 +371,7 @@ namespace UberFrba.Login
         }
 
         private void iniciar_btn_Click(object sender, EventArgs e)
-        {
+         {
             if (user_txt.Text.Equals(""))
             {
                 MessageBox.Show("El usuario no puede quedar vacio", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -365,14 +384,10 @@ namespace UberFrba.Login
                 return;
             }
 
+
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT u.Nombre_Usuario, u.Contraseña, u.Habilitado, u.Cantidad_Intentos FROM [GD1C2017].[UN_CORTADO].[USUARIOS] u " +
-                                             "INNER JOIN [GD1C2017].[UN_CORTADO].[ROLPORUSUARIO] rxu " +
-                                             "ON u.Nombre_Usuario = rxu.Nombre_Usuario " +
-                                             "INNER JOIN [GD1C2017].[UN_CORTADO].[ROLES] r " +
-                                             "ON r.Id = rxu.Id_Rol " +
-                                             "WHERE u.Nombre_Usuario = @UserName");
+                string query = String.Format("SELECT Usu_Username, Usu_Password, Usu_IntentosFallidos FROM [GD2017].[dbo].[Usuarios] WHERE Usu_Username = @UserName");
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -384,7 +399,6 @@ namespace UberFrba.Login
                 {
                     conexion.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
-
                     if (!dr.Read())
                     {
                         MessageBox.Show("Acceso denegado", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -394,42 +408,25 @@ namespace UberFrba.Login
 
                         return;
                     }
-
-                    Contraseña = (byte[])dr.GetValue(1);
-                    Estado = dr.GetBoolean(2);
-                    Intentos = dr.GetInt16(3);
+                    String Contraseña = (String)dr.GetValue(1);
+                    MessageBox.Show("Tu contraseña es:" + Contraseña.ToString(), "ERROR");
                 }
-                catch
+                catch (Exception excep)
                 {
-
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-
-            if (!Estado)
-            {
-                MessageBox.Show("La cuenta no esta habilitada", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!(CompararContraseña(Contraseña, password_txt.Text)))
-            {
-                Intentos++;
-                if (Intentos == 3)
-                    InhabilitarCuenta(Intentos);
-                else
-                    SumarIntentosFallidos(Intentos);
-
-                password_txt.Text = "";
-                password_txt.Focus();
-                return;
-            }
-            else
-            {
-                ResetearIntentosDeIngreso();
-            }
-
-            IngresarAlSistema(Contraseña, Estado);               
+            }         
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AbmTurno formularioTurnos = new AbmTurno();
+            formularioTurnos.Show();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
