@@ -66,8 +66,8 @@ namespace UberFrba.Login
 
                 try
                 {
-                    string query = String.Format("UPDATE [GD1C2017].[UN_CORTADO].[USUARIOS] " +
-                                                 "SET Cantidad_Intentos = 0 WHERE Nombre_Usuario = @UserName");
+                    string query = String.Format("UPDATE [GD1C2017].[HAY_TABLA].[Usuarios] " +
+                                                 "SET Usu_IntentosFallidos = 0 WHERE Usu_Username = @UserName");
                     command.CommandText = query;
 
                     SqlParameter param = new SqlParameter("@UserName", user_txt.Text);
@@ -100,8 +100,8 @@ namespace UberFrba.Login
 
                 try
                 {
-                    string query = String.Format("UPDATE [GD1C2017].[UN_CORTADO].[USUARIOS] " +
-                                                 "SET Cantidad_Intentos = @Intentos WHERE Nombre_Usuario = @UserName");
+                    string query = String.Format("UPDATE [GD1C2017].[HAY_TABLA].[Usuarios] " +
+                                                 "SET Usu_IntentosFallidos = @Intentos WHERE Usu_Username = @UserName");
                     command.CommandText = query;
 
                     SqlParameter param = new SqlParameter("@UserName", user_txt.Text);
@@ -140,8 +140,8 @@ namespace UberFrba.Login
 
                 try
                 {
-                    string query = String.Format("UPDATE [GD1C2017].[UN_CORTADO].[USUARIOS] " +
-                                                 "SET Habilitado = 0, Cantidad_Intentos = @Intentos WHERE Nombre_Usuario = @UserName");
+                    string query = String.Format("UPDATE [GD1C2017].[HAY_TABLA].[Usuarios] " +
+                                                 "SET Usu_IntentosFallidos = @Intentos WHERE Usu_Username = @UserName");
                     command.CommandText = query;
 
                     SqlParameter param = new SqlParameter("@UserName", user_txt.Text);
@@ -303,6 +303,7 @@ namespace UberFrba.Login
             this.button1.TabIndex = 20;
             this.button1.Text = "AQUÍ";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox2
             // 
@@ -387,7 +388,7 @@ namespace UberFrba.Login
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Usu_Username, Usu_Password, Usu_IntentosFallidos FROM [GD2017].[dbo].[Usuarios] WHERE Usu_Username = @UserName");
+                string query = String.Format("SELECT Usu_Username, Usu_Password, Usu_IntentosFallidos FROM [GD1C2017].[HAY_TABLA].[Usuarios] WHERE Usu_Username = @UserName");
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -425,6 +426,11 @@ namespace UberFrba.Login
         }
 
         private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

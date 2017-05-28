@@ -1,20 +1,32 @@
-CREATE TABLE Usuarios(
-	Usu_Id int NOT NULL IDENTITY(1,1),
-	Usu_Username varchar(50),
-	Usu_Password varchar(50), /**VER TIPO DE DATO**/
-	Usu_IntentosFallidos tinyint,
-	CONSTRAINT PK_Usuarios PRIMARY KEY (Usu_Id)
+USE [GD1C2017]
+GO
 
+/* CREACION DEL ESQUEMA */
+
+CREATE SCHEMA [HAY_TABLA] AUTHORIZATION [gd]
+GO
+
+/* CREACION DE TABLAS MAESTRAS (ABM) */
+
+CREATE TABLE [HAY_TABLA].[Usuarios](
+	Usu_Id int NOT NULL IDENTITY(1,1),
+	Usu_Username VARCHAR(30) NOT NULL,
+	Usu_Password VARBINARY(8000) NOT NULL,
+	Usu_IntentosFallidos TINYINT NOT NULL DEFAULT 0
+	CONSTRAINT PK_Usuarios PRIMARY KEY (Usu_Id)
 );
+
+INSERT INTO [HAY_TABLA].[Usuarios] (Usu_Username,Usu_Password)
+VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
 
 /*EJECUTAR DE ACA PARA ABAJO*/
 
 /*CHOFER************************************************/
-DROP TABLE Chofer
-CREATE TABLE Chofer (
+--DROP TABLE [HAY_TABLA].Chofer
+CREATE TABLE [HAY_TABLA].Chofer (
     Cho_Id int NOT NULL IDENTITY(1,1),
 	Cho_IdUsuario int, /*** FK **/
-    Cho_Nombre varchar(255),
+    Cho_Nombre VARCHAR(30) NOT NULL,
     Cho_Apellido varchar(255),
 	Cho_DNI numeric(18, 0),
 	Cho_Mail varchar(50),
@@ -22,9 +34,9 @@ CREATE TABLE Chofer (
 	Cho_Direccion varchar(255),
 	Cho_FechaNacimiento datetime,
 	CONSTRAINT PK_Chofer PRIMARY KEY (Cho_ID),
-	FOREIGN KEY (Cho_IdUsuario) REFERENCES Usuarios(Usu_Id)
+	FOREIGN KEY (Cho_IdUsuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Id)
 );
-INSERT INTO Chofer (Cho_Nombre,Cho_Apellido,Cho_DNI,Cho_Mail,Cho_Telefono,Cho_Direccion,Cho_FechaNacimiento)
+INSERT INTO [HAY_TABLA].Chofer (Cho_Nombre,Cho_Apellido,Cho_DNI,Cho_Mail,Cho_Telefono,Cho_Direccion,Cho_FechaNacimiento)
 SELECT DISTINCT   
 	   Chofer_Nombre
       ,Chofer_Apellido
@@ -44,8 +56,8 @@ ORDER BY
       ,Chofer_Fecha_Nac
 
 /*CLIENTE************************************************/
-DROP TABLE Cliente
-CREATE TABLE Cliente(
+--DROP TABLE [HAY_TABLA].Cliente
+CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Id int NOT NULL IDENTITY(1,1),
 	Cli_IdUsuario int, /** FK **/
 	Cli_Nombre varchar(255),
@@ -57,9 +69,9 @@ CREATE TABLE Cliente(
 	Cli_CodigoPostal numeric(10, 0),
 	Cli_FechaNacimiento datetime
 	CONSTRAINT PK_Cliente PRIMARY KEY (Cli_Id),
-	FOREIGN KEY (Cli_IdUsuario) REFERENCES Usuarios(Usu_Id)
+	FOREIGN KEY (Cli_IdUsuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Id)
 );
-INSERT INTO Cliente (Cli_Nombre, Cli_Apellido, Cli_DNI, Cli_Telefono, Cli_Direccion, Cli_Mail, Cli_FechaNacimiento)
+INSERT INTO [HAY_TABLA].Cliente (Cli_Nombre, Cli_Apellido, Cli_DNI, Cli_Telefono, Cli_Direccion, Cli_Mail, Cli_FechaNacimiento)
 SELECT  
 	   Cliente_Nombre
       ,Cliente_Apellido
@@ -79,8 +91,8 @@ GROUP BY
 	  ,Cliente_Fecha_Nac
 
 /*AUTOMOVIL************************************************/
-DROP TABLE Automovil
-CREATE TABLE Automovil(
+--DROP TABLE [HAY_TABLA].Automovil
+CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Id int NOT NULL IDENTITY(1,1),
 	Auto_Patente varchar(10),
 	Auto_Marca varchar(255),
@@ -90,7 +102,7 @@ CREATE TABLE Automovil(
 	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id)
 );
 
-INSERT INTO Automovil (Auto_Marca
+INSERT INTO [HAY_TABLA].Automovil (Auto_Marca
       ,Auto_Modelo
       ,Auto_Patente
       ,Auto_Licencia
@@ -108,8 +120,8 @@ SELECT Auto_Marca
       ,[Auto_Rodado]
 
 /*TURNO************************************************/
-DROP TABLE Turno
-CREATE TABLE Turno(
+--DROP TABLE [HAY_TABLA].Turno
+CREATE TABLE [HAY_TABLA].[Turno](
 	Turno_Id int NOT NULL IDENTITY(1,1),
 	Turno_HoraInicio numeric(18, 0),
 	Turno_HoraFin numeric(18, 0),
@@ -120,7 +132,7 @@ CREATE TABLE Turno(
 	CONSTRAINT PK_Turno PRIMARY KEY (Turno_Id)
 )
 
-INSERT INTO Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase)
+INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase)
 SELECT DISTINCT 
       Turno_Hora_Inicio,
 	  Turno_Hora_Fin,
@@ -130,8 +142,8 @@ SELECT DISTINCT
 FROM gd_esquema.Maestra;
 
 /*ASIGNACION DE TURNOS************************************************/
-DROP TABLE AsignacionDeTurnos
-CREATE TABLE AsignacionDeTurnos(
+--DROP TABLE [HAY_TABLA].AsignacionDeTurnos
+CREATE TABLE [HAY_TABLA].AsignacionDeTurnos(
 	Turno_Id int NOT NULL,
 	Cho_Id int NOT NULL,
 	Auto_Id int NOT NULL,
@@ -140,12 +152,12 @@ PRIMARY KEY CLUSTERED
 	Turno_Id ASC,
 	Cho_Id ASC
 ))
-
-INSERT INTO AsignacionDeTurnos (Turno_Id,Cho_Id, Auto_Id)
-SELECT Turno.Turno_Id, Chofer.Cho_Id, Automovil.Auto_Id
-FROM Chofer
-INNER JOIN gd_esquema.Maestra ON Chofer.Cho_DNI = gd_esquema.Maestra.Chofer_Dni
-INNER JOIN Turno ON Turno.Turno_Descripcion = gd_esquema.Maestra.Turno_Descripcion
-INNER JOIN Automovil ON Automovil.Auto_Patente = gd_esquema.Maestra.Auto_Patente
-GROUP BY   gd_esquema.Maestra.Chofer_Dni,  gd_esquema.Maestra.Auto_Patente, gd_esquema.Maestra.Turno_Descripcion, Turno.Turno_Id, Chofer.Cho_Id, Automovil.Auto_Id
-
+/*
+INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)
+SELECT [HAY_TABLA].[Turno].[Turno_Id], [HAY_TABLA].[Chofer].[Cho_Id], [HAY_TABLA].[Automovil].[Auto_Id]
+FROM [HAY_TABLA].[Chofer]
+INNER JOIN gd_esquema.Maestra ON HAY_TABLA.Chofer.Cho_DNI = gd_esquema.Maestra.Chofer_Dni
+INNER JOIN Turno ON [HAY_TABLA].[Turno].[Turno_Descripcion] = gd_esquema.Maestra.Turno_Descripcion
+INNER JOIN Automovil ON [HAY_TABLA].[Automovil].[Auto_Patente] = gd_esquema.Maestra.Auto_Patente
+GROUP BY   gd_esquema.Maestra.Chofer_Dni,  gd_esquema.Maestra.Auto_Patente, gd_esquema.Maestra.Turno_Descripcion, [HAY_TABLA].[Turno].[Turno_Id], [HAY_TABLA].[Chofer].[Cho_Id], [HAY_TABLA].[Automovil].[Auto_Id]
+*/

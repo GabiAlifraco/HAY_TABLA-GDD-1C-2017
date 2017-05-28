@@ -28,3 +28,4 @@ C:\Users\Samo\Desktop\HAY_TABLA-GDD-1C-2017-master\Aplicacion Desktop\UberFrba\o
 C:\Users\Samo\Desktop\HAY_TABLA-GDD-1C-2017-master\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\Samo\Desktop\HAY_TABLA-GDD-1C-2017-master\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Turno.AbmTurno.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Turno.AbmTurno.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache

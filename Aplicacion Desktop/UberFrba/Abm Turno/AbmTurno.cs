@@ -62,7 +62,7 @@ namespace UberFrba.Abm_Turno
             dtTurnos.Columns.Add(cValorKm);
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [GD1C2017].[dbo].[Turno]");
+                string query = String.Format("SELECT * FROM [GD1C2017].[HAY_TABLA].[Turno]");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -124,7 +124,7 @@ namespace UberFrba.Abm_Turno
 
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("INSERT INTO Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + turnoNuevo.HoraInicio.Hour + "," + turnoNuevo.HoraFin.Hour + ",'" + turnoNuevo.Descripcion + "'," + turnoNuevo.ValorKm.ToString().Replace(",", ".") + "," + turnoNuevo.PrecioBase.ToString().Replace(",", ".") + ")");
+                    string query = String.Format("INSERT INTO [GD1C2017].[HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + turnoNuevo.HoraInicio.Hour + "," + turnoNuevo.HoraFin.Hour + ",'" + turnoNuevo.Descripcion + "'," + turnoNuevo.ValorKm.ToString().Replace(",", ".") + "," + turnoNuevo.PrecioBase.ToString().Replace(",", ".") + ")");
 
                     MessageBox.Show(query);
                     SqlCommand cmd = new SqlCommand(query, conexion);
@@ -149,7 +149,7 @@ namespace UberFrba.Abm_Turno
             
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("DELETE FROM Turno WHERE Turno_Id =" + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
+                string query = String.Format("DELETE FROM [GD1C2017].[HAY_TABLA].Turno WHERE Turno_Id =" + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
                 MessageBox.Show(query);
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -175,7 +175,7 @@ namespace UberFrba.Abm_Turno
                 turnoModificar.Id = Convert.ToInt32(txtIdTurno.Text);
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("UPDATE Turno SET Turno_HoraInicio = " + turnoModificar.HoraInicio.Hour + ", Turno_HoraFin = " + turnoModificar.HoraFin.Hour + ", Turno_Descripcion = '" + turnoModificar.Descripcion + "', Turno_PrecioBase = " + turnoModificar.PrecioBase.ToString().Replace(",", ".") + ", Turno_ValorKM = " +  turnoModificar.ValorKm.ToString().Replace(",", ".") + " WHERE Turno_Id = " + turnoModificar.Id);
+                    string query = String.Format("UPDATE [GD1C2017].[HAY_TABLA].Turno SET Turno_HoraInicio = " + turnoModificar.HoraInicio.Hour + ", Turno_HoraFin = " + turnoModificar.HoraFin.Hour + ", Turno_Descripcion = '" + turnoModificar.Descripcion + "', Turno_PrecioBase = " + turnoModificar.PrecioBase.ToString().Replace(",", ".") + ", Turno_ValorKM = " + turnoModificar.ValorKm.ToString().Replace(",", ".") + " WHERE Turno_Id = " + turnoModificar.Id);
                     MessageBox.Show(query);
                     SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -203,5 +203,6 @@ namespace UberFrba.Abm_Turno
             numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[4].Value);
             numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[5].Value);
         }
+
     }
 }
