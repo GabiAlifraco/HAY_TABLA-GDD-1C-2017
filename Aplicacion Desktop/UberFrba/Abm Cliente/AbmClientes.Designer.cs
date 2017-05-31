@@ -716,7 +716,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvClientes);
             this.Name = "AbmClientes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmClientes";
+            this.Load += new System.EventHandler(this.AbmClientes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.panelDatosNuevoCliente.ResumeLayout(false);
             this.panelDatosNuevoCliente.PerformLayout();

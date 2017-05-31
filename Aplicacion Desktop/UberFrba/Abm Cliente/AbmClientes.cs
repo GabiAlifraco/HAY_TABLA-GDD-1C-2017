@@ -412,5 +412,10 @@ namespace UberFrba.Abm_Cliente
         {
 
         }
+
+        private void AbmClientes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -426,6 +426,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvChoferes);
             this.Name = "AbmChofer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmChofer";
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).EndInit();
             this.panelDatosClienteSeleccionado.ResumeLayout(false);
