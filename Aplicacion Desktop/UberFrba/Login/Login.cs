@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using UberFrba.Abm_Turno;
+using UberFrba.Abm_Cliente;
+using UberFrba.Menu;
 
 namespace UberFrba.Login
 {
@@ -25,6 +27,7 @@ namespace UberFrba.Login
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Button button2;
+        private Button button3;
         private TextBox password_txt;
 
         public DBAccess Access { get; set; }
@@ -194,6 +197,7 @@ namespace UberFrba.Login
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -341,12 +345,27 @@ namespace UberFrba.Login
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.White;
+            this.button3.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.Location = new System.Drawing.Point(12, 232);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(172, 37);
+            this.button3.TabIndex = 24;
+            this.button3.Text = "abm clientes";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Login
             // 
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(639, 359);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.iniciar_btn);
             this.Controls.Add(this.pictureBox3);
@@ -388,7 +407,7 @@ namespace UberFrba.Login
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Usu_Username, Usu_Password, Usu_IntentosFallidos FROM [GD1C2017].[HAY_TABLA].[Usuarios] WHERE Usu_Username = @UserName");
+                string query = String.Format("SELECT Usu_Id, Usu_Username, Usu_Password, Usu_IntentosFallidos FROM [HAY_TABLA].[Usuarios] WHERE Usu_Username = @UserName");
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -409,8 +428,15 @@ namespace UberFrba.Login
 
                         return;
                     }
+                    /*
                     String Contraseña = (String)dr.GetValue(1);
                     MessageBox.Show("Tu contraseña es:" + Contraseña.ToString(), "ERROR");
+                    */
+                    //dr["Usu_Id"].ToString()
+                    MenuGeneral formularioMenu = new MenuGeneral(dr["Usu_Id"].ToString());
+                   
+                    formularioMenu.Show();
+
                 }
                 catch (Exception excep)
                 {
@@ -433,6 +459,12 @@ namespace UberFrba.Login
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AbmClientes formularioClientes = new AbmClientes();
+            formularioClientes.Show();
         }
     }
 }
