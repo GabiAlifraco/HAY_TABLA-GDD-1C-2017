@@ -22,7 +22,7 @@ VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
 /*EJECUTAR DE ACA PARA ABAJO*/
 
 /*CHOFER************************************************/
---DROP TABLE [HAY_TABLA].Chofer
+
 CREATE TABLE [HAY_TABLA].Chofer (
     Cho_Id int NOT NULL IDENTITY(1,1),
 	Cho_IdUsuario int, /*** FK **/
@@ -56,7 +56,7 @@ ORDER BY
       ,Chofer_Fecha_Nac
 
 /*CLIENTE************************************************/
---DROP TABLE [HAY_TABLA].Cliente
+
 CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Id int NOT NULL IDENTITY(1,1),
 	Cli_IdUsuario int, /** FK **/
@@ -91,7 +91,7 @@ GROUP BY
 	  ,Cliente_Fecha_Nac
 
 /*AUTOMOVIL************************************************/
---DROP TABLE [HAY_TABLA].Automovil
+
 CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Id int NOT NULL IDENTITY(1,1),
 	Auto_Patente varchar(10),
@@ -120,7 +120,7 @@ SELECT Auto_Marca
       ,[Auto_Rodado]
 
 /*TURNO************************************************/
---DROP TABLE [HAY_TABLA].Turno
+
 CREATE TABLE [HAY_TABLA].[Turno](
 	Turno_Id int NOT NULL IDENTITY(1,1),
 	Turno_HoraInicio numeric(18, 0),
@@ -142,7 +142,7 @@ SELECT DISTINCT
 FROM gd_esquema.Maestra;
 
 /*ASIGNACION DE TURNOS************************************************/
---DROP TABLE [HAY_TABLA].AsignacionDeTurnos
+
 CREATE TABLE [HAY_TABLA].AsignacionDeTurnos(
 	Turno_Id int NOT NULL,
 	Cho_Id int NOT NULL,
