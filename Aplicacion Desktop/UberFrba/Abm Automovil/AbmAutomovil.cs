@@ -24,6 +24,7 @@ namespace UberFrba.Abm_Automovil
             dgvAutomovil.ReadOnly = true;
             panelDatosSeleccionado.Visible = false;
             MostrarAutomoviles();
+            cargar_marcas();
         }
 
         private void MostrarAutomoviles()
@@ -289,5 +290,30 @@ namespace UberFrba.Abm_Automovil
                 }
             }
         }
+
+        private void cargar_marcas()
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                //Falta el filtro por chofer
+                string query = String.Format("SELECT Nombre_Marca FROM [HAY_TABLA].[MARCA]");
+                SqlCommand cmd = new SqlCommand(query, conexion);
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        comboMarca.Items.Add(dr["Nombre_Marca"].ToString());
+                    }
+
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }

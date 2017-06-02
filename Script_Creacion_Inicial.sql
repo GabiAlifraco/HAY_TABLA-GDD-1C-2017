@@ -91,15 +91,24 @@ GROUP BY
 	  ,Cliente_Fecha_Nac
 
 /*AUTOMOVIL************************************************/
+CREATE TABLE [HAY_TABLA].[MARCA] (
+	[Nombre_Marca]				varchar(20),
+	CONSTRAINT PK_Marca PRIMARY KEY (Nombre_Marca)
+)
+
+INSERT INTO [HAY_TABLA].[MARCA] (Nombre_Marca)
+SELECT DISTINCT Auto_Marca
+FROM gd_esquema.Maestra;
 
 CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Id int NOT NULL IDENTITY(1,1),
 	Auto_Patente varchar(10),
-	Auto_Marca varchar(255),
+	Auto_Marca varchar(20),
 	Auto_Modelo varchar(255),
 	Auto_Licencia varchar(26),
 	Auto_Rodado varchar(10),
-	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id)
+	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id),
+	FOREIGN KEY (Auto_Marca) REFERENCES [HAY_TABLA].MARCA(Nombre_Marca)
 );
 
 INSERT INTO [HAY_TABLA].Automovil (Auto_Marca
@@ -193,6 +202,9 @@ INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
 	VALUES (1, 1),(2, 1),(3,1), (4,1),(5,1),(6,1),(7,1),(8,1),(9,1)
 		   --,(1, 2), (5, 2), (9, 2),
 		   --(9, 3), (11, 3), (12, 3)
+		   
+
+
 
 /*
 INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)

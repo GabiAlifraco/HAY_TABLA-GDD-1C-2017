@@ -332,7 +332,7 @@
             // txtRodado
             // 
             this.txtRodado.Location = new System.Drawing.Point(263, 88);
-            this.txtRodado.MaxLength = 18;
+            this.txtRodado.MaxLength = 10;
             this.txtRodado.Name = "txtRodado";
             this.txtRodado.Size = new System.Drawing.Size(100, 20);
             this.txtRodado.TabIndex = 66;
@@ -348,7 +348,7 @@
             // txtLicencia
             // 
             this.txtLicencia.Location = new System.Drawing.Point(135, 88);
-            this.txtLicencia.MaxLength = 50;
+            this.txtLicencia.MaxLength = 26;
             this.txtLicencia.Name = "txtLicencia";
             this.txtLicencia.Size = new System.Drawing.Size(100, 20);
             this.txtLicencia.TabIndex = 66;
