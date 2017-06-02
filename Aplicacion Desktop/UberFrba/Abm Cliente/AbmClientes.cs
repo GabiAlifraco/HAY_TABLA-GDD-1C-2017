@@ -366,7 +366,6 @@ namespace UberFrba.Abm_Cliente
             btnGuardarDatos.Visible = true;
             btnDescartarCambios.Visible = true;
 
-
         }
 
 

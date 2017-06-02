@@ -64,3 +64,10 @@ C:\Users\gabi_\Desktop\probando ser el oficial\HAY_TABLA-GDD-1C-2017\Aplicacion 
 C:\Users\gabi_\Desktop\probando ser el oficial\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
 C:\Users\gabi_\Desktop\probando ser el oficial\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\gabi_\Desktop\probando ser el oficial\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Cliente.AltaClientes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Automovil.AbmAutomovil.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Chofer.AbmChofer.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Chofer.AltaChofer.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Cliente.AbmClientes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Cliente.AltaClientes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Menu.MenuFuncionesDelRol.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Menu.MenuGeneral.resources
