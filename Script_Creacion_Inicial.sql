@@ -91,7 +91,7 @@ GROUP BY
 	  ,Cliente_Fecha_Nac
 
 /*AUTOMOVIL************************************************/
-CREATE TABLE [HAY_TABLA].[MARCA] (
+/*CREATE TABLE [HAY_TABLA].[MARCA] (
 	[Nombre_Marca]				varchar(20),
 	CONSTRAINT PK_Marca PRIMARY KEY (Nombre_Marca)
 )
@@ -99,6 +99,7 @@ CREATE TABLE [HAY_TABLA].[MARCA] (
 INSERT INTO [HAY_TABLA].[MARCA] (Nombre_Marca)
 SELECT DISTINCT Auto_Marca
 FROM gd_esquema.Maestra;
+*/
 
 CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Id int NOT NULL IDENTITY(1,1),
@@ -107,8 +108,7 @@ CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Modelo varchar(255),
 	Auto_Licencia varchar(26),
 	Auto_Rodado varchar(10),
-	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id),
-	FOREIGN KEY (Auto_Marca) REFERENCES [HAY_TABLA].MARCA(Nombre_Marca)
+	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id)
 );
 
 INSERT INTO [HAY_TABLA].Automovil (Auto_Marca
@@ -204,14 +204,11 @@ INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
 		   --(9, 3), (11, 3), (12, 3)
 		   
 
-
-
-/*
 INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)
-SELECT [HAY_TABLA].[Turno].[Turno_Id], [HAY_TABLA].[Chofer].[Cho_Id], [HAY_TABLA].[Automovil].[Auto_Id]
-FROM [HAY_TABLA].[Chofer]
-INNER JOIN gd_esquema.Maestra ON HAY_TABLA.Chofer.Cho_DNI = gd_esquema.Maestra.Chofer_Dni
-INNER JOIN Turno ON [HAY_TABLA].[Turno].[Turno_Descripcion] = gd_esquema.Maestra.Turno_Descripcion
-INNER JOIN Automovil ON [HAY_TABLA].[Automovil].[Auto_Patente] = gd_esquema.Maestra.Auto_Patente
-GROUP BY   gd_esquema.Maestra.Chofer_Dni,  gd_esquema.Maestra.Auto_Patente, gd_esquema.Maestra.Turno_Descripcion, [HAY_TABLA].[Turno].[Turno_Id], [HAY_TABLA].[Chofer].[Cho_Id], [HAY_TABLA].[Automovil].[Auto_Id]
-*/
+SELECT Turno.Turno_Id turno_id, Chofer.[Cho_Id] chofer_id, Automovil.[Auto_Id] auto_id
+FROM [HAY_TABLA].[Chofer] chofer
+INNER JOIN gd_esquema.Maestra maestra ON chofer.Cho_DNI = maestra.Chofer_Dni
+INNER JOIN [HAY_TABLA].[Turno] turno ON turno.[Turno_Descripcion] = maestra.Turno_Descripcion
+INNER JOIN [HAY_TABLA].[Automovil] automovil ON automovil.[Auto_Patente] = maestra.Auto_Patente
+GROUP BY   maestra.Chofer_Dni,  maestra.Auto_Patente, maestra.Turno_Descripcion, turno.[Turno_Id], chofer.[Cho_Id], automovil.[Auto_Id]
+
