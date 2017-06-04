@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Turno;
 
 namespace UberFrba.Menu
 {
@@ -45,7 +46,7 @@ namespace UberFrba.Menu
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                       // listFunciones.Add((new KeyValuePair<string, int>(dr["Descripcion"].ToString(), (int)dr["Id_Funcionalidad"])));
+                        // listFunciones.Add((new KeyValuePair<string, int>(dr["Descripcion"].ToString(), (int)dr["Id_Funcionalidad"])));
                         listBoxFunciones.Items.Add((dr["Descripcion"].ToString()));
                     }
 
@@ -80,6 +81,10 @@ namespace UberFrba.Menu
                 case "ABM de Automóvil":
                     AbmAutomovil formularioAutomovil = new AbmAutomovil();
                     formularioAutomovil.Show();
+                    break;
+                case "ABM de Turno":
+                    AbmTurno formTurnos = new AbmTurno();
+                    formTurnos.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");

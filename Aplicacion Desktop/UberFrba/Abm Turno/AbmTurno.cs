@@ -16,15 +16,13 @@ namespace UberFrba.Abm_Turno
     {
 
         public DBAccess Access { get; set; }
+        public ValidacionesAbm Validador { get; set; }
         public AbmTurno()
         {
             InitializeComponent();
             Access = new DBAccess();
+            Validador = new ValidacionesAbm();
             MostrarTurnos();
-            dateTimePickerHoraInicio.Format = DateTimePickerFormat.Time;
-            dateTimePickerHoraInicio.ShowUpDown = true;
-            dateTimePickerHoraFin.Format = DateTimePickerFormat.Time;
-            dateTimePickerHoraFin.ShowUpDown = true;
         }
 
         private void AbmTurno_Load(object sender, EventArgs e)
@@ -49,20 +47,24 @@ namespace UberFrba.Abm_Turno
 
             DataColumn cId = new DataColumn("Id");
             DataColumn cDescripcion = new DataColumn("Descripcion");
-            DataColumn cInicio = new DataColumn("Inicio");
-            DataColumn cFin = new DataColumn("Fin");
+            DataColumn cHInicio = new DataColumn("Hora Inicio");
+            DataColumn cMnicio = new DataColumn("Min Inicio");
+            DataColumn cHFin = new DataColumn("Hora Fin");
+            DataColumn cMFin = new DataColumn("Min Fin");
             DataColumn cPrecioBase = new DataColumn("PrecioBase");
             DataColumn cValorKm = new DataColumn("ValorKm");
 
             dtTurnos.Columns.Add(cId);
             dtTurnos.Columns.Add(cDescripcion);
-            dtTurnos.Columns.Add(cInicio);
-            dtTurnos.Columns.Add(cFin);
+            dtTurnos.Columns.Add(cHInicio);
+            dtTurnos.Columns.Add(cMnicio);
+            dtTurnos.Columns.Add(cHFin);
+            dtTurnos.Columns.Add(cMFin);
             dtTurnos.Columns.Add(cPrecioBase);
             dtTurnos.Columns.Add(cValorKm);
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [GD1C2017].[HAY_TABLA].[Turno]");
+                string query = String.Format("SELECT * FROM [HAY_TABLA].[Turno]");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -75,8 +77,12 @@ namespace UberFrba.Abm_Turno
                             DataRow row = dtTurnos.NewRow();
                             row["Id"] = dr["Turno_Id"].ToString();
                             row["Descripcion"] = dr["Turno_Descripcion"].ToString();
-                            row["Inicio"] = dr["Turno_HoraInicio"].ToString();
-                            row["Fin"] = dr["Turno_HoraFin"].ToString();
+                            decimal HoraInicio = (decimal)dr["Turno_HoraInicio"];
+                            row["Hora Inicio"] = Math.Truncate(HoraInicio / 100);
+                            row["Min Inicio"] = HoraInicio % 100;
+                            decimal HoraFin = (decimal)dr["Turno_HoraFin"];
+                            row["Hora Fin"] = Math.Truncate(HoraFin / 100);
+                            row["Min Fin"] = HoraFin % 100;
                             row["PrecioBase"] = dr["Turno_PrecioBase"].ToString();
                             row["ValorKm"] = dr["Turno_ValorKm"].ToString();
                             dtTurnos.Rows.Add(row);
@@ -91,24 +97,6 @@ namespace UberFrba.Abm_Turno
             }
         }
 
-        private bool ValidarTurno()
-        {
-            if (txtDescripcionTurno.Text.Equals(""))
-            {
-                MessageBox.Show("La descripcion no puede quedar vacio", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if ((dateTimePickerHoraFin.Value.Hour * 10000 + dateTimePickerHoraFin.Value.Minute * 100 + dateTimePickerHoraFin.Value.Second)
-                <
-                (dateTimePickerHoraInicio.Value.Hour * 10000 + dateTimePickerHoraInicio.Value.Minute * 100 + dateTimePickerHoraInicio.Value.Second))
-            {
-                MessageBox.Show("La hora de fin no puede ser menor a la hora de inicio", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
-
-        }
 
         private void btnVerTurnos_Click(object sender, EventArgs e)
         {
@@ -117,31 +105,8 @@ namespace UberFrba.Abm_Turno
 
         private void btnCrearTurno_Click(object sender, EventArgs e)
         {
-
-            if (ValidarTurno())
-            {
-                Turno turnoNuevo = new Turno(txtDescripcionTurno.Text, dateTimePickerHoraInicio.Value, dateTimePickerHoraFin.Value, numericPrecioBase.Value, numericValorKm.Value);
-
-                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-                {
-                    string query = String.Format("INSERT INTO [GD1C2017].[HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + turnoNuevo.HoraInicio.Hour + "," + turnoNuevo.HoraFin.Hour + ",'" + turnoNuevo.Descripcion + "'," + turnoNuevo.ValorKm.ToString().Replace(",", ".") + "," + turnoNuevo.PrecioBase.ToString().Replace(",", ".") + ")");
-
-                    MessageBox.Show(query);
-                    SqlCommand cmd = new SqlCommand(query, conexion);
-
-                    try
-                    {
-                        conexion.Open();
-                        SqlDataReader dr = cmd.ExecuteReader();
-
-                    }
-                    catch (Exception excep)
-                    {
-                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                MostrarTurnos();
-            }
+            AltaTurnos formAltaTurno = new AltaTurnos();
+            formAltaTurno.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -149,7 +114,7 @@ namespace UberFrba.Abm_Turno
             
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("DELETE FROM [GD1C2017].[HAY_TABLA].Turno WHERE Turno_Id =" + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
+                string query = String.Format("DELETE FROM [HAY_TABLA].Turno WHERE Turno_Id =" + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
                 MessageBox.Show(query);
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -169,13 +134,51 @@ namespace UberFrba.Abm_Turno
 
         private void btnModificarTurno_Click(object sender, EventArgs e)
         {
-            if (ValidarTurno())
+            panelDatosSeleccionado.Enabled = true;
+            btnModificarTurno.Visible = false;
+            btnGuardarDatos.Visible = true;
+    
+        }
+
+        private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
+            txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
+            numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
+            numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
+            numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
+            numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
+            numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
+            numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
+            btnGuardarDatos.Visible = false;
+            btnModificarTurno.Visible = true;
+            panelDatosSeleccionado.Enabled = false;
+        }
+
+        private void soloLetras(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsWhiteSpace(e.KeyChar)))
             {
-                Turno turnoModificar = new Turno(txtDescripcionTurno.Text, dateTimePickerHoraInicio.Value, dateTimePickerHoraFin.Value, numericPrecioBase.Value, numericValorKm.Value);
-                turnoModificar.Id = Convert.ToInt32(txtIdTurno.Text);
+                if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+                {
+                    MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+
+            }
+        }
+
+        private void btnGuardarDatos_Click(object sender, EventArgs e)
+        {
+
+            decimal horaInicio = numericHoraInicio.Value * 100 + numericMinutoInicio.Value;
+            decimal horaFin = numericHoraFin.Value * 100 + numericMinutoFin.Value;
+            if (ValidarTurno(txtDescripcionTurno.Text, horaInicio, horaFin, numericPrecioBase.Value, numericValorKm.Value))
+            {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("UPDATE [GD1C2017].[HAY_TABLA].Turno SET Turno_HoraInicio = " + turnoModificar.HoraInicio.Hour + ", Turno_HoraFin = " + turnoModificar.HoraFin.Hour + ", Turno_Descripcion = '" + turnoModificar.Descripcion + "', Turno_PrecioBase = " + turnoModificar.PrecioBase.ToString().Replace(",", ".") + ", Turno_ValorKM = " + turnoModificar.ValorKm.ToString().Replace(",", ".") + " WHERE Turno_Id = " + turnoModificar.Id);
+                    string query = String.Format("UPDATE [HAY_TABLA].Turno SET Turno_HoraInicio = " + horaInicio.ToString() + ", Turno_HoraFin = " + horaFin.ToString() + ", Turno_Descripcion = '" + txtDescripcionTurno.Text + "', Turno_PrecioBase = " + numericPrecioBase.Value.ToString().Replace(",", ".") + ", Turno_ValorKM = " + numericValorKm.Value.ToString().Replace(",", ".") + " WHERE Turno_Id = " + txtIdTurno.Text);
                     MessageBox.Show(query);
                     SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -191,17 +194,49 @@ namespace UberFrba.Abm_Turno
                     }
                 }
                 MostrarTurnos();
+                btnGuardarDatos.Visible = false;
+                btnModificarTurno.Visible = true;
+                panelDatosSeleccionado.Enabled = false;
             }
+
         }
 
-        private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
+        private bool ValidarTurno(string descripcion, decimal horaInicio, decimal horaFin, decimal precioBase, decimal valorKm)
         {
-            txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
-            txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
-            dateTimePickerHoraInicio.Value = DateTime.Today.AddHours(Convert.ToInt64(dgvTurnos.CurrentRow.Cells[2].Value));
-            dateTimePickerHoraFin.Value = DateTime.Today.AddHours(Convert.ToInt64(dgvTurnos.CurrentRow.Cells[3].Value));
-            numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[4].Value);
-            numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[5].Value);
+            return (Validador.validarStringVacio(descripcion, "Descripcion") && ValidarHorario(horaInicio, horaFin));
+        }
+
+        private bool ValidarHorario(decimal horaInicio, decimal horaFin)
+        {
+            if (horaInicio > horaFin)
+            {
+                MessageBox.Show("La hora de inicio no puede ser mayor que la hora de fin de turno");
+                return false;
+            }
+            else
+            {
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+                {
+                    string query = String.Format("SELECT [Turno_Descripcion],[Turno_HoraInicio],[Turno_HoraFin] FROM [HAY_TABLA].[Turno] WHERE ((" + horaInicio.ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin ) or (" + horaFin.ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin)) AND " + horaInicio.ToString() + " NOT IN (Turno_HoraInicio,Turno_HoraFin) AND " + horaFin.ToString() + " NOT IN (Turno_HoraInicio,Turno_HoraFin)");
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {                      
+                            MessageBox.Show("El horario del nuevo turno se superpone con el del turno " + dr["Turno_Descripcion"].ToString());
+                            return false;
+                        }
+                        return true;
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
         }
 
     }

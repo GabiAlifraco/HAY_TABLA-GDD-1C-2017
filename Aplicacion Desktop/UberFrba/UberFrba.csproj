@@ -53,32 +53,26 @@
     <Compile Include="Abm Chofer\AbmChofer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Chofer\AbmChofer.Designer.cs">
+    <Compile Include="Abm Chofer\AbmChofer.designer.cs">
       <DependentUpon>AbmChofer.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Chofer\AltaChofer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
+    <Compile Include="Abm Chofer\AltaChofer.designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\AbmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\AbmClientes.Designer.cs">
+    <Compile Include="Abm Cliente\AbmClientes.designer.cs">
       <DependentUpon>AbmClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\AltaClientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\AltaClientes.Designer.cs">
+    <Compile Include="Abm Cliente\AltaClientes.designer.cs">
       <DependentUpon>AltaClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Cliente\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
@@ -89,8 +83,14 @@
     <Compile Include="Abm Turno\AbmTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Turno\AbmTurno.Designer.cs">
+    <Compile Include="Abm Turno\AbmTurno.designer.cs">
       <DependentUpon>AbmTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\AltaTurnos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\AltaTurnos.designer.cs">
+      <DependentUpon>AltaTurnos.cs</DependentUpon>
     </Compile>
     <Compile Include="DBAccess.cs" />
     <Compile Include="Facturacion\Form1.cs">
@@ -158,11 +158,11 @@
     <EmbeddedResource Include="Abm Cliente\AltaClientes.resx">
       <DependentUpon>AltaClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\AbmTurno.resx">
       <DependentUpon>AbmTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\AltaTurnos.resx">
+      <DependentUpon>AltaTurnos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx" />
     <EmbeddedResource Include="Menu\MenuFuncionesDelRol.resx">
@@ -194,6 +194,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

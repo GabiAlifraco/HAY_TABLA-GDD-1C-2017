@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaChofer));
             this.panelDatosNuevoCliente = new System.Windows.Forms.Panel();
+            this.listaTurnos = new System.Windows.Forms.CheckedListBox();
             this.txtApellidoNuevo = new System.Windows.Forms.TextBox();
             this.txtNombreNuevo = new System.Windows.Forms.TextBox();
             this.txtAlturaNuevo = new System.Windows.Forms.TextBox();
             this.txtTelefonoNuevo = new System.Windows.Forms.TextBox();
-            this.txtClienteDNINuevo = new System.Windows.Forms.TextBox();
+            this.txtChoferDNINuevo = new System.Windows.Forms.TextBox();
             this.btnCancelarCrear = new System.Windows.Forms.Button();
             this.label28 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -54,11 +56,13 @@
             // 
             // panelDatosNuevoCliente
             // 
+            this.panelDatosNuevoCliente.BackColor = System.Drawing.Color.Transparent;
+            this.panelDatosNuevoCliente.Controls.Add(this.listaTurnos);
             this.panelDatosNuevoCliente.Controls.Add(this.txtApellidoNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtNombreNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtAlturaNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtTelefonoNuevo);
-            this.panelDatosNuevoCliente.Controls.Add(this.txtClienteDNINuevo);
+            this.panelDatosNuevoCliente.Controls.Add(this.txtChoferDNINuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.btnCancelarCrear);
             this.panelDatosNuevoCliente.Controls.Add(this.label28);
             this.panelDatosNuevoCliente.Controls.Add(this.label25);
@@ -76,8 +80,16 @@
             this.panelDatosNuevoCliente.Controls.Add(this.btnCrear);
             this.panelDatosNuevoCliente.Location = new System.Drawing.Point(51, 12);
             this.panelDatosNuevoCliente.Name = "panelDatosNuevoCliente";
-            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(333, 213);
+            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(333, 404);
             this.panelDatosNuevoCliente.TabIndex = 64;
+            // 
+            // listaTurnos
+            // 
+            this.listaTurnos.FormattingEnabled = true;
+            this.listaTurnos.Location = new System.Drawing.Point(23, 173);
+            this.listaTurnos.Name = "listaTurnos";
+            this.listaTurnos.Size = new System.Drawing.Size(208, 94);
+            this.listaTurnos.TabIndex = 65;
             // 
             // txtApellidoNuevo
             // 
@@ -86,6 +98,7 @@
             this.txtApellidoNuevo.Name = "txtApellidoNuevo";
             this.txtApellidoNuevo.Size = new System.Drawing.Size(100, 20);
             this.txtApellidoNuevo.TabIndex = 65;
+            this.txtApellidoNuevo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetras);
             // 
             // txtNombreNuevo
             // 
@@ -94,6 +107,7 @@
             this.txtNombreNuevo.Name = "txtNombreNuevo";
             this.txtNombreNuevo.Size = new System.Drawing.Size(100, 20);
             this.txtNombreNuevo.TabIndex = 0;
+            this.txtNombreNuevo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetras);
             // 
             // txtAlturaNuevo
             // 
@@ -102,6 +116,7 @@
             this.txtAlturaNuevo.Name = "txtAlturaNuevo";
             this.txtAlturaNuevo.Size = new System.Drawing.Size(48, 20);
             this.txtAlturaNuevo.TabIndex = 64;
+            this.txtAlturaNuevo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
             // 
             // txtTelefonoNuevo
             // 
@@ -110,18 +125,20 @@
             this.txtTelefonoNuevo.Name = "txtTelefonoNuevo";
             this.txtTelefonoNuevo.Size = new System.Drawing.Size(100, 20);
             this.txtTelefonoNuevo.TabIndex = 63;
+            this.txtTelefonoNuevo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
             // 
-            // txtClienteDNINuevo
+            // txtChoferDNINuevo
             // 
-            this.txtClienteDNINuevo.Location = new System.Drawing.Point(222, 40);
-            this.txtClienteDNINuevo.MaxLength = 10;
-            this.txtClienteDNINuevo.Name = "txtClienteDNINuevo";
-            this.txtClienteDNINuevo.Size = new System.Drawing.Size(100, 20);
-            this.txtClienteDNINuevo.TabIndex = 61;
+            this.txtChoferDNINuevo.Location = new System.Drawing.Point(222, 40);
+            this.txtChoferDNINuevo.MaxLength = 10;
+            this.txtChoferDNINuevo.Name = "txtChoferDNINuevo";
+            this.txtChoferDNINuevo.Size = new System.Drawing.Size(100, 20);
+            this.txtChoferDNINuevo.TabIndex = 61;
+            this.txtChoferDNINuevo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
             // 
             // btnCancelarCrear
             // 
-            this.btnCancelarCrear.Location = new System.Drawing.Point(149, 160);
+            this.btnCancelarCrear.Location = new System.Drawing.Point(130, 289);
             this.btnCancelarCrear.Name = "btnCancelarCrear";
             this.btnCancelarCrear.Size = new System.Drawing.Size(101, 23);
             this.btnCancelarCrear.TabIndex = 60;
@@ -132,6 +149,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
+            this.label28.BackColor = System.Drawing.Color.LemonChiffon;
             this.label28.Location = new System.Drawing.Point(8, 11);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(92, 13);
@@ -141,6 +159,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
+            this.label25.BackColor = System.Drawing.Color.LemonChiffon;
             this.label25.Location = new System.Drawing.Point(165, 116);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(34, 13);
@@ -150,6 +169,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.LemonChiffon;
             this.label23.Location = new System.Drawing.Point(59, 116);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(30, 13);
@@ -175,6 +195,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.LemonChiffon;
             this.label14.Location = new System.Drawing.Point(220, 115);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 13);
@@ -184,6 +205,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.LemonChiffon;
             this.label16.Location = new System.Drawing.Point(8, 131);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(55, 13);
@@ -193,6 +215,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.LemonChiffon;
             this.label17.Location = new System.Drawing.Point(116, 73);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(52, 13);
@@ -202,6 +225,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.LemonChiffon;
             this.label18.Location = new System.Drawing.Point(10, 73);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(29, 13);
@@ -211,6 +235,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.LemonChiffon;
             this.label19.Location = new System.Drawing.Point(221, 24);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(29, 13);
@@ -220,6 +245,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.LemonChiffon;
             this.label20.Location = new System.Drawing.Point(115, 24);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 13);
@@ -229,6 +255,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.Color.LemonChiffon;
             this.label21.Location = new System.Drawing.Point(8, 24);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(47, 13);
@@ -246,18 +273,20 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(26, 160);
+            this.btnCrear.Location = new System.Drawing.Point(23, 289);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(101, 23);
             this.btnCrear.TabIndex = 28;
             this.btnCrear.Text = "CREAR";
             this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // AltaChofer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 248);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(587, 444);
             this.Controls.Add(this.panelDatosNuevoCliente);
             this.Name = "AltaChofer";
             this.Text = "AltaChofer";
@@ -274,7 +303,7 @@
         private System.Windows.Forms.TextBox txtNombreNuevo;
         private System.Windows.Forms.TextBox txtAlturaNuevo;
         private System.Windows.Forms.TextBox txtTelefonoNuevo;
-        private System.Windows.Forms.TextBox txtClienteDNINuevo;
+        private System.Windows.Forms.TextBox txtChoferDNINuevo;
         private System.Windows.Forms.Button btnCancelarCrear;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label25;
@@ -290,5 +319,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.MaskedTextBox txtNacimientoNuevo;
         private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.CheckedListBox listaTurnos;
     }
 }
