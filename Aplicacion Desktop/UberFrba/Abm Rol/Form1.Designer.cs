@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Rol
 {
-    partial class Form1
+    partial class AbmDeRoles
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnAltaDeRol = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnAltaDeRol
+            // 
+            this.btnAltaDeRol.Location = new System.Drawing.Point(98, 31);
+            this.btnAltaDeRol.Name = "btnAltaDeRol";
+            this.btnAltaDeRol.Size = new System.Drawing.Size(75, 23);
+            this.btnAltaDeRol.TabIndex = 0;
+            this.btnAltaDeRol.Text = "AltaDeRol";
+            this.btnAltaDeRol.UseVisualStyleBackColor = true;
+            this.btnAltaDeRol.Click += new System.EventHandler(this.btnAltaDeRol_Click);
+            // 
+            // AbmDeRoles
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.btnAltaDeRol);
+            this.Name = "AbmDeRoles";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnAltaDeRol;
     }
 }

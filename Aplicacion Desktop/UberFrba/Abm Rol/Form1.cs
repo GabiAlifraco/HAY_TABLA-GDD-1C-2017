@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Rol
 {
-    public partial class Form1 : Form
+    public partial class AbmDeRoles : Form
     {
-        public Form1()
+        public AbmDeRoles()
         {
             InitializeComponent();
+        }
+
+        private void btnAltaDeRol_Click(object sender, EventArgs e)
+        {
+            AltaDeRol formAltaDeRol = new AltaDeRol();
+            formAltaDeRol.Show();
         }
     }
 }
