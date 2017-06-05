@@ -13,7 +13,6 @@ C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Deb
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Login.Login.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
-C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Cliente.Form1.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.pdb
 C:\Users\Samo\Desktop\HAY_TABLA-GDD-1C-2017-master\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe.config
@@ -89,3 +88,6 @@ C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017 - copia\Aplicacion Desktop\UberFrba
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017 - copia\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Menu.MenuGeneral.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017 - copia\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
 C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017 - copia\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Turno.AltaTurnos.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Rol.AltaDeRol.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba\obj\Debug\UberFrba.Abm_Rol.AbmRol.resources

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 
 namespace UberFrba.Menu
@@ -85,6 +86,10 @@ namespace UberFrba.Menu
                 case "ABM de Turno":
                     AbmTurno formTurnos = new AbmTurno();
                     formTurnos.Show();
+                    break;
+                case "ABM de Rol":
+                    AbmRol formRol = new AbmRol();
+                    formRol.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");
