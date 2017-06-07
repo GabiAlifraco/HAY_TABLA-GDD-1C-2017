@@ -15,19 +15,75 @@ namespace UberFrba.Abm_Rol
     public partial class AltaDeRol : Form
     {
         public DBAccess Access { get; set; }
-
+        ValidacionesAbm validacion;
         public AltaDeRol()
         {
             InitializeComponent();
             Access = new DBAccess();
+            validacion = new ValidacionesAbm();
             MostrarFuncionalidades();
         }
 
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            if (validacion.validarStringVacio(tbNombreRol.Text, "El nombre del Rol"))
+            {
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+                {
+                    conexion.Open();
+                    try
+                    {
+
+                        if (NoExiste(conexion, tbNombreRol.Text, "", "Nombre", "Nombre"))
+                        {
+                            conexion.Close();
+                            crearRol();
+                            this.Close();
+                        }
+
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private bool NoExiste(SqlConnection conexionAbierta, string dato, string datoActual, string nombreCampoEnTabla, string nombreDelDato)
+        {
+            if (dato == datoActual)
+            {
+                return true;
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM [HAY_TABLA].[Rol] WHERE " + nombreCampoEnTabla + " = '" + dato + "'", conexionAbierta);
+                SqlDataReader dr = cmd.ExecuteReader();
+                try
+                {
+                    while (dr.Read())
+                    {
+                        MessageBox.Show(nombreDelDato + " '" + dato + "' ya se encuentra registrado en el sistema");
+                        return false;
+                    }
+                    dr.Close();
+                    return true;
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+            }
+        }
+    
         private void MostrarFuncionalidades()
         {
+
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT [Id_Funcionalidad],[Descripcion] FROM [GD1C2017].[HAY_TABLA].[Funcionalidad]");
+                string query = String.Format("SELECT [Id_Funcionalidad],[Descripcion] FROM [HAY_TABLA].[Funcionalidad]");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -48,10 +104,44 @@ namespace UberFrba.Abm_Rol
             }
         }
 
-        private void btnCrear_Click(object sender, EventArgs e)
+        private void crearRol()
         {
-            if (tbNombreRol.Text == "")
-                MessageBox.Show("El nombre del Rol no puede estar vacío", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                conexion.Open();
+                SqlTransaction sqlTransact = conexion.BeginTransaction();
+                SqlCommand command = conexion.CreateCommand();
+                command.Transaction = sqlTransact;
+                try
+                {
+                    string query = String.Format("INSERT INTO [HAY_TABLA].[Rol] (nombre, habilitado) OUTPUT Inserted.Id_rol VALUES (@Nombre,1) ");
+                    command.CommandText = query;
+
+                    SqlParameter param = new SqlParameter("@Nombre", tbNombreRol.Text);
+                    param.SqlDbType = System.Data.SqlDbType.VarChar;
+                    command.Parameters.Add(param);
+
+                    int idRol = (int)command.ExecuteScalar();
+                    foreach (KeyValuePair<int, string> funcionalidad in clbFuncionalidades.CheckedItems)
+                    {
+                        query = String.Format("INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Rol, Id_Funcionalidad) VALUES (" + idRol.ToString() + "," + funcionalidad.Key.ToString() + ")");
+                        command.CommandText = query;
+                        command.ExecuteNonQuery();
+                        //MessageBox.Show(turno.Key.ToString());
+
+                    }
+
+                    sqlTransact.Commit();
+                    MessageBox.Show("El Rol fue creado con exito");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error");
+                    sqlTransact.Rollback();
+                }
+            }
         }
+
+        
     }
 }
