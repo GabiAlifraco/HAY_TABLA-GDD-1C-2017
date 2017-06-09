@@ -19,6 +19,18 @@ CREATE TABLE [HAY_TABLA].[Usuarios](
 INSERT INTO [HAY_TABLA].[Usuarios] (Usu_Username,Usu_Password)
 VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
 
+INSERT INTO [HAY_TABLA].[Usuarios]
+           ([Usu_Username]
+           ,[Usu_Password])
+SELECT DISTINCT [Chofer_Dni],HASHBYTES('SHA2_256',CAST(Chofer_Dni AS VARCHAR(30) ))
+FROM [GD1C2017].[gd_esquema].[Maestra] 
+UNION
+SELECT DISTINCT [Cliente_Dni],HASHBYTES('SHA2_256',CAST(Cliente_Dni AS VARCHAR(30) ))
+FROM [GD1C2017].[gd_esquema].[Maestra] 
+WHERE Chofer_Dni IS NOT NULL AND Cliente_Dni IS NOT NULL
+ORDER BY 1
+
+
 /*EJECUTAR DE ACA PARA ABAJO*/
 
 /*CHOFER************************************************/
@@ -91,15 +103,6 @@ GROUP BY
 	  ,Cliente_Fecha_Nac
 
 /*AUTOMOVIL************************************************/
-/*CREATE TABLE [HAY_TABLA].[MARCA] (
-	[Nombre_Marca]				varchar(20),
-	CONSTRAINT PK_Marca PRIMARY KEY (Nombre_Marca)
-)
-
-INSERT INTO [HAY_TABLA].[MARCA] (Nombre_Marca)
-SELECT DISTINCT Auto_Marca
-FROM gd_esquema.Maestra;
-*/
 
 CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Id int NOT NULL IDENTITY(1,1),
@@ -199,10 +202,7 @@ CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (
 GO
 
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
-	VALUES (1, 1),(2, 1),(3,1), (4,1),(5,1),(6,1),(7,1),(8,1),(9,1)
-		   --,(1, 2), (5, 2), (9, 2),
-		   --(9, 3), (11, 3), (12, 3)
-		   
+	VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(6,2),(6,3)
 
 INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)
 SELECT Turno.Turno_Id turno_id, Chofer.[Cho_Id] chofer_id, Automovil.[Auto_Id] auto_id
