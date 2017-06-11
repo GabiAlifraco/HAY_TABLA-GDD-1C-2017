@@ -32,7 +32,7 @@ namespace UberFrba.Menu
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
 
-                string query = String.Format("SELECT UR.[Id_Rol], R.Id_Rol, R.Nombre FROM [HAY_TABLA].[USUARIO_POR_ROL] AS UR INNER JOIN [HAY_TABLA].[ROL] AS R ON R.Id_Rol = UR.Id_Rol  WHERE UR.Usu_Id =" + idUser + "AND UR.Habilitado = 1");
+                string query = String.Format("SELECT UR.[Id_Rol], R.Id_Rol, R.Nombre FROM [HAY_TABLA].[USUARIO_POR_ROL] AS UR INNER JOIN [HAY_TABLA].[ROL] AS R ON R.Id_Rol = UR.Id_Rol  WHERE UR.Nombre_Usuario =" + "'" + idUser + "'" + "AND UR.Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {

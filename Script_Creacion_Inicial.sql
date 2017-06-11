@@ -13,7 +13,7 @@ CREATE TABLE [HAY_TABLA].[Usuarios](
 	Usu_Username VARCHAR(30) NOT NULL,
 	Usu_Password VARBINARY(8000) NOT NULL,
 	Usu_IntentosFallidos TINYINT NOT NULL DEFAULT 0
-	CONSTRAINT PK_Usuarios PRIMARY KEY (Usu_Id)
+	CONSTRAINT PK_Usuarios PRIMARY KEY (Usu_Username)
 );
 
 INSERT INTO [HAY_TABLA].[Usuarios] (Usu_Username,Usu_Password)
@@ -37,7 +37,7 @@ ORDER BY 1
 
 CREATE TABLE [HAY_TABLA].Chofer (
     Cho_Id int NOT NULL IDENTITY(1,1),
-	Cho_IdUsuario int, /*** FK **/
+	Cho_Usuario VARCHAR(30), /*** FK **/
     Cho_Nombre VARCHAR(30) NOT NULL,
     Cho_Apellido varchar(255),
 	Cho_DNI numeric(18, 0),
@@ -46,11 +46,12 @@ CREATE TABLE [HAY_TABLA].Chofer (
 	Cho_Direccion varchar(255),
 	Cho_FechaNacimiento datetime,
 	CONSTRAINT PK_Chofer PRIMARY KEY (Cho_ID),
-	FOREIGN KEY (Cho_IdUsuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Id)
+	FOREIGN KEY (Cho_Usuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Username)
 );
-INSERT INTO [HAY_TABLA].Chofer (Cho_Nombre,Cho_Apellido,Cho_DNI,Cho_Mail,Cho_Telefono,Cho_Direccion,Cho_FechaNacimiento)
-SELECT DISTINCT   
-	   Chofer_Nombre
+INSERT INTO [HAY_TABLA].Chofer (Cho_Usuario,Cho_Nombre,Cho_Apellido,Cho_DNI,Cho_Mail,Cho_Telefono,Cho_Direccion,Cho_FechaNacimiento)
+SELECT DISTINCT
+	   CAST(Chofer_Dni AS VARCHAR(30))
+	  ,Chofer_Nombre
       ,Chofer_Apellido
       ,Chofer_Dni
       ,Chofer_Mail
@@ -61,7 +62,6 @@ FROM gd_esquema.Maestra
 ORDER BY 
 	   Chofer_Nombre
       ,Chofer_Apellido
-      ,Chofer_Dni
       ,Chofer_Direccion
       ,Chofer_Telefono
       ,Chofer_Mail
@@ -71,7 +71,7 @@ ORDER BY
 
 CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Id int NOT NULL IDENTITY(1,1),
-	Cli_IdUsuario int, /** FK **/
+	Cli_Usuario VARCHAR(30), /** FK **/
 	Cli_Nombre varchar(255),
 	Cli_Apellido varchar(255),
 	Cli_DNI numeric(18, 0),
@@ -80,12 +80,13 @@ CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Direccion varchar(255),
 	Cli_CodigoPostal numeric(10, 0),
 	Cli_FechaNacimiento datetime
-	CONSTRAINT PK_Cliente PRIMARY KEY (Cli_Id),
-	FOREIGN KEY (Cli_IdUsuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Id)
+	CONSTRAINT PK_Cliente PRIMARY KEY (Cli_Id)
+	,FOREIGN KEY (Cli_Usuario) REFERENCES [HAY_TABLA].Usuarios(Usu_Username)
 );
-INSERT INTO [HAY_TABLA].Cliente (Cli_Nombre, Cli_Apellido, Cli_DNI, Cli_Telefono, Cli_Direccion, Cli_Mail, Cli_FechaNacimiento)
-SELECT  
-	   Cliente_Nombre
+INSERT INTO [HAY_TABLA].Cliente (Cli_Usuario,Cli_Nombre, Cli_Apellido, Cli_DNI, Cli_Telefono, Cli_Direccion, Cli_Mail, Cli_FechaNacimiento)
+SELECT DISTINCT 
+	   CAST(Cliente_Dni AS VARCHAR(30))
+	  ,Cliente_Nombre
       ,Cliente_Apellido
       ,Cliente_Dni
 	  ,Cliente_Telefono
@@ -93,10 +94,9 @@ SELECT
 	  ,Cliente_Mail
 	  ,Cliente_Fecha_Nac
       FROM gd_esquema.Maestra
-GROUP BY
+ORDER BY
 	   Cliente_Nombre
       ,Cliente_Apellido
-      ,Cliente_Dni
 	  ,Cliente_Telefono
 	  ,Cliente_Direccion
 	  ,Cliente_Mail
@@ -166,7 +166,7 @@ PRIMARY KEY CLUSTERED
 ))
 
 CREATE TABLE [HAY_TABLA].[ROL] (
-	[Id_Rol]						INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Id_Rol]					INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[Nombre]					VARCHAR(50) NOT NULL,
 	[Habilitado]				BIT DEFAULT 1
 )
@@ -177,13 +177,23 @@ INSERT INTO [HAY_TABLA].[ROL] (Nombre)
 
 CREATE TABLE [HAY_TABLA].[USUARIO_POR_ROL] (
 	[Id_Rol]					INT NOT NULL REFERENCES [HAY_TABLA].[ROL](Id_Rol),
-	[Usu_Id]					INT NOT NULL REFERENCES [HAY_TABLA].[Usuarios](Usu_Id),
+	[Nombre_Usuario]			VARCHAR(30) NOT NULL REFERENCES [HAY_TABLA].[Usuarios](Usu_Username),
 	[Habilitado]				BIT DEFAULT 1
 )
 GO
 
-INSERT INTO [HAY_TABLA].[USUARIO_POR_ROL] (Id_Rol, Usu_Id)
-	VALUES (1, 1), (2, 1), (3, 1)
+INSERT INTO [HAY_TABLA].[USUARIO_POR_ROL] (Id_Rol, Nombre_Usuario)
+	VALUES (1, 'admin'), (2, 'admin'), (3, 'admin')
+
+INSERT INTO [HAY_TABLA].[USUARIO_POR_ROL]
+        ([Id_Rol]
+        ,[Nombre_Usuario])
+SELECT  2, Cli.Cli_Usuario FROM [HAY_TABLA].[Cliente] AS Cli
+
+INSERT INTO [HAY_TABLA].[USUARIO_POR_ROL]
+        ([Id_Rol]
+        ,[Nombre_Usuario])
+SELECT  3,Ch.Cho_Usuario FROM [HAY_TABLA].[Chofer] AS Ch
 
 CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD] (
 	[Id_Funcionalidad]			INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

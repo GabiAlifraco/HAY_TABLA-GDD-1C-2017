@@ -358,7 +358,7 @@ namespace UberFrba.Login
 
                         return;
                     }
-                    id_Usuario = dr["Usu_Id"].ToString();
+                    id_Usuario = dr["Usu_Username"].ToString();
                     Contraseña = (System.Byte[])dr.GetValue(2);
                     Intentos = Convert.ToInt16(dr["Usu_IntentosFallidos"].ToString());
                 }
