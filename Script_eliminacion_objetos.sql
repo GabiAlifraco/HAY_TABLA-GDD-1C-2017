@@ -17,6 +17,7 @@ DROP TABLE [HAY_TABLA].Turno
 DROP TABLE [HAY_TABLA].FUNCIONALIDAD
 DROP TABLE [HAY_TABLA].AsignacionDeTurnos
 DROP TABLE [HAY_TABLA].Automovil
+DROP TABLE [HAY_TABLA].Marca
 
 /*******************************************
 ***** ELIMINAR ESQUEMA ***************** 

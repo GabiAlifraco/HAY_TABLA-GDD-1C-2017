@@ -13,6 +13,7 @@ using UberFrba.Abm_Chofer;
 using UberFrba.Abm_Cliente;
 using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
+using UberFrba.Registro_Viajes;
 
 namespace UberFrba.Menu
 {
@@ -90,6 +91,10 @@ namespace UberFrba.Menu
                 case "ABM de Rol":
                     AbmRol formRol = new AbmRol();
                     formRol.Show();
+                    break;
+                case "Registro de Viajes":
+                    RegistroViajes formRegistroViajes = new RegistroViajes();
+                    formRegistroViajes.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");
