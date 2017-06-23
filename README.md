@@ -1,1 +1,0 @@
-# HAY_TABLA-GDD-1C-2017![HAY-TABLA](https://i.gyazo.com/f11b37bf334b8e67c3105d9ba0f5d3f8.png)
