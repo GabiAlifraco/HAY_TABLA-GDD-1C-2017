@@ -179,3 +179,26 @@ C:\Users\Samo\Desktop\tp 11-06\HAY_TABLA-GDD-1C-2017\Aplicacion Desktop\UberFrba
 C:\Users\gabi_\Downloads\TP1C2017 K3013 HAY_TABLA 31\SRC\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\gabi_\Downloads\TP1C2017 K3013 HAY_TABLA 31\SRC\UberFrba\obj\Debug\UberFrba.exe
 C:\Users\gabi_\Downloads\TP1C2017 K3013 HAY_TABLA 31\SRC\UberFrba\obj\Debug\UberFrba.pdb
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.exe
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.pdb
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\bin\Debug\UberFrba.exe
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\bin\Debug\UberFrba.pdb
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Automovil.AbmAutomovil.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Chofer.AbmChofer.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Chofer.AltaChofer.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Cliente.AbmClientes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Cliente.AltaClientes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Rol.AbmRol.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Rol.AltaDeRol.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Rol.AbmDeRoles.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Turno.AbmTurno.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Abm_Turno.AltaTurnos.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Login.Login.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Menu.MenuFuncionesDelRol.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Menu.MenuGeneral.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Registro_Viajes.AltaViajes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.Registro_Viajes.RegistroViajes.resources
+C:\Users\gabi_\Desktop\HAY_TABLA-GDD-1C-2017\SRC\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache

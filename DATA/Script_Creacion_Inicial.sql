@@ -7,6 +7,7 @@ CREATE SCHEMA [HAY_TABLA] AUTHORIZATION [gd]
 GO
 
 /* CREACION DE TABLAS MAESTRAS (ABM) */
+BEGIN TRAN
 
 CREATE TABLE [HAY_TABLA].[Usuarios](
 	Usu_Id int NOT NULL IDENTITY(1,1),
@@ -29,9 +30,6 @@ SELECT DISTINCT [Cliente_Dni],HASHBYTES('SHA2_256',CAST(Cliente_Dni AS VARCHAR(3
 FROM [gd_esquema].[Maestra] 
 WHERE Chofer_Dni IS NOT NULL AND Cliente_Dni IS NOT NULL
 ORDER BY 1
-
-
-/*EJECUTAR DE ACA PARA ABAJO*/
 
 /*CHOFER************************************************/
 
@@ -111,6 +109,7 @@ CREATE TABLE [HAY_TABLA].Automovil(
 	Auto_Modelo varchar(255),
 	Auto_Licencia varchar(26),
 	Auto_Rodado varchar(10),
+	Auto_Habilitado BIT DEFAULT '1',
 	CONSTRAINT PK_Automovil PRIMARY KEY (Auto_Id)
 );
 
@@ -156,14 +155,11 @@ FROM gd_esquema.Maestra;
 /*ASIGNACION DE TURNOS************************************************/
 
 CREATE TABLE [HAY_TABLA].AsignacionDeTurnos(
+	Asignacion_Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	Turno_Id int NOT NULL,
 	Cho_Id int NOT NULL,
-	Auto_Id int NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	Turno_Id ASC,
-	Cho_Id ASC
-))
+	Auto_Id int NOT NULL
+ )
 
 CREATE TABLE [HAY_TABLA].[ROL] (
 	[Id_Rol]					INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -261,4 +257,107 @@ GROUP BY
 	m1.Turno_Precio_Base,
 	m1.Turno_Valor_Kilometro,
 	Turno.Turno_Id
+
+
+
+CREATE TABLE [HAY_TABLA].Rendicion(
+Rendicion_Nro numeric(18,0) Identity(1,1) NOT NULL,
+Cho_Id int NOT NULL,
+Turno_Id int NOT NULL,
+Rendicion_Fecha datetime DEFAULT GETDATE() NOT NULL,
+Rendicion_Total numeric(18,2) NOT NULL
+)
+
+SET IDENTITY_INSERT HAY_TABLA.Rendicion ON
+INSERT INTO HAY_TABLA.Rendicion(Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha, Rendicion_Total)
+SELECT DISTINCT(Rendicion_Nro), Cho_Id, Turno_Id, Rendicion_Fecha,SUM(Rendicion_Importe) 
+FROM gd_esquema.Maestra
+INNER JOIN [HAY_TABLA].[Chofer] chofer ON chofer.Cho_DNI = maestra.Chofer_Dni
+INNER JOIN [HAY_TABLA].[Turno] turno ON turno.Turno_Descripcion = maestra.Turno_Descripcion
+WHERE Rendicion_Nro IS NOT NULL
+GROUP BY Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha
+order by 1
+SET IDENTITY_INSERT HAY_TABLA.Rendicion OFF
+
+CREATE TABLE [HAY_TABLA].Factura(
+Factura_Nro numeric(18,0) Identity(1,1) NOT NULL,
+Factura_Fecha_Inicio datetime NOT NULL,
+Factura_Fecha_Fin datetime NOT NULL,
+Cli_Id int NOT NULL,
+Factura_Total numeric(18,2) NOT NULL
+)
+
+SET IDENTITY_INSERT [HAY_TABLA].Factura ON
+INSERT INTO [HAY_TABLA].Factura (Factura_Nro, Factura_Fecha_Inicio, Factura_Fecha_Fin, Cli_Id, Factura_Total)
+SELECT DISTINCT(Factura_Nro), Factura_Fecha_Inicio, Factura_Fecha_Fin, c.Cli_Id, 
+factura_total = CONVERT(numeric(18,2),
+(SELECT SUM(Turno_Precio_Base + (Turno_Valor_Kilometro*Viaje_Cant_Kilometros)) FROM gd_esquema.Maestra 
+WHERE Cliente_Dni = CONVERT(nvarchar(30), g.Cliente_Dni) AND Rendicion_Nro IS NOT NULL
+AND Viaje_Fecha BETWEEN g.Factura_Fecha_Inicio AND DATEADD(Hour, 23, g.Factura_Fecha_Fin)))
+FROM gd_esquema.Maestra g
+INNER JOIN [HAY_TABLA].[Cliente] c ON c.Cli_DNI = g.Cliente_Dni
+WHERE Factura_Nro IS NOT NULL
+GROUP BY Factura_Nro, Factura_Fecha_Inicio, Factura_Fecha_Fin, c.Cli_Id, Cliente_Dni
+ORDER BY Factura_Nro
+SET IDENTITY_INSERT [HAY_TABLA].Factura OFF
+
+GO
+
+CREATE TABLE [HAY_TABLA].Viaje_Rendicion(
+Rendicion_Nro numeric(18,0) NOT NULL,
+Id_Viaje INT NOT NULL,
+PorcentajeDePago numeric(4,2) NOT NULL,
+)
+GO
+
+CREATE TABLE [HAY_TABLA].Viaje_Facturacion(
+Factura_Nro numeric(18,0) NOT NULL,
+Id_Viaje INT NOT NULL
+)
+
+
+GO
+
+CREATE PROCEDURE [HAY_TABLA].bajaLogica @table varchar(20), @id int AS
+BEGIN
+	IF(@table =  'ROL' ) BEGIN 
+		UPDATE [HAY_TABLA].[ROL] SET Habilitado = 0 WHERE Id_Rol = @id 
+	END 
+	IF(@table =  'TURNO') BEGIN
+		UPDATE [HAY_TABLA].[TURNO] SET Turno_Habilitado = 0 WHERE Turno_Id = @id
+	END
+	IF( @table =  'Automovil') BEGIN
+		UPDATE [HAY_TABLA].[Automovil] SET Auto_Habilitado = 0 WHERE Auto_Id = @id
+	END
+END
+
+GO
+
+CREATE PROCEDURE [HAY_TABLA].altaLogica @table varchar(20), @id int AS
+BEGIN
+	IF(@table =  'ROL' ) BEGIN 
+		UPDATE [HAY_TABLA].[ROL] SET Habilitado = 1 WHERE Id_Rol = @id 
+	END 
+	IF(@table =  'TURNO') BEGIN
+		UPDATE [HAY_TABLA].[TURNO] SET Turno_Habilitado = 1 WHERE Turno_Id = @id
+	END
+	IF( @table =  'Automovil') BEGIN
+		UPDATE [HAY_TABLA].[Automovil] SET Auto_Habilitado = 1 WHERE Auto_Id = @id
+	END
+END
+GO
+
+CREATE PROCEDURE [HAY_TABLA].bajaLogicaRolDelUsuario @Id_Rol int, @nombre_usuario VARCHAR(30) AS
+BEGIN
+	UPDATE [HAY_TABLA].[USUARIO_POR_ROL] SET Habilitado = 0 WHERE Id_Rol = @Id_Rol AND Nombre_Usuario = @nombre_usuario
+END
+GO
+
+CREATE PROCEDURE [HAY_TABLA].altaLogicaRolDelUsuario @Id_Rol int, @nombre_usuario VARCHAR(30) AS
+BEGIN
+	UPDATE [HAY_TABLA].[USUARIO_POR_ROL] SET Habilitado = 1 WHERE Id_Rol = @Id_Rol AND Nombre_Usuario = @nombre_usuario
+END	
+GO
+
+COMMIT TRAN
 

@@ -19,6 +19,14 @@ DROP TABLE [HAY_TABLA].Chofer
 DROP TABLE [HAY_TABLA].Cliente
 DROP TABLE [HAY_TABLA].Turno
 DROP TABLE [HAY_TABLA].Usuarios
+DROP TABLE [HAY_TABLA].Rendicion
+DROP TABLE [HAY_TABLA].Factura
+DROP TABLE [HAY_TABLA].Viaje_Rendicion
+DROP TABLE [HAY_TABLA].Viaje_Facturacion
+DROP PROCEDURE [HAY_TABLA].[bajaLogica]
+DROP PROCEDURE [HAY_TABLA].bajaLogicaRolDelUsuario
+DROP PROCEDURE [HAY_TABLA].[altaLogica]
+DROP PROCEDURE [HAY_TABLA].altaLogicaRolDelUsuario
 /*******************************************
 ***** ELIMINAR ESQUEMA ***************** 
 ********************************************/

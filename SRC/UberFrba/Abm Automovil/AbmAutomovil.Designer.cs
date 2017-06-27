@@ -163,9 +163,9 @@
             // 
             this.dgvAutomovil.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAutomovil.Location = new System.Drawing.Point(7, 68);
+            this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
             this.dgvAutomovil.Name = "dgvAutomovil";
-            this.dgvAutomovil.Size = new System.Drawing.Size(661, 232);
+            this.dgvAutomovil.Size = new System.Drawing.Size(729, 242);
             this.dgvAutomovil.TabIndex = 76;
             this.dgvAutomovil.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAutomovil_CellClick);
             // 
@@ -229,9 +229,9 @@
             this.panelDatosSeleccionado.Controls.Add(this.label3);
             this.panelDatosSeleccionado.Controls.Add(this.label2);
             this.panelDatosSeleccionado.Controls.Add(this.txtClienteNacimiento);
-            this.panelDatosSeleccionado.Location = new System.Drawing.Point(102, 106);
+            this.panelDatosSeleccionado.Location = new System.Drawing.Point(189, 156);
             this.panelDatosSeleccionado.Name = "panelDatosSeleccionado";
-            this.panelDatosSeleccionado.Size = new System.Drawing.Size(475, 172);
+            this.panelDatosSeleccionado.Size = new System.Drawing.Size(475, 170);
             this.panelDatosSeleccionado.TabIndex = 81;
             this.panelDatosSeleccionado.Visible = false;
             // 
@@ -248,16 +248,17 @@
             // 
             // comboTurno
             // 
+            this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTurno.FormattingEnabled = true;
-            this.comboTurno.Location = new System.Drawing.Point(136, 130);
+            this.comboTurno.Location = new System.Drawing.Point(195, 131);
             this.comboTurno.Name = "comboTurno";
-            this.comboTurno.Size = new System.Drawing.Size(100, 21);
+            this.comboTurno.Size = new System.Drawing.Size(154, 21);
             this.comboTurno.TabIndex = 88;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(132, 114);
+            this.label10.Location = new System.Drawing.Point(192, 114);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 13);
             this.label10.TabIndex = 87;
@@ -265,16 +266,17 @@
             // 
             // comboChofer
             // 
+            this.comboChofer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboChofer.FormattingEnabled = true;
             this.comboChofer.Location = new System.Drawing.Point(12, 130);
             this.comboChofer.Name = "comboChofer";
-            this.comboChofer.Size = new System.Drawing.Size(100, 21);
+            this.comboChofer.Size = new System.Drawing.Size(154, 21);
             this.comboChofer.TabIndex = 86;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 114);
+            this.label7.Location = new System.Drawing.Point(12, 114);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 85;
@@ -315,6 +317,7 @@
             // 
             // comboMarca
             // 
+            this.comboMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarca.FormattingEnabled = true;
             this.comboMarca.Location = new System.Drawing.Point(263, 47);
             this.comboMarca.Name = "comboMarca";
@@ -484,7 +487,7 @@
             // 
             this.btn_nuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_nuevo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_nuevo.Location = new System.Drawing.Point(78, 312);
+            this.btn_nuevo.Location = new System.Drawing.Point(78, 317);
             this.btn_nuevo.Name = "btn_nuevo";
             this.btn_nuevo.Size = new System.Drawing.Size(141, 33);
             this.btn_nuevo.TabIndex = 82;
@@ -496,7 +499,7 @@
             // 
             this.btn_eliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_eliminar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_eliminar.Location = new System.Drawing.Point(248, 312);
+            this.btn_eliminar.Location = new System.Drawing.Point(248, 318);
             this.btn_eliminar.Name = "btn_eliminar";
             this.btn_eliminar.Size = new System.Drawing.Size(141, 33);
             this.btn_eliminar.TabIndex = 83;
@@ -508,7 +511,7 @@
             // 
             this.btn_modificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_modificar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_modificar.Location = new System.Drawing.Point(424, 312);
+            this.btn_modificar.Location = new System.Drawing.Point(424, 318);
             this.btn_modificar.Name = "btn_modificar";
             this.btn_modificar.Size = new System.Drawing.Size(141, 33);
             this.btn_modificar.TabIndex = 84;
@@ -534,9 +537,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label32);
             this.panel1.Controls.Add(this.txtFiltroPatente);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(98, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(675, 369);
+            this.panel1.Size = new System.Drawing.Size(668, 378);
             this.panel1.TabIndex = 85;
             // 
             // AbmAutomovil
@@ -545,10 +548,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(708, 391);
+            this.ClientSize = new System.Drawing.Size(857, 469);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.panel1);
             this.Name = "AbmAutomovil";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Abm automovil";
             this.Load += new System.EventHandler(this.AbmAutomovil_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAutomovil)).EndInit();
