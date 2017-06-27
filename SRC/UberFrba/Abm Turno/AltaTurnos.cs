@@ -32,14 +32,17 @@ namespace UberFrba.Abm_Turno
                 {
                     string query = String.Format("INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + horaInicio.ToString() + "," + horaFin.ToString() + ",'" + txtDescripcionTurno.Text + "'," + numericValorKm.Value.ToString().Replace(",", ".") + "," + numericPrecioBase.Value.ToString().Replace(",", ".") + ")");
 
-                    MessageBox.Show(query);
+     
                     SqlCommand cmd = new SqlCommand(query, conexion);
 
                     try
                     {
                         conexion.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
-
+                        MessageBox.Show("El turno se creo exitosamente");
+                        AbmTurno formTurnos = new AbmTurno();
+                        formTurnos.Show();
+                        this.Close();
                     }
                     catch (Exception excep)
                     {
@@ -47,6 +50,7 @@ namespace UberFrba.Abm_Turno
                     }
                 }
             }
+
         }
 
 
@@ -57,16 +61,17 @@ namespace UberFrba.Abm_Turno
 
         private bool ValidarHorario(decimal horaInicio, decimal horaFin)
         {
-            if (horaInicio > horaFin)
+            if (horaInicio >= horaFin)
             {
-                MessageBox.Show("La hora de inicio no puede ser mayor que la hora de fin de turno");
+                MessageBox.Show("La hora de inicio debe ser menor que la hora de fin de turno");
                 return false;
             }
             else
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("SELECT [Turno_Descripcion],[Turno_HoraInicio],[Turno_HoraFin] FROM [HAY_TABLA].[Turno] WHERE ((" + horaInicio.ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin ) or (" + horaFin.ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin)) AND " + horaInicio.ToString() + " NOT IN (Turno_HoraInicio,Turno_HoraFin) AND " + horaFin.ToString() + " NOT IN (Turno_HoraInicio,Turno_HoraFin)");
+
+                    string query = String.Format("SELECT [Turno_Descripcion],[Turno_HoraInicio],[Turno_HoraFin] FROM [HAY_TABLA].[Turno] WHERE ((" + (horaInicio + 1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin ) or (" + (horaFin -1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin)OR (" + horaInicio.ToString() + " = Turno_HoraInicio AND " + horaFin.ToString() + " =Turno_HoraFin)) AND Turno_Habilitado = 1");
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     try
                     {
@@ -104,5 +109,11 @@ namespace UberFrba.Abm_Turno
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AbmTurno formTurnos = new AbmTurno();
+            formTurnos.Show();
+            this.Close();
+        }
     }
 }

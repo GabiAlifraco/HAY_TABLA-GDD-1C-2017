@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnVerTurnos = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.btnCrearTurno = new System.Windows.Forms.Button();
@@ -45,32 +44,26 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtIdTurno = new System.Windows.Forms.TextBox();
             this.panelDatosSeleccionado = new System.Windows.Forms.Panel();
-            this.btnGuardarDatos = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
-            this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericMinutoFin = new System.Windows.Forms.NumericUpDown();
+            this.btnGuardarDatos = new System.Windows.Forms.Button();
             this.numericHoraFin = new System.Windows.Forms.NumericUpDown();
+            this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
+            this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panelListaTurnos = new System.Windows.Forms.Panel();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.btnDescartarCambios = new System.Windows.Forms.Button();
+            this.btnAltaLogica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMinutoInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutoFin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericHoraFin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinutoInicio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).BeginInit();
+            this.panelListaTurnos.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnVerTurnos
-            // 
-            this.btnVerTurnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerTurnos.Location = new System.Drawing.Point(33, 54);
-            this.btnVerTurnos.Name = "btnVerTurnos";
-            this.btnVerTurnos.Size = new System.Drawing.Size(238, 36);
-            this.btnVerTurnos.TabIndex = 0;
-            this.btnVerTurnos.Text = "VER TURNOS";
-            this.btnVerTurnos.UseVisualStyleBackColor = true;
-            this.btnVerTurnos.Click += new System.EventHandler(this.btnVerTurnos_Click);
             // 
             // label1
             // 
@@ -85,17 +78,17 @@
             // dgvTurnos
             // 
             this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTurnos.Location = new System.Drawing.Point(33, 96);
+            this.dgvTurnos.Location = new System.Drawing.Point(25, 33);
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTurnos.Size = new System.Drawing.Size(575, 241);
+            this.dgvTurnos.Size = new System.Drawing.Size(575, 260);
             this.dgvTurnos.TabIndex = 2;
             this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTurnos_CellClick);
             // 
             // btnCrearTurno
             // 
             this.btnCrearTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearTurno.Location = new System.Drawing.Point(126, 343);
+            this.btnCrearTurno.Location = new System.Drawing.Point(25, 299);
             this.btnCrearTurno.Name = "btnCrearTurno";
             this.btnCrearTurno.Size = new System.Drawing.Size(238, 36);
             this.btnCrearTurno.TabIndex = 3;
@@ -106,7 +99,7 @@
             // btnModificarTurno
             // 
             this.btnModificarTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarTurno.Location = new System.Drawing.Point(658, 9);
+            this.btnModificarTurno.Location = new System.Drawing.Point(674, 9);
             this.btnModificarTurno.Name = "btnModificarTurno";
             this.btnModificarTurno.Size = new System.Drawing.Size(169, 36);
             this.btnModificarTurno.TabIndex = 4;
@@ -119,7 +112,7 @@
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(486, 54);
+            this.button1.Location = new System.Drawing.Point(476, 299);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(122, 36);
             this.button1.TabIndex = 5;
@@ -170,7 +163,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(94, 279);
+            this.label5.Location = new System.Drawing.Point(95, 264);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 20);
             this.label5.TabIndex = 12;
@@ -180,7 +173,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(95, 223);
+            this.label6.Location = new System.Drawing.Point(95, 219);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(94, 20);
             this.label6.TabIndex = 14;
@@ -189,7 +182,7 @@
             // numericValorKm
             // 
             this.numericValorKm.DecimalPlaces = 2;
-            this.numericValorKm.Location = new System.Drawing.Point(79, 300);
+            this.numericValorKm.Location = new System.Drawing.Point(80, 285);
             this.numericValorKm.Name = "numericValorKm";
             this.numericValorKm.Size = new System.Drawing.Size(120, 20);
             this.numericValorKm.TabIndex = 18;
@@ -198,7 +191,7 @@
             // numericPrecioBase
             // 
             this.numericPrecioBase.DecimalPlaces = 2;
-            this.numericPrecioBase.Location = new System.Drawing.Point(79, 246);
+            this.numericPrecioBase.Location = new System.Drawing.Point(79, 241);
             this.numericPrecioBase.Name = "numericPrecioBase";
             this.numericPrecioBase.Size = new System.Drawing.Size(120, 20);
             this.numericPrecioBase.TabIndex = 18;
@@ -224,6 +217,7 @@
             // 
             // panelDatosSeleccionado
             // 
+            this.panelDatosSeleccionado.Controls.Add(this.btnDescartarCambios);
             this.panelDatosSeleccionado.Controls.Add(this.numericMinutoFin);
             this.panelDatosSeleccionado.Controls.Add(this.btnGuardarDatos);
             this.panelDatosSeleccionado.Controls.Add(this.numericHoraFin);
@@ -245,43 +239,6 @@
             this.panelDatosSeleccionado.Size = new System.Drawing.Size(268, 385);
             this.panelDatosSeleccionado.TabIndex = 22;
             // 
-            // btnGuardarDatos
-            // 
-            this.btnGuardarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarDatos.Location = new System.Drawing.Point(44, 331);
-            this.btnGuardarDatos.Name = "btnGuardarDatos";
-            this.btnGuardarDatos.Size = new System.Drawing.Size(169, 36);
-            this.btnGuardarDatos.TabIndex = 23;
-            this.btnGuardarDatos.Text = "GUARDAR";
-            this.btnGuardarDatos.UseVisualStyleBackColor = true;
-            this.btnGuardarDatos.Click += new System.EventHandler(this.btnGuardarDatos_Click);
-            // 
-            // numericHoraInicio
-            // 
-            this.numericHoraInicio.Cursor = System.Windows.Forms.Cursors.Default;
-            this.numericHoraInicio.Location = new System.Drawing.Point(88, 134);
-            this.numericHoraInicio.Maximum = new decimal(new int[] {
-            24,
-            0,
-            0,
-            0});
-            this.numericHoraInicio.Name = "numericHoraInicio";
-            this.numericHoraInicio.Size = new System.Drawing.Size(49, 20);
-            this.numericHoraInicio.TabIndex = 24;
-            // 
-            // numericMinutoInicio
-            // 
-            this.numericMinutoInicio.Cursor = System.Windows.Forms.Cursors.Default;
-            this.numericMinutoInicio.Location = new System.Drawing.Point(143, 134);
-            this.numericMinutoInicio.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericMinutoInicio.Name = "numericMinutoInicio";
-            this.numericMinutoInicio.Size = new System.Drawing.Size(49, 20);
-            this.numericMinutoInicio.TabIndex = 25;
-            // 
             // numericMinutoFin
             // 
             this.numericMinutoFin.Cursor = System.Windows.Forms.Cursors.Default;
@@ -294,6 +251,17 @@
             this.numericMinutoFin.Name = "numericMinutoFin";
             this.numericMinutoFin.Size = new System.Drawing.Size(49, 20);
             this.numericMinutoFin.TabIndex = 27;
+            // 
+            // btnGuardarDatos
+            // 
+            this.btnGuardarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarDatos.Location = new System.Drawing.Point(15, 314);
+            this.btnGuardarDatos.Name = "btnGuardarDatos";
+            this.btnGuardarDatos.Size = new System.Drawing.Size(250, 34);
+            this.btnGuardarDatos.TabIndex = 23;
+            this.btnGuardarDatos.Text = "GUARDAR";
+            this.btnGuardarDatos.UseVisualStyleBackColor = true;
+            this.btnGuardarDatos.Click += new System.EventHandler(this.btnGuardarDatos_Click);
             // 
             // numericHoraFin
             // 
@@ -308,18 +276,87 @@
             this.numericHoraFin.Size = new System.Drawing.Size(49, 20);
             this.numericHoraFin.TabIndex = 26;
             // 
+            // numericMinutoInicio
+            // 
+            this.numericMinutoInicio.Cursor = System.Windows.Forms.Cursors.Default;
+            this.numericMinutoInicio.Location = new System.Drawing.Point(143, 134);
+            this.numericMinutoInicio.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericMinutoInicio.Name = "numericMinutoInicio";
+            this.numericMinutoInicio.Size = new System.Drawing.Size(49, 20);
+            this.numericMinutoInicio.TabIndex = 25;
+            // 
+            // numericHoraInicio
+            // 
+            this.numericHoraInicio.Cursor = System.Windows.Forms.Cursors.Default;
+            this.numericHoraInicio.Location = new System.Drawing.Point(88, 134);
+            this.numericHoraInicio.Maximum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericHoraInicio.Name = "numericHoraInicio";
+            this.numericHoraInicio.Size = new System.Drawing.Size(49, 20);
+            this.numericHoraInicio.TabIndex = 24;
+            // 
+            // panelListaTurnos
+            // 
+            this.panelListaTurnos.Controls.Add(this.btnAltaLogica);
+            this.panelListaTurnos.Controls.Add(this.checkVerInhabilitados);
+            this.panelListaTurnos.Controls.Add(this.button1);
+            this.panelListaTurnos.Controls.Add(this.dgvTurnos);
+            this.panelListaTurnos.Controls.Add(this.btnCrearTurno);
+            this.panelListaTurnos.Location = new System.Drawing.Point(8, 44);
+            this.panelListaTurnos.Name = "panelListaTurnos";
+            this.panelListaTurnos.Size = new System.Drawing.Size(601, 350);
+            this.panelListaTurnos.TabIndex = 23;
+            // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(25, 10);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
+            this.checkVerInhabilitados.TabIndex = 7;
+            this.checkVerInhabilitados.Text = "Ver inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
+            // 
+            // btnDescartarCambios
+            // 
+            this.btnDescartarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDescartarCambios.Location = new System.Drawing.Point(15, 349);
+            this.btnDescartarCambios.Name = "btnDescartarCambios";
+            this.btnDescartarCambios.Size = new System.Drawing.Size(250, 30);
+            this.btnDescartarCambios.TabIndex = 28;
+            this.btnDescartarCambios.Text = "DESCARTAR CAMBIOS";
+            this.btnDescartarCambios.UseVisualStyleBackColor = true;
+            this.btnDescartarCambios.Click += new System.EventHandler(this.btnDescartarCambios_Click);
+            // 
+            // btnAltaLogica
+            // 
+            this.btnAltaLogica.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAltaLogica.Location = new System.Drawing.Point(301, 299);
+            this.btnAltaLogica.Name = "btnAltaLogica";
+            this.btnAltaLogica.Size = new System.Drawing.Size(169, 36);
+            this.btnAltaLogica.TabIndex = 24;
+            this.btnAltaLogica.Text = "ALTA LOGICA";
+            this.btnAltaLogica.UseVisualStyleBackColor = true;
+            this.btnAltaLogica.Visible = false;
+            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
+            // 
             // AbmTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1359, 442);
+            this.ClientSize = new System.Drawing.Size(964, 442);
+            this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnModificarTurno);
-            this.Controls.Add(this.btnCrearTurno);
-            this.Controls.Add(this.dgvTurnos);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnVerTurnos);
             this.Name = "AbmTurno";
             this.Text = "AbmTurno";
             this.Load += new System.EventHandler(this.AbmTurno_Load);
@@ -328,18 +365,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).EndInit();
             this.panelDatosSeleccionado.ResumeLayout(false);
             this.panelDatosSeleccionado.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMinutoInicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutoFin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericHoraFin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinutoInicio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).EndInit();
+            this.panelListaTurnos.ResumeLayout(false);
+            this.panelListaTurnos.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnVerTurnos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvTurnos;
         private System.Windows.Forms.Button btnCrearTurno;
@@ -362,5 +399,9 @@
         private System.Windows.Forms.NumericUpDown numericMinutoInicio;
         private System.Windows.Forms.NumericUpDown numericMinutoFin;
         private System.Windows.Forms.NumericUpDown numericHoraFin;
+        private System.Windows.Forms.Panel panelListaTurnos;
+        private System.Windows.Forms.CheckBox checkVerInhabilitados;
+        private System.Windows.Forms.Button btnDescartarCambios;
+        private System.Windows.Forms.Button btnAltaLogica;
     }
 }

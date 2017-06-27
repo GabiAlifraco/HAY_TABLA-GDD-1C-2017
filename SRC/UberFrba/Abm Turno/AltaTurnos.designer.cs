@@ -42,6 +42,7 @@
             this.numericHoraFin = new System.Windows.Forms.NumericUpDown();
             this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutoFin)).BeginInit();
@@ -127,7 +128,7 @@
             // btnCrearTurno
             // 
             this.btnCrearTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearTurno.Location = new System.Drawing.Point(110, 346);
+            this.btnCrearTurno.Location = new System.Drawing.Point(110, 337);
             this.btnCrearTurno.Name = "btnCrearTurno";
             this.btnCrearTurno.Size = new System.Drawing.Size(120, 36);
             this.btnCrearTurno.TabIndex = 22;
@@ -197,11 +198,23 @@
             this.numericHoraInicio.Size = new System.Drawing.Size(49, 20);
             this.numericHoraInicio.TabIndex = 36;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(1, 382);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(224, 36);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "VOLVER ABM TURNO";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AltaTurnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 420);
+            this.ClientSize = new System.Drawing.Size(344, 420);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.numericMinutoFin);
             this.Controls.Add(this.numericHoraFin);
             this.Controls.Add(this.numericMinutoInicio);
@@ -244,5 +257,6 @@
         private System.Windows.Forms.NumericUpDown numericHoraFin;
         private System.Windows.Forms.NumericUpDown numericMinutoInicio;
         private System.Windows.Forms.NumericUpDown numericHoraInicio;
+        private System.Windows.Forms.Button button1;
     }
 }
