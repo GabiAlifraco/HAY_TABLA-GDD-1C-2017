@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AbmAutomovil));
             this.txtFiltroPatente = new System.Windows.Forms.TextBox();
             this.txtFiltroModelo = new System.Windows.Forms.TextBox();
-            this.txtFiltroMarca = new System.Windows.Forms.TextBox();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -73,6 +72,7 @@
             this.btn_eliminar = new System.Windows.Forms.Button();
             this.btn_modificar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboFiltroMarca = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAutomovil)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -93,14 +93,6 @@
             this.txtFiltroModelo.Name = "txtFiltroModelo";
             this.txtFiltroModelo.Size = new System.Drawing.Size(100, 20);
             this.txtFiltroModelo.TabIndex = 72;
-            // 
-            // txtFiltroMarca
-            // 
-            this.txtFiltroMarca.Location = new System.Drawing.Point(7, 42);
-            this.txtFiltroMarca.MaxLength = 50;
-            this.txtFiltroMarca.Name = "txtFiltroMarca";
-            this.txtFiltroMarca.Size = new System.Drawing.Size(100, 20);
-            this.txtFiltroMarca.TabIndex = 73;
             // 
             // btnFiltrar
             // 
@@ -272,6 +264,7 @@
             this.comboChofer.Name = "comboChofer";
             this.comboChofer.Size = new System.Drawing.Size(154, 21);
             this.comboChofer.TabIndex = 86;
+            this.comboChofer.SelectionChangeCommitted += new System.EventHandler(this.comboChofer_SelectionChangeCommitted);
             // 
             // label7
             // 
@@ -522,8 +515,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.comboFiltroMarca);
             this.panel1.Controls.Add(this.btn_modificar);
-            this.panel1.Controls.Add(this.txtFiltroMarca);
             this.panel1.Controls.Add(this.btn_eliminar);
             this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.btn_nuevo);
@@ -541,6 +534,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(668, 378);
             this.panel1.TabIndex = 85;
+            // 
+            // comboFiltroMarca
+            // 
+            this.comboFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFiltroMarca.FormattingEnabled = true;
+            this.comboFiltroMarca.Location = new System.Drawing.Point(3, 42);
+            this.comboFiltroMarca.Name = "comboFiltroMarca";
+            this.comboFiltroMarca.Size = new System.Drawing.Size(100, 21);
+            this.comboFiltroMarca.TabIndex = 86;
             // 
             // AbmAutomovil
             // 
@@ -568,7 +570,6 @@
 
         private System.Windows.Forms.TextBox txtFiltroPatente;
         private System.Windows.Forms.TextBox txtFiltroModelo;
-        private System.Windows.Forms.TextBox txtFiltroMarca;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
@@ -610,6 +611,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox comboFiltroMarca;
 
     }
 }
