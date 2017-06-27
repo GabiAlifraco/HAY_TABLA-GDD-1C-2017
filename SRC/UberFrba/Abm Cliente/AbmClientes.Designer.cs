@@ -90,6 +90,8 @@
             this.txtClienteDireccion = new System.Windows.Forms.TextBox();
             this.txtClienteAltura = new System.Windows.Forms.TextBox();
             this.panelDatosClienteSeleccionado = new System.Windows.Forms.Panel();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.btnAltaLogica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panelDatosNuevoCliente.SuspendLayout();
             this.panelDatosClienteSeleccionado.SuspendLayout();
@@ -117,7 +119,7 @@
             // 
             // btnCrearCliente
             // 
-            this.btnCrearCliente.Location = new System.Drawing.Point(461, 346);
+            this.btnCrearCliente.Location = new System.Drawing.Point(538, 346);
             this.btnCrearCliente.Name = "btnCrearCliente";
             this.btnCrearCliente.Size = new System.Drawing.Size(172, 23);
             this.btnCrearCliente.TabIndex = 7;
@@ -266,7 +268,7 @@
             this.btnEliminarCliente.Name = "btnEliminarCliente";
             this.btnEliminarCliente.Size = new System.Drawing.Size(172, 23);
             this.btnEliminarCliente.TabIndex = 61;
-            this.btnEliminarCliente.Text = "ELIMINAR SELECIONADO ";
+            this.btnEliminarCliente.Text = "BAJA LOGICA SELECIONADO ";
             this.btnEliminarCliente.UseVisualStyleBackColor = true;
             this.btnEliminarCliente.Visible = false;
             this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
@@ -307,7 +309,7 @@
             this.panelDatosNuevoCliente.Controls.Add(this.label21);
             this.panelDatosNuevoCliente.Controls.Add(this.txtClienteNacimientoNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.btnCrear);
-            this.panelDatosNuevoCliente.Location = new System.Drawing.Point(370, 369);
+            this.panelDatosNuevoCliente.Location = new System.Drawing.Point(451, 369);
             this.panelDatosNuevoCliente.Name = "panelDatosNuevoCliente";
             this.panelDatosNuevoCliente.Size = new System.Drawing.Size(356, 292);
             this.panelDatosNuevoCliente.TabIndex = 63;
@@ -724,6 +726,28 @@
             this.panelDatosClienteSeleccionado.TabIndex = 64;
             this.panelDatosClienteSeleccionado.Visible = false;
             // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(12, 54);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
+            this.checkVerInhabilitados.TabIndex = 68;
+            this.checkVerInhabilitados.Text = "Ver inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
+            // 
+            // btnAltaLogica
+            // 
+            this.btnAltaLogica.Location = new System.Drawing.Point(336, 346);
+            this.btnAltaLogica.Name = "btnAltaLogica";
+            this.btnAltaLogica.Size = new System.Drawing.Size(172, 23);
+            this.btnAltaLogica.TabIndex = 69;
+            this.btnAltaLogica.Text = "ALTA LOGICA SELECIONADO ";
+            this.btnAltaLogica.UseVisualStyleBackColor = true;
+            this.btnAltaLogica.Visible = false;
+            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
+            // 
             // AbmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -731,6 +755,8 @@
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.Controls.Add(this.btnAltaLogica);
+            this.Controls.Add(this.checkVerInhabilitados);
             this.Controls.Add(this.txtFiltroDNI);
             this.Controls.Add(this.txtFiltroApellido);
             this.Controls.Add(this.txtFiltroNombre);
@@ -823,5 +849,7 @@
         private System.Windows.Forms.TextBox txtClienteDireccion;
         private System.Windows.Forms.TextBox txtClienteAltura;
         private System.Windows.Forms.Panel panelDatosClienteSeleccionado;
+        private System.Windows.Forms.CheckBox checkVerInhabilitados;
+        private System.Windows.Forms.Button btnAltaLogica;
     }
 }

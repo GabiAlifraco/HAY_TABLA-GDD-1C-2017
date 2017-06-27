@@ -20,10 +20,10 @@ namespace UberFrba.Abm_Cliente
             InitializeComponent();
             Access = new DBAccess();
             Validador = new ValidacionesAbm();
-            MostrarClientes();
+            checkVerInhabilitados.Checked = false;
             camposHabilitados(false);
             dgvClientes.ReadOnly = true;
-
+            MostrarClientes();
 
         }
 
@@ -48,7 +48,7 @@ namespace UberFrba.Abm_Cliente
 
                     string query = String.Format("INSERT INTO [HAY_TABLA].[Cliente] (Cli_Nombre,Cli_Apellido,Cli_DNI,Cli_Mail,Cli_Telefono,Cli_Direccion,Cli_CodigoPostal,Cli_FechaNacimiento) VALUES (");
                     query += "'" + txtClienteNombreNuevo.Text.Trim() + "','" + txtClienteApellidoNuevo.Text.Trim() + "'," + txtClienteDNINuevo.Text.Trim() + ",'" + txtClienteMailNuevo.Text.Trim() + "'," + txtClienteTelefonoNuevo.Text.Trim() + ",'" + txtClienteDireccionNuevo.Text.Trim() + " " + txtClienteAlturaNuevo.Text.Trim() + "'," + txtClienteCodigoPostalNuevo.Text.Trim() + ",'" + fechaNacimiento.Date.Month.ToString() + "/" + fechaNacimiento.Date.Day.ToString() + "/" + fechaNacimiento.Date.Year.ToString() + "')";
-                    MessageBox.Show(query);
+  
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     try
                     {
@@ -75,8 +75,8 @@ namespace UberFrba.Abm_Cliente
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("DELETE FROM [HAY_TABLA].[Cliente] WHERE Cli_Id =" + txtIdSeleccionado.Text);
-                MessageBox.Show(query);
+                string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
+    
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
                 try
@@ -102,7 +102,7 @@ namespace UberFrba.Abm_Cliente
                 {
                     DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimiento.Text);
                     string query = String.Format("UPDATE [HAY_TABLA].[Cliente] SET Cli_Nombre = " + "'" + txtClienteNombre.Text.Trim() + "',Cli_Apellido =" + "'" + txtClienteApellido.Text.Trim() + "'," + "Cli_DNI =" + txtClienteDNI.Text.Trim() + ",Cli_Mail='" + txtClienteMail.Text.Trim() + "',Cli_Telefono=" + txtClienteTelefono.Text.Trim() + ",Cli_Direccion= '" + txtClienteDireccion.Text.Trim() + " " + txtClienteAltura.Text.Trim() + "',Cli_CodigoPostal =" + txtClienteCodigoPostal.Text.Trim() + ",Cli_FechaNacimiento ='" + fechaNacimiento.Date.Month.ToString() + "/" +  fechaNacimiento.Date.Day.ToString() + "/"  + fechaNacimiento.Date.Year.ToString() + "' WHERE Cli_Id =" + txtIdSeleccionado.Text);
-                    MessageBox.Show(query);
+         
                     SqlCommand cmd = new SqlCommand(query, conexion);
 
                     try
@@ -126,41 +126,54 @@ namespace UberFrba.Abm_Cliente
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtIdSeleccionado.Text = dgvClientes.CurrentRow.Cells[0].Value.ToString();
-            txtClienteNombre.Text = dgvClientes.CurrentRow.Cells[1].Value.ToString();
-            txtClienteApellido.Text = dgvClientes.CurrentRow.Cells[2].Value.ToString();
-            txtClienteDNI.Text = dgvClientes.CurrentRow.Cells[3].Value.ToString();
-            txtClienteMail.Text = dgvClientes.CurrentRow.Cells[4].Value.ToString();
-            txtClienteTelefono.Text = dgvClientes.CurrentRow.Cells[5].Value.ToString();
-            string dir = dgvClientes.CurrentRow.Cells[6].Value.ToString();
-            txtClienteDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
-            txtClienteAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-            txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[7].Value.ToString();
-            DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[8].Value.ToString());
-            string fNacimiento;
-            if (fechaNacimiento.Date.Day < 10) {
-                fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
-            } else {
-                fNacimiento =  fechaNacimiento.Date.Day.ToString();
-            }
-            if (fechaNacimiento.Date.Month < 10)
+            if (dgvClientes.CurrentRow.Cells[9].Value.ToString() == "False")
             {
-                fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
-            }
-            else
+                panelDatosClienteSeleccionado.Visible = false;
+                btnModificar.Visible = true;
+                btnEliminarCliente.Visible = false;
+                btnAltaLogica.Visible = true;
+            }else
             {
-                fNacimiento += fechaNacimiento.Date.Month.ToString();
+                txtIdSeleccionado.Text = dgvClientes.CurrentRow.Cells[0].Value.ToString();
+                txtClienteNombre.Text = dgvClientes.CurrentRow.Cells[1].Value.ToString();
+                txtClienteApellido.Text = dgvClientes.CurrentRow.Cells[2].Value.ToString();
+                txtClienteDNI.Text = dgvClientes.CurrentRow.Cells[3].Value.ToString();
+                txtClienteMail.Text = dgvClientes.CurrentRow.Cells[4].Value.ToString();
+                txtClienteTelefono.Text = dgvClientes.CurrentRow.Cells[5].Value.ToString();
+                string dir = dgvClientes.CurrentRow.Cells[6].Value.ToString();
+                txtClienteDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
+                txtClienteAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
+                txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[7].Value.ToString();
+                DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[8].Value.ToString());
+                string fNacimiento;
+                if (fechaNacimiento.Date.Day < 10)
+                {
+                    fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                }
+                else
+                {
+                    fNacimiento = fechaNacimiento.Date.Day.ToString();
+                }
+                if (fechaNacimiento.Date.Month < 10)
+                {
+                    fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
+                }
+                else
+                {
+                    fNacimiento += fechaNacimiento.Date.Month.ToString();
+                }
+                fNacimiento += fechaNacimiento.Date.Year.ToString();
+                txtClienteNacimiento.Text = fNacimiento;
+                panelDatosClienteSeleccionado.Visible = true;
+                panelDatosNuevoCliente.Visible = false;
+                btnCrearCliente.Visible = true;
+                btnAltaLogica.Visible = false;
+                btnEliminarCliente.Visible = true;
+                btnModificar.Visible = true;
+                btnGuardarDatos.Visible = false;
+                btnDescartarCambios.Visible = false;
+                camposHabilitados(false);
             }
-            fNacimiento += fechaNacimiento.Date.Year.ToString();
-            txtClienteNacimiento.Text = fNacimiento;
-            panelDatosClienteSeleccionado.Visible = true;
-            panelDatosNuevoCliente.Visible = false;
-            btnCrearCliente.Visible = true;
-            btnEliminarCliente.Visible = true;
-            btnModificar.Visible = true;
-            btnGuardarDatos.Visible = false;
-            btnDescartarCambios.Visible = false;
-            camposHabilitados(false);
         }
 
 
@@ -177,6 +190,7 @@ namespace UberFrba.Abm_Cliente
             DataColumn cDireccion = new DataColumn("Direccion");
             DataColumn cCodigoPostal = new DataColumn("CodigoPostal");
             DataColumn cFechaNacimiento = new DataColumn("FechaNacimiento");
+            DataColumn cHabilitado = new DataColumn("Habilitado");
 
             dtClientes.Columns.Add(cId);
             dtClientes.Columns.Add(cNombre);
@@ -187,10 +201,19 @@ namespace UberFrba.Abm_Cliente
             dtClientes.Columns.Add(cDireccion);
             dtClientes.Columns.Add(cCodigoPostal);
             dtClientes.Columns.Add(cFechaNacimiento);
+            dtClientes.Columns.Add(cHabilitado);
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] WHERE Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                string query;
+                if (checkVerInhabilitados.Checked)
+                {/// ver todos
+                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON CONVERT(varchar(30), c.Cli_DNI) = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND  Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                }
+                else {//ver solo habilitados
+                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON CONVERT(varchar(30), c.Cli_DNI) = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                }
+               
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -209,7 +232,7 @@ namespace UberFrba.Abm_Cliente
                         row["Direccion"] = dr["Cli_Direccion"].ToString();
                         row["CodigoPostal"] = dr["Cli_CodigoPostal"].ToString();
                         row["FechaNacimiento"] = dr["Cli_FechaNacimiento"].ToString();
-
+                        row["Habilitado"] = dr["Habilitado"].ToString();
 
                         dtClientes.Rows.Add(row);
 
@@ -217,6 +240,22 @@ namespace UberFrba.Abm_Cliente
                     dgvClientes.DataSource = dtClientes;
                     dgvClientes.AutoResizeColumns();
                     dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+                    if (checkVerInhabilitados.Checked)
+                    {/// ver todos       
+                        for (int i = 0; i < dgvClientes.Rows.Count - 1; i++)
+                        {
+                            DataGridViewRow row = dgvClientes.Rows[i];
+                            if (row.Cells[9].Value.ToString() == "False")
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightSalmon;
+                            }
+                            else {
+                                row.DefaultCellStyle.BackColor = Color.LimeGreen;
+                            }
+                        }
+                    }
+
                 }
                 catch (Exception excep)
                 {
@@ -327,6 +366,7 @@ namespace UberFrba.Abm_Cliente
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            estadoInicial();
             MostrarClientes();
         }
 
@@ -401,6 +441,7 @@ namespace UberFrba.Abm_Cliente
             btnEliminarCliente.Visible = false;
             btnModificar.Visible = false;
             btnCrearCliente.Visible = true;
+            btnAltaLogica.Visible = false;
 
         }
 
@@ -415,6 +456,33 @@ namespace UberFrba.Abm_Cliente
         private void AbmClientes_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAltaLogica_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
+                
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            estadoInicial();
         }
     }
 }
