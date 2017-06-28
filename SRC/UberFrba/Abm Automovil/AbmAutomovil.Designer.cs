@@ -73,6 +73,7 @@
             this.btn_modificar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboFiltroMarca = new System.Windows.Forms.ComboBox();
+            this.labelNota = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAutomovil)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -157,7 +158,7 @@
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
             this.dgvAutomovil.Name = "dgvAutomovil";
-            this.dgvAutomovil.Size = new System.Drawing.Size(729, 242);
+            this.dgvAutomovil.Size = new System.Drawing.Size(674, 242);
             this.dgvAutomovil.TabIndex = 76;
             this.dgvAutomovil.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAutomovil_CellClick);
             // 
@@ -194,6 +195,7 @@
             // panelDatosSeleccionado
             // 
             this.panelDatosSeleccionado.BackColor = System.Drawing.Color.LemonChiffon;
+            this.panelDatosSeleccionado.Controls.Add(this.labelNota);
             this.panelDatosSeleccionado.Controls.Add(this.button2);
             this.panelDatosSeleccionado.Controls.Add(this.comboTurno);
             this.panelDatosSeleccionado.Controls.Add(this.label10);
@@ -223,7 +225,7 @@
             this.panelDatosSeleccionado.Controls.Add(this.txtClienteNacimiento);
             this.panelDatosSeleccionado.Location = new System.Drawing.Point(189, 156);
             this.panelDatosSeleccionado.Name = "panelDatosSeleccionado";
-            this.panelDatosSeleccionado.Size = new System.Drawing.Size(475, 170);
+            this.panelDatosSeleccionado.Size = new System.Drawing.Size(475, 177);
             this.panelDatosSeleccionado.TabIndex = 81;
             this.panelDatosSeleccionado.Visible = false;
             // 
@@ -246,6 +248,8 @@
             this.comboTurno.Name = "comboTurno";
             this.comboTurno.Size = new System.Drawing.Size(154, 21);
             this.comboTurno.TabIndex = 88;
+            this.comboTurno.MouseEnter += new System.EventHandler(this.comboTurno_MouseEnter);
+            this.comboTurno.MouseLeave += new System.EventHandler(this.comboTurno_MouseLeave);
             // 
             // label10
             // 
@@ -532,7 +536,7 @@
             this.panel1.Controls.Add(this.txtFiltroPatente);
             this.panel1.Location = new System.Drawing.Point(98, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(668, 378);
+            this.panel1.Size = new System.Drawing.Size(711, 378);
             this.panel1.TabIndex = 85;
             // 
             // comboFiltroMarca
@@ -543,6 +547,17 @@
             this.comboFiltroMarca.Name = "comboFiltroMarca";
             this.comboFiltroMarca.Size = new System.Drawing.Size(100, 21);
             this.comboFiltroMarca.TabIndex = 86;
+            // 
+            // labelNota
+            // 
+            this.labelNota.AutoSize = true;
+            this.labelNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNota.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.labelNota.Location = new System.Drawing.Point(36, 158);
+            this.labelNota.Name = "labelNota";
+            this.labelNota.Size = new System.Drawing.Size(398, 13);
+            this.labelNota.TabIndex = 90;
+            this.labelNota.Text = "Nota: El auto sera asignado a todos los turnos disponibles del chofer";
             // 
             // AbmAutomovil
             // 
@@ -612,6 +627,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboFiltroMarca;
+        private System.Windows.Forms.Label labelNota;
 
     }
 }
