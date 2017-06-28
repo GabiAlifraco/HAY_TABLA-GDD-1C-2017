@@ -68,6 +68,8 @@
             this.btnEliminarChofer = new System.Windows.Forms.Button();
             this.btnCrearCliente = new System.Windows.Forms.Button();
             this.panelChoferes = new System.Windows.Forms.Panel();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.btnAltaLogica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).BeginInit();
             this.panelDatosChoferSeleccionado.SuspendLayout();
             this.panelChoferes.SuspendLayout();
@@ -164,6 +166,7 @@
             this.dgvChoferes.Size = new System.Drawing.Size(1034, 263);
             this.dgvChoferes.TabIndex = 68;
             this.dgvChoferes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChoferes_CellClick);
+            this.dgvChoferes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChoferes_CellContentClick_1);
             // 
             // panelDatosChoferSeleccionado
             // 
@@ -192,7 +195,7 @@
             this.panelDatosChoferSeleccionado.Controls.Add(this.label3);
             this.panelDatosChoferSeleccionado.Controls.Add(this.label2);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferNacimiento);
-            this.panelDatosChoferSeleccionado.Location = new System.Drawing.Point(137, 66);
+            this.panelDatosChoferSeleccionado.Location = new System.Drawing.Point(58, 51);
             this.panelDatosChoferSeleccionado.Name = "panelDatosChoferSeleccionado";
             this.panelDatosChoferSeleccionado.Size = new System.Drawing.Size(536, 262);
             this.panelDatosChoferSeleccionado.TabIndex = 80;
@@ -427,7 +430,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(120, 348);
+            this.btnModificar.Location = new System.Drawing.Point(31, 348);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(139, 23);
             this.btnModificar.TabIndex = 79;
@@ -438,17 +441,18 @@
             // 
             // btnEliminarChofer
             // 
-            this.btnEliminarChofer.Location = new System.Drawing.Point(266, 348);
+            this.btnEliminarChofer.Location = new System.Drawing.Point(176, 348);
             this.btnEliminarChofer.Name = "btnEliminarChofer";
             this.btnEliminarChofer.Size = new System.Drawing.Size(172, 23);
             this.btnEliminarChofer.TabIndex = 78;
-            this.btnEliminarChofer.Text = "ELIMINAR SELECIONADO ";
+            this.btnEliminarChofer.Text = "BAJA LOGICA SELECIONADO ";
             this.btnEliminarChofer.UseVisualStyleBackColor = true;
             this.btnEliminarChofer.Visible = false;
+            this.btnEliminarChofer.Click += new System.EventHandler(this.btnEliminarChofer_Click);
             // 
             // btnCrearCliente
             // 
-            this.btnCrearCliente.Location = new System.Drawing.Point(444, 348);
+            this.btnCrearCliente.Location = new System.Drawing.Point(534, 348);
             this.btnCrearCliente.Name = "btnCrearCliente";
             this.btnCrearCliente.Size = new System.Drawing.Size(172, 23);
             this.btnCrearCliente.TabIndex = 81;
@@ -459,6 +463,8 @@
             // panelChoferes
             // 
             this.panelChoferes.BackColor = System.Drawing.Color.Transparent;
+            this.panelChoferes.Controls.Add(this.btnAltaLogica);
+            this.panelChoferes.Controls.Add(this.checkVerInhabilitados);
             this.panelChoferes.Controls.Add(this.dgvChoferes);
             this.panelChoferes.Controls.Add(this.btnCrearCliente);
             this.panelChoferes.Controls.Add(this.label29);
@@ -471,10 +477,31 @@
             this.panelChoferes.Controls.Add(this.btnFiltrar);
             this.panelChoferes.Controls.Add(this.txtFiltroApellido);
             this.panelChoferes.Controls.Add(this.txtFiltroNombre);
-            this.panelChoferes.Location = new System.Drawing.Point(12, 12);
+            this.panelChoferes.Location = new System.Drawing.Point(98, 23);
             this.panelChoferes.Name = "panelChoferes";
             this.panelChoferes.Size = new System.Drawing.Size(1114, 405);
             this.panelChoferes.TabIndex = 82;
+            // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(31, 57);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
+            this.checkVerInhabilitados.TabIndex = 69;
+            this.checkVerInhabilitados.Text = "Ver inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            // 
+            // btnAltaLogica
+            // 
+            this.btnAltaLogica.Location = new System.Drawing.Point(357, 348);
+            this.btnAltaLogica.Name = "btnAltaLogica";
+            this.btnAltaLogica.Size = new System.Drawing.Size(170, 23);
+            this.btnAltaLogica.TabIndex = 82;
+            this.btnAltaLogica.Text = "ALTA LOGICA SELECCIONADO";
+            this.btnAltaLogica.UseVisualStyleBackColor = true;
+            this.btnAltaLogica.Visible = false;
+            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
             // 
             // AbmChofer
             // 
@@ -482,10 +509,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1388, 695);
-            this.Controls.Add(this.panelDatosChoferSeleccionado);
+            this.ClientSize = new System.Drawing.Size(1188, 550);
             this.Controls.Add(this.panelChoferes);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.Name = "AbmChofer";
             this.Text = "AbmChofer";
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).EndInit();
@@ -539,5 +566,7 @@
         private System.Windows.Forms.Panel panelChoferes;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckedListBox listaTurnos;
+        private System.Windows.Forms.CheckBox checkVerInhabilitados;
+        private System.Windows.Forms.Button btnAltaLogica;
     }
 }

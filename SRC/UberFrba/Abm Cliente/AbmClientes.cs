@@ -57,6 +57,8 @@ namespace UberFrba.Abm_Cliente
                         if (NoExiste(conexion, txtClienteDNINuevo.Text.Trim(), "", "Cli_DNI", "DNI") && NoExiste(conexion, txtClienteTelefonoNuevo.Text.Trim(), "", "Cli_Telefono", "Telefono"))
                         {
                             SqlDataReader dr = cmd.ExecuteReader();
+                            MessageBox.Show("El cliente fue creado exitosamente");
+                            MessageBox.Show("Se creo un usuario con username:'" + txtClienteDNINuevo.Text + "' password:'" + txtClienteDNINuevo.Text + "' y rol 'cliente'");
                             estadoInicial();
                         }
                     }
@@ -208,10 +210,11 @@ namespace UberFrba.Abm_Cliente
                 string query;
                 if (checkVerInhabilitados.Checked)
                 {/// ver todos
-                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON CONVERT(varchar(30), c.Cli_DNI) = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND  Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+
+                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND  Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
                 }
                 else {//ver solo habilitados
-                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON CONVERT(varchar(30), c.Cli_DNI) = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
                 }
                
                 SqlCommand cmd = new SqlCommand(query, conexion);

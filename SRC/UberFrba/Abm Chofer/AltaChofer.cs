@@ -38,19 +38,20 @@ namespace UberFrba.Abm_Chofer
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
                 conexion.Open();
-                SqlTransaction sqlTransact = conexion.BeginTransaction();
+                //SqlTransaction sqlTransact = conexion.BeginTransaction();
                 SqlCommand command = conexion.CreateCommand();
-                command.Transaction = sqlTransact;
+                //command.Transaction = sqlTransact;
                 try
                 {
-                    string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento) OUTPUT Inserted.Cho_Id VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento) ");
+                    //string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento) OUTPUT Inserted.Cho_Id VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento) ");
+                    string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento) VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento) ");
                     command.CommandText = query;
 
                     SqlParameter param = new SqlParameter("@Nombre", txtNombreNuevo.Text);
                     param.SqlDbType = System.Data.SqlDbType.VarChar;
                     command.Parameters.Add(param);
 
-                     param = new SqlParameter("@Apellido", txtApellidoNuevo.Text);
+                    param = new SqlParameter("@Apellido", txtApellidoNuevo.Text);
                     param.SqlDbType = System.Data.SqlDbType.VarChar;
                     command.Parameters.Add(param);
 
@@ -75,24 +76,49 @@ namespace UberFrba.Abm_Chofer
                     param.SqlDbType = System.Data.SqlDbType.DateTime;
                     command.Parameters.Add(param);
 
+                    command.ExecuteNonQuery();
+                    //                    SqlDataReader dr = command.ExecuteReader();
+                    //                  dr.Close();
+                    // int idChofer = (int)command.ExecuteScalar();
 
-                    int idChofer = (int)command.ExecuteScalar();
-                    foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
-                    {
-                        query = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + idChofer.ToString() + ",0)");
-                        command.CommandText = query;
-                        command.ExecuteNonQuery();
-                        //MessageBox.Show(turno.Key.ToString());
 
-                    }
-
-                    sqlTransact.Commit();
+                    //sqlTransact.Commit();
                     MessageBox.Show("El chofer fue creado con exito");
+                    MessageBox.Show("Se creo un usuario con username:'" + txtChoferDNINuevo.Text + "' password:'" + txtChoferDNINuevo.Text + "' y rol 'Chofer'");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString(), "Error");
-                    sqlTransact.Rollback();
+                    //sqlTransact.Rollback();
+                }
+                conexion.Close();
+            }
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                conexion.Open();
+                SqlCommand command2 = conexion.CreateCommand();
+                try
+                {
+                    string query1 = String.Format(" SELECT Cho_Id FROM [HAY_TABLA].[Chofer] WHERE Cho_DNI = " + txtChoferDNINuevo.Text);
+                    command2.CommandText = query1;
+                    SqlDataReader dr = command2.ExecuteReader();
+                    int idChofer = 0;
+                    while (dr.Read())
+                    {
+                        idChofer = (int)dr["Cho_Id"];
+                    }
+                    dr.Close();
+                    foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
+                    {
+                        query1 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + idChofer + ",0)");
+                        command2.CommandText = query1;
+                        command2.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error");
+
                 }
 
             }

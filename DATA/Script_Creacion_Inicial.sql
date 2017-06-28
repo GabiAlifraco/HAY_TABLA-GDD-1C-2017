@@ -145,8 +145,8 @@ CREATE TABLE [HAY_TABLA].[Turno](
 
 INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase)
 SELECT DISTINCT 
-      Turno_Hora_Inicio,
-	  Turno_Hora_Fin,
+      Turno_Hora_Inicio * 100,
+	  Turno_Hora_Fin * 100,
 	  Turno_Descripcion,
 	  Turno_Valor_Kilometro,
 	  Turno_Precio_Base
@@ -359,5 +359,51 @@ BEGIN
 END	
 GO
 
-COMMIT TRAN
 
+
+GO
+CREATE TRIGGER crearUsuarioAlCliente ON [HAY_TABLA].Cliente FOR INSERT AS
+BEGIN
+	DECLARE @username numeric(18,0)
+	DECLARE @password varbinary(8000)
+
+	DECLARE insert_cursor CURSOR FOR SELECT Cli_DNI FROM inserted
+	OPEN insert_cursor
+
+	FETCH NEXT FROM insert_cursor INTO @username
+	WHILE @@FETCH_STATUS = 0 BEGIN
+		INSERT INTO [HAY_TABLA].Usuarios (Usu_Username, Usu_Password) VALUES(CAST(@username AS VARCHAR(30)), HASHBYTES('SHA2_256',CAST(@username AS VARCHAR(30))))
+		INSERT INTO [HAY_TABLA].USUARIO_POR_ROL (Nombre_Usuario, Id_Rol) VALUES(CAST(@username AS VARCHAR(30)), 2)
+		UPDATE [HAY_TABLA].Cliente SET Cli_Usuario = CAST(@username AS VARCHAR(30)) WHERE Cli_DNI = @username
+		FETCH NEXT FROM insert_cursor INTO @username
+	END
+
+	CLOSE insert_cursor
+	DEALLOCATE insert_cursor
+
+END
+GO
+
+GO
+CREATE TRIGGER crearUsuarioAlChofer ON [HAY_TABLA].Chofer FOR INSERT AS
+BEGIN
+	DECLARE @username numeric(18,0)
+	DECLARE @password varbinary(8000)
+
+	DECLARE insert_cursor CURSOR FOR SELECT Cho_DNI FROM inserted
+	OPEN insert_cursor
+
+	FETCH NEXT FROM insert_cursor INTO @username
+	WHILE @@FETCH_STATUS = 0 BEGIN
+		INSERT INTO [HAY_TABLA].Usuarios (Usu_Username, Usu_Password) VALUES(CAST(@username AS VARCHAR(30)), HASHBYTES('SHA2_256',CAST(@username AS VARCHAR(30))))
+		INSERT INTO [HAY_TABLA].USUARIO_POR_ROL (Nombre_Usuario, Id_Rol) VALUES(CAST(@username AS VARCHAR(30)), 3)
+		UPDATE [HAY_TABLA].Chofer SET Cho_Usuario = CAST(@username AS VARCHAR(30)) WHERE Cho_DNI = @username
+		FETCH NEXT FROM insert_cursor INTO @username
+	END
+
+	CLOSE insert_cursor
+	DEALLOCATE insert_cursor
+
+END
+GO
+COMMIT TRAN

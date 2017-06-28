@@ -115,6 +115,7 @@ namespace UberFrba.Abm_Chofer
             DataColumn cTelefono = new DataColumn("Telefono");
             DataColumn cDireccion = new DataColumn("Direccion");
             DataColumn cFechaNacimiento = new DataColumn("FechaNacimiento");
+            DataColumn cHabilitado = new DataColumn("Habilitado");
 
             dtChoferes.Columns.Add(cId);
             dtChoferes.Columns.Add(cNombre);
@@ -124,10 +125,24 @@ namespace UberFrba.Abm_Chofer
             dtChoferes.Columns.Add(cTelefono);
             dtChoferes.Columns.Add(cDireccion);
             dtChoferes.Columns.Add(cFechaNacimiento);
+            dtChoferes.Columns.Add(cHabilitado);
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [HAY_TABLA].[Chofer] WHERE Cho_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cho_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cho_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+
+             
+
+                string query;
+                if (checkVerInhabilitados.Checked)
+                {/// ver todos
+                    query = String.Format("SELECT * FROM [HAY_TABLA].[Chofer] c  JOIN[HAY_TABLA].[Usuarios] U ON c.Cho_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Id_Rol = 3 AND Cho_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cho_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cho_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                }
+                else
+                {//ver solo habilitados
+                    query = String.Format("SELECT * FROM [HAY_TABLA].[Chofer] c  JOIN[HAY_TABLA].[Usuarios] U ON c.Cho_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 3 AND Cho_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cho_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cho_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                }
+
+
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -145,6 +160,7 @@ namespace UberFrba.Abm_Chofer
                         row["Telefono"] = dr["Cho_Telefono"].ToString();
                         row["Direccion"] = dr["Cho_Direccion"].ToString();
                         row["FechaNacimiento"] = dr["Cho_FechaNacimiento"].ToString();
+                        row["Habilitado"] = dr["Habilitado"].ToString();
 
 
                         dtChoferes.Rows.Add(row);
@@ -153,6 +169,23 @@ namespace UberFrba.Abm_Chofer
                     dgvChoferes.DataSource = dtChoferes;
                     dgvChoferes.AutoResizeColumns();
                     dgvChoferes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+
+                    if (checkVerInhabilitados.Checked)
+                    {/// ver todos       
+                        for (int i = 0; i < dgvChoferes.Rows.Count - 1; i++)
+                        {
+                            DataGridViewRow row = dgvChoferes.Rows[i];
+                            if (row.Cells[8].Value.ToString() == "False")
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightSalmon;
+                            }
+                            else
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LimeGreen;
+                            }
+                        }
+                    }
                 }
                 catch (Exception excep)
                 {
@@ -164,39 +197,51 @@ namespace UberFrba.Abm_Chofer
 
         private void dgvChoferes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtIdSeleccionado.Text = dgvChoferes.CurrentRow.Cells[0].Value.ToString();
-            txtChoferNombre.Text = dgvChoferes.CurrentRow.Cells[1].Value.ToString();
-            txtChoferApellido.Text = dgvChoferes.CurrentRow.Cells[2].Value.ToString();
-            txtChoferDNI.Text = dgvChoferes.CurrentRow.Cells[3].Value.ToString();
-            txtChoferMail.Text = dgvChoferes.CurrentRow.Cells[4].Value.ToString();
-            txtChoferTelefono.Text = dgvChoferes.CurrentRow.Cells[5].Value.ToString();
-            string dir = dgvChoferes.CurrentRow.Cells[6].Value.ToString();
-            txtChoferDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
-            txtChoferAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-        
-            DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[7].Value.ToString());
-            string fNacimiento;
-            if (fechaNacimiento.Date.Day < 10)
+            if (dgvChoferes.CurrentRow.Cells[8].Value.ToString() == "False")
             {
-                fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                panelDatosChoferSeleccionado.Visible = false;
+                btnModificar.Visible = false;
+                btnEliminarChofer.Visible = false;
+                btnAltaLogica.Visible = true;
             }
             else
             {
-                fNacimiento = fechaNacimiento.Date.Day.ToString();
-            }
-            if (fechaNacimiento.Date.Month < 10)
-            {
-                fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
-            }
-            else
-            {
-                fNacimiento += fechaNacimiento.Date.Month.ToString();
-            }
-            fNacimiento += fechaNacimiento.Date.Year.ToString();
-            txtChoferNacimiento.Text = fNacimiento;
+                txtIdSeleccionado.Text = dgvChoferes.CurrentRow.Cells[0].Value.ToString();
+                txtChoferNombre.Text = dgvChoferes.CurrentRow.Cells[1].Value.ToString();
+                txtChoferApellido.Text = dgvChoferes.CurrentRow.Cells[2].Value.ToString();
+                txtChoferDNI.Text = dgvChoferes.CurrentRow.Cells[3].Value.ToString();
+                txtChoferMail.Text = dgvChoferes.CurrentRow.Cells[4].Value.ToString();
+                txtChoferTelefono.Text = dgvChoferes.CurrentRow.Cells[5].Value.ToString();
+                string dir = dgvChoferes.CurrentRow.Cells[6].Value.ToString();
+                txtChoferDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
+                txtChoferAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
 
-            btnModificar.Visible = true;
-            
+                DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[7].Value.ToString());
+                string fNacimiento;
+                if (fechaNacimiento.Date.Day < 10)
+                {
+                    fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                }
+                else
+                {
+                    fNacimiento = fechaNacimiento.Date.Day.ToString();
+                }
+                if (fechaNacimiento.Date.Month < 10)
+                {
+                    fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
+                }
+                else
+                {
+                    fNacimiento += fechaNacimiento.Date.Month.ToString();
+                }
+                fNacimiento += fechaNacimiento.Date.Year.ToString();
+                txtChoferNacimiento.Text = fNacimiento;
+
+                btnModificar.Visible = true;
+
+                btnEliminarChofer.Visible = true;
+                btnAltaLogica.Visible = false;
+            }
          
         }
 
@@ -401,6 +446,57 @@ namespace UberFrba.Abm_Chofer
             }
         }
 
+        private void btnEliminarChofer_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
 
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    MostrarChoferes();
+                    btnEliminarChofer.Visible = false;
+                    btnModificar.Visible = false;
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void dgvChoferes_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnAltaLogica_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
+
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    MostrarChoferes();
+                    btnAltaLogica.Visible = false;
+                    btnModificar.Visible = false;
+
+
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
