@@ -315,7 +315,6 @@ Factura_Nro numeric(18,0) NOT NULL,
 Id_Viaje INT NOT NULL
 )
 
-
 GO
 
 CREATE PROCEDURE [HAY_TABLA].bajaLogica @table varchar(20), @id int AS
@@ -359,9 +358,18 @@ BEGIN
 END	
 GO
 
-
-
+CREATE PROCEDURE [HAY_TABLA].bajaLogicaAutomovil @Id_Automovil int AS
+BEGIN
+	UPDATE [HAY_TABLA].[Automovil] SET Auto_Habilitado = 0 WHERE Auto_Id = @Id_Automovil
+END
 GO
+
+CREATE PROCEDURE [HAY_TABLA].altaLogicaAutomovil @Id_Automovil int AS
+BEGIN
+	UPDATE [HAY_TABLA].[Automovil] SET Auto_Habilitado = 1 WHERE Auto_Id = @Id_Automovil
+END
+GO
+
 CREATE TRIGGER crearUsuarioAlCliente ON [HAY_TABLA].Cliente FOR INSERT AS
 BEGIN
 	DECLARE @username numeric(18,0)
@@ -384,7 +392,6 @@ BEGIN
 END
 GO
 
-GO
 CREATE TRIGGER crearUsuarioAlChofer ON [HAY_TABLA].Chofer FOR INSERT AS
 BEGIN
 	DECLARE @username numeric(18,0)
