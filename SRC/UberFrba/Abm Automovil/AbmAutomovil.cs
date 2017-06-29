@@ -70,7 +70,6 @@ namespace UberFrba.Abm_Automovil
             listaDePatentes.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                //Falta el filtro por chofer
                 string query;
                 if (checkVerInhabilitados.Checked)
                 {

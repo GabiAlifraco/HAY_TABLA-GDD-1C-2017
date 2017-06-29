@@ -23,6 +23,7 @@ namespace UberFrba.Abm_Rol
             InitializeComponent();
             Access = new DBAccess();
             validacion = new ValidacionesAbm();
+            dgvRoles.ReadOnly = true;
             MostrarRoles();
             txtIdSeleccionado.Text = "1";
             tbNombreRol.Text = "Administrador";
@@ -36,11 +37,13 @@ namespace UberFrba.Abm_Rol
         {
             AltaDeRol formAltaDeRol = new AltaDeRol();
             formAltaDeRol.Show();
+            this.Close();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             panelDatosRol.Visible = true;
+            panelAbmRol.Visible = false;
             MostrarFuncionalidades();
         }
 
@@ -111,6 +114,7 @@ namespace UberFrba.Abm_Rol
             }
             MostrarRoles();
             panelDatosRol.Visible = false;
+            panelAbmRol.Visible = true;
         }
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -118,6 +122,14 @@ namespace UberFrba.Abm_Rol
             txtIdSeleccionado.Text = dgvRoles.CurrentRow.Cells[0].Value.ToString();
             tbNombreRol.Text = dgvRoles.CurrentRow.Cells[1].Value.ToString();
             MostrarFuncionalidades();
+            if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+            {
+                button2.Text = "Inhabilitar";
+            }
+            else
+            {
+                button2.Text = "Habilitar";
+            }
         }
 
         private void MostrarFuncionalidades()
@@ -187,7 +199,15 @@ namespace UberFrba.Abm_Rol
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                query = String.Format("SELECT * FROM [HAY_TABLA].[Rol]");
+                string query;
+                if (checkVerInhabilitados.Checked)
+                {
+                    query = String.Format("SELECT * FROM [HAY_TABLA].[Rol]");
+                }
+                else
+                {
+                    query = String.Format("SELECT * FROM [HAY_TABLA].[Rol] WHERE Habilitado=1 ORDER BY Id_Rol");
+                }
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -208,12 +228,78 @@ namespace UberFrba.Abm_Rol
                     dgvRoles.DataSource = dtRoles;
                     dgvRoles.AutoResizeColumns();
                     dgvRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    dgvRoles.CurrentCell = dgvRoles.Rows[0].Cells[0];
+
+                    if (checkVerInhabilitados.Checked)
+                    {/// ver todos       
+                        for (int i = 0; i < dgvRoles.Rows.Count - 1; i++)
+                        {
+                            DataGridViewRow row = dgvRoles.Rows[i];
+                            if (row.Cells[2].Value.ToString() == "False")
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightSalmon;
+                            }
+                            else
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LimeGreen;
+                            }
+                            if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+                            {
+                                button2.Text = "Inhabilitar";
+                            }
+                            else
+                            {
+                                button2.Text = "Habilitar";
+                            }
+                        }
+                    }
                 }
                 catch (Exception excep)
                 {
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panelDatosRol.Visible = false;
+            panelAbmRol.Visible = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                string query;
+                if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+                {
+                    query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
+                }
+                else
+                {
+                    query = String.Format("EXEC [HAY_TABLA].[altaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
+                }
+                MessageBox.Show(query);
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            MostrarRoles();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            MostrarRoles();
         }
     }
 }

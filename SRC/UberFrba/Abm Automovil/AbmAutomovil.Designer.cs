@@ -82,7 +82,7 @@
             // 
             // txtFiltroPatente
             // 
-            this.txtFiltroPatente.Location = new System.Drawing.Point(212, 42);
+            this.txtFiltroPatente.Location = new System.Drawing.Point(3, 42);
             this.txtFiltroPatente.MaxLength = 10;
             this.txtFiltroPatente.Name = "txtFiltroPatente";
             this.txtFiltroPatente.Size = new System.Drawing.Size(100, 20);
@@ -90,7 +90,7 @@
             // 
             // txtFiltroModelo
             // 
-            this.txtFiltroModelo.Location = new System.Drawing.Point(109, 42);
+            this.txtFiltroModelo.Location = new System.Drawing.Point(212, 42);
             this.txtFiltroModelo.MaxLength = 50;
             this.txtFiltroModelo.Name = "txtFiltroModelo";
             this.txtFiltroModelo.Size = new System.Drawing.Size(100, 20);
@@ -113,7 +113,7 @@
             this.label32.AutoSize = true;
             this.label32.BackColor = System.Drawing.Color.LemonChiffon;
             this.label32.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label32.Location = new System.Drawing.Point(209, 26);
+            this.label32.Location = new System.Drawing.Point(4, 26);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(47, 13);
             this.label32.TabIndex = 68;
@@ -124,7 +124,7 @@
             this.label31.AutoSize = true;
             this.label31.BackColor = System.Drawing.Color.LemonChiffon;
             this.label31.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label31.Location = new System.Drawing.Point(106, 26);
+            this.label31.Location = new System.Drawing.Point(213, 26);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(45, 13);
             this.label31.TabIndex = 69;
@@ -135,7 +135,7 @@
             this.label30.AutoSize = true;
             this.label30.BackColor = System.Drawing.Color.LemonChiffon;
             this.label30.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label30.Location = new System.Drawing.Point(4, 26);
+            this.label30.Location = new System.Drawing.Point(107, 26);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(40, 13);
             this.label30.TabIndex = 74;
@@ -556,7 +556,7 @@
             // 
             this.comboFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFiltroMarca.FormattingEnabled = true;
-            this.comboFiltroMarca.Location = new System.Drawing.Point(3, 42);
+            this.comboFiltroMarca.Location = new System.Drawing.Point(107, 42);
             this.comboFiltroMarca.Name = "comboFiltroMarca";
             this.comboFiltroMarca.Size = new System.Drawing.Size(100, 21);
             this.comboFiltroMarca.TabIndex = 86;

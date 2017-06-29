@@ -28,16 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaDeRol));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.tbNombreRol = new System.Windows.Forms.TextBox();
             this.btnCrear = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.LemonChiffon;
             this.label1.Location = new System.Drawing.Point(22, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
@@ -47,6 +50,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.LemonChiffon;
             this.label2.Location = new System.Drawing.Point(22, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
@@ -70,25 +74,41 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(27, 148);
+            this.btnCrear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrear.Location = new System.Drawing.Point(27, 118);
             this.btnCrear.Name = "btnCrear";
-            this.btnCrear.Size = new System.Drawing.Size(75, 23);
+            this.btnCrear.Size = new System.Drawing.Size(79, 33);
             this.btnCrear.TabIndex = 4;
             this.btnCrear.Text = "Crear";
             this.btnCrear.UseVisualStyleBackColor = true;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(27, 169);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(79, 33);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AltaDeRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(348, 217);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.tbNombreRol);
             this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AltaDeRol";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaDeRol";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -102,5 +122,6 @@
         private System.Windows.Forms.CheckedListBox clbFuncionalidades;
         private System.Windows.Forms.TextBox tbNombreRol;
         private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.Button button1;
     }
 }

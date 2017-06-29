@@ -198,7 +198,7 @@ CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD] (
 GO
 
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD] (Descripcion)
-	VALUES ('ABM de Rol'), ('Registro de Usuario'), ('ABM de Cliente'), ('ABM de Automóvil'),
+	VALUES ('ABM de Rol'), ('ABM de Cliente'), ('ABM de Automóvil'),
 		('ABM de Chofer'), ('Registro de Viajes'), ('Rendición de cuenta del chofer'), ('Facturación a Cliente'), ('Listado Estadístico'), ('Ver Viajes'), ('Ver Redenciones'), ('Ver Facturación') 
 
 CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (
@@ -208,7 +208,7 @@ CREATE TABLE [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (
 GO
 
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
-	VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,2),(10,3),(11,3),(12,2)
+	VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,2),(9,3),(10,3),(11,2)
 
 INSERT INTO [HAY_TABLA].AsignacionDeTurnos(Turno_Id,Cho_Id, Auto_Id)
 SELECT Turno.Turno_Id turno_id, Chofer.[Cho_Id] chofer_id, Automovil.[Auto_Id] auto_id
@@ -367,6 +367,18 @@ GO
 CREATE PROCEDURE [HAY_TABLA].altaLogicaAutomovil @Id_Automovil int AS
 BEGIN
 	UPDATE [HAY_TABLA].[Automovil] SET Auto_Habilitado = 1 WHERE Auto_Id = @Id_Automovil
+END
+GO
+
+CREATE PROCEDURE [HAY_TABLA].bajaLogicaRol @Id_Rol int AS
+BEGIN
+	UPDATE [HAY_TABLA].[ROL] SET Habilitado = 0 WHERE Id_Rol = @Id_Rol
+END
+GO
+
+CREATE PROCEDURE [HAY_TABLA].altaLogicaRol @Id_Rol int AS
+BEGIN
+	UPDATE [HAY_TABLA].[ROL] SET Habilitado = 1 WHERE Id_Rol = @Id_Rol
 END
 GO
 

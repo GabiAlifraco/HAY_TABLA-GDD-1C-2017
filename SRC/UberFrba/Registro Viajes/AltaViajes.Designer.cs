@@ -203,7 +203,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(608, 424);
+            this.ClientSize = new System.Drawing.Size(608, 372);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label6);
@@ -221,6 +221,7 @@
             this.Controls.Add(this.listBoxChoferes);
             this.Controls.Add(this.label29);
             this.Name = "AltaViajes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaViajes";
             this.ResumeLayout(false);
             this.PerformLayout();

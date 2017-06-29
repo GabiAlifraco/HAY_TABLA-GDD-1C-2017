@@ -39,6 +39,8 @@ namespace UberFrba.Abm_Rol
                             conexion.Close();
                             crearRol();
                             this.Close();
+                            AbmRol formAbmDeRol = new AbmRol();
+                            formAbmDeRol.Show();
                         }
 
                     }
@@ -140,6 +142,13 @@ namespace UberFrba.Abm_Rol
                     sqlTransact.Rollback();
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AbmRol formAbmDeRol = new AbmRol();
+            formAbmDeRol.Show();
         }
 
         

@@ -68,8 +68,8 @@
             this.btnEliminarChofer = new System.Windows.Forms.Button();
             this.btnCrearCliente = new System.Windows.Forms.Button();
             this.panelChoferes = new System.Windows.Forms.Panel();
-            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             this.btnAltaLogica = new System.Windows.Forms.Button();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).BeginInit();
             this.panelDatosChoferSeleccionado.SuspendLayout();
             this.panelChoferes.SuspendLayout();
@@ -160,13 +160,13 @@
             // 
             // dgvChoferes
             // 
+            this.dgvChoferes.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvChoferes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChoferes.Location = new System.Drawing.Point(31, 79);
             this.dgvChoferes.Name = "dgvChoferes";
             this.dgvChoferes.Size = new System.Drawing.Size(1034, 263);
             this.dgvChoferes.TabIndex = 68;
             this.dgvChoferes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChoferes_CellClick);
-            this.dgvChoferes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChoferes_CellContentClick_1);
             // 
             // panelDatosChoferSeleccionado
             // 
@@ -482,16 +482,6 @@
             this.panelChoferes.Size = new System.Drawing.Size(1114, 405);
             this.panelChoferes.TabIndex = 82;
             // 
-            // checkVerInhabilitados
-            // 
-            this.checkVerInhabilitados.AutoSize = true;
-            this.checkVerInhabilitados.Location = new System.Drawing.Point(31, 57);
-            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
-            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
-            this.checkVerInhabilitados.TabIndex = 69;
-            this.checkVerInhabilitados.Text = "Ver inhabilitados";
-            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
-            // 
             // btnAltaLogica
             // 
             this.btnAltaLogica.Location = new System.Drawing.Point(357, 348);
@@ -502,6 +492,16 @@
             this.btnAltaLogica.UseVisualStyleBackColor = true;
             this.btnAltaLogica.Visible = false;
             this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
+            // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(31, 57);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
+            this.checkVerInhabilitados.TabIndex = 69;
+            this.checkVerInhabilitados.Text = "Ver inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
             // 
             // AbmChofer
             // 
@@ -514,6 +514,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.Name = "AbmChofer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmChofer";
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).EndInit();
             this.panelDatosChoferSeleccionado.ResumeLayout(false);

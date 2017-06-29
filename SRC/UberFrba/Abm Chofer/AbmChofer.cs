@@ -245,11 +245,6 @@ namespace UberFrba.Abm_Chofer
          
         }
 
-        private void dgvChoferes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void btnGuardarDatos_Click(object sender, EventArgs e)
         {
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
@@ -467,11 +462,6 @@ namespace UberFrba.Abm_Chofer
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void dgvChoferes_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void btnAltaLogica_Click(object sender, EventArgs e)

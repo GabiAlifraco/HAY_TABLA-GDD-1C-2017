@@ -29,6 +29,8 @@ DROP PROCEDURE [HAY_TABLA].[altaLogica]
 DROP PROCEDURE [HAY_TABLA].altaLogicaRolDelUsuario
 DROP PROCEDURE [HAY_TABLA].bajaLogicaAutomovil
 DROP PROCEDURE [HAY_TABLA].altaLogicaAutomovil
+DROP PROCEDURE [HAY_TABLA].bajaLogicaRol
+DROP PROCEDURE [HAY_TABLA].altaLogicaRol
 --DROP TRIGGER [HAY_TABLA].crearUsuarioAlCliente
 --DROP TRIGGER [HAY_TABLA].crearUsuarioAlChofer
 
