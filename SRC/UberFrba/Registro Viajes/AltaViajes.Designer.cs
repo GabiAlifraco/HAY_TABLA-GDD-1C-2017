@@ -50,9 +50,9 @@
             // listBoxChoferes
             // 
             this.listBoxChoferes.FormattingEnabled = true;
-            this.listBoxChoferes.Location = new System.Drawing.Point(45, 69);
+            this.listBoxChoferes.Location = new System.Drawing.Point(12, 69);
             this.listBoxChoferes.Name = "listBoxChoferes";
-            this.listBoxChoferes.Size = new System.Drawing.Size(114, 134);
+            this.listBoxChoferes.Size = new System.Drawing.Size(147, 134);
             this.listBoxChoferes.TabIndex = 74;
             this.listBoxChoferes.SelectedIndexChanged += new System.EventHandler(this.listBoxChoferes_SelectedIndexChanged);
             // 
@@ -60,7 +60,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label29.Location = new System.Drawing.Point(42, 53);
+            this.label29.Location = new System.Drawing.Point(12, 53);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(38, 13);
             this.label29.TabIndex = 73;
@@ -100,7 +100,7 @@
             this.txtAuto.Enabled = false;
             this.txtAuto.Location = new System.Drawing.Point(333, 70);
             this.txtAuto.Name = "txtAuto";
-            this.txtAuto.Size = new System.Drawing.Size(100, 20);
+            this.txtAuto.Size = new System.Drawing.Size(116, 20);
             this.txtAuto.TabIndex = 78;
             // 
             // txtCantidadKm
@@ -166,7 +166,7 @@
             this.listBoxCliente.FormattingEnabled = true;
             this.listBoxCliente.Location = new System.Drawing.Point(455, 70);
             this.listBoxCliente.Name = "listBoxCliente";
-            this.listBoxCliente.Size = new System.Drawing.Size(114, 134);
+            this.listBoxCliente.Size = new System.Drawing.Size(141, 134);
             this.listBoxCliente.TabIndex = 87;
             // 
             // label6

@@ -22,9 +22,6 @@ namespace UberFrba.Menu
         public DBAccess Access { get; set; }
         private string idUsuario = "";
         private string idRol = "";
-        private List<KeyValuePair<string, int>> listFunciones = new List<KeyValuePair<string, int>>()
-        {
-        };
 
         public MenuFuncionesDelRol(string idUser, int idRolUsuario)
         {
@@ -48,7 +45,6 @@ namespace UberFrba.Menu
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        // listFunciones.Add((new KeyValuePair<string, int>(dr["Descripcion"].ToString(), (int)dr["Id_Funcionalidad"])));
                         listBoxFunciones.Items.Add((dr["Descripcion"].ToString()));
                     }
 

@@ -29,6 +29,9 @@ namespace UberFrba.Login
         public System.Byte[] Contraseña { get; set; }
         public int Intentos { get; set; }
         public string id_Usuario { get; set; }
+        private List<KeyValuePair<string, int>> listRoles = new List<KeyValuePair<string, int>>()
+        {
+        };
 
         public Login()
         {
@@ -172,11 +175,47 @@ namespace UberFrba.Login
             if (CompararContraseña(contraseña_real, password_txt.Text))
             {
                 ResetearIntentosDeIngreso();
-               // MessageBox.Show("Bienvenido/a" + " " + user_txt.Text, "EXITO");
-               // Roles.Rol roles = new Roles.Rol(user_txt.Text);
-                MenuGeneral formularioMenu = new MenuGeneral(id_Usuario, user_txt.Text);
+
+                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+                {
+                    string query;
+                    string query2;
+                    string query3;
+                    query = String.Format("SELECT COUNT(*) FROM [HAY_TABLA].[USUARIO_POR_ROL] AS UR INNER JOIN [HAY_TABLA].[ROL] AS R ON R.Id_Rol = UR.Id_Rol WHERE UR.Nombre_Usuario ='" + user_txt.Text + "' AND UR.Habilitado = 1");
+                    query2 = String.Format("SELECT UR.[Id_Rol], R.Id_Rol, R.Nombre FROM [HAY_TABLA].[USUARIO_POR_ROL] AS UR INNER JOIN [HAY_TABLA].[ROL] AS R ON R.Id_Rol = UR.Id_Rol  WHERE UR.Nombre_Usuario =" + "'" + user_txt.Text + "'" + "AND UR.Habilitado = 1");
+                    query3 = String.Format("SELECT R.Id_Rol FROM [HAY_TABLA].[USUARIO_POR_ROL] AS UR INNER JOIN [HAY_TABLA].[ROL] AS R ON R.Id_Rol = UR.Id_Rol  WHERE UR.Nombre_Usuario =" + "'" + user_txt.Text + "'" + "AND UR.Habilitado = 1");
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    Int32 cantidadDeRoles = (Int32)cmd.ExecuteScalar();
+                    SqlCommand cmd2 = new SqlCommand(query2, conexion);
+                    SqlCommand cmd3 = new SqlCommand(query3, conexion);
+                    Int32 RolquePosee = (Int32)cmd3.ExecuteScalar();
+
+                    if (cantidadDeRoles > 1)
+                    {
+                        MenuGeneral formularioMenu = new MenuGeneral(id_Usuario, user_txt.Text);
+                        formularioMenu.Show();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            SqlDataReader dr = cmd2.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                listRoles.Add((new KeyValuePair<string, int>(dr["Nombre"].ToString(), (int)dr["Id_Rol"])));
+                            }
+                            MenuFuncionesDelRol formularioMenuFuncionesRol = new MenuFuncionesDelRol(id_Usuario, listRoles[0].Value);
+                            formularioMenuFuncionesRol.Show();
+                        }
+                        catch (Exception excep)
+                        {
+                            MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+
                 this.Hide();
-                formularioMenu.Show();
             }
             else
             {

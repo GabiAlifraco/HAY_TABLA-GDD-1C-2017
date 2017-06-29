@@ -227,6 +227,8 @@ CREATE TABLE [HAY_TABLA].Viaje(
 	Vi_CantKilometros numeric(18, 0),
 	Vi_Inicio datetime,
 	Vi_Fin datetime,
+	Rendicion_Nro numeric(18,0),
+	Factura_Nro numeric(18,0),
 	Vi_ImporteTotal numeric(18, 2)
 	CONSTRAINT PKViaje PRIMARY KEY (Id_Viaje),
 	FOREIGN KEY (Vi_IdChofer) REFERENCES [HAY_TABLA].Chofer(Cho_Id),
@@ -234,7 +236,7 @@ CREATE TABLE [HAY_TABLA].Viaje(
 	/*FOREIGN KEY (Vi_AutoPatente) REFERENCES [HAY_TABLA].Automovil(Auto_Patente),*/
 	FOREIGN KEY (Vi_IdTurno) REFERENCES [HAY_TABLA].Turno(Turno_Id)
 );
-INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTurno,Vi_CantKilometros,Vi_Inicio,Vi_Fin,Vi_ImporteTotal)
+INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTurno,Vi_CantKilometros,Vi_Inicio,Vi_Fin,Rendicion_Nro,Factura_Nro,Vi_ImporteTotal)
 SELECT 
 	Chofer.Cho_Id,
 	Cliente.Cli_Id,
@@ -243,6 +245,8 @@ SELECT
 	m1.Viaje_Cant_Kilometros,
 	m1.Viaje_Fecha as Inicio,/*INICIO*/
 	m1.Viaje_Fecha as Fin,
+	Rendicion_Nro,
+	Factura_Nro = (SELECT TOP 1 Factura_Nro FROM gd_esquema.Maestra g2 WHERE m1.Cliente_Dni = g2.Cliente_Dni AND m1.Chofer_Dni = g2.Chofer_Dni AND Factura_Nro IS NOT NULL AND m1.Viaje_Fecha = g2.Viaje_Fecha),
 	(m1.Turno_Precio_Base + m1.Turno_Valor_Kilometro * m1.Viaje_Cant_Kilometros) AS IMPORTE
 FROM [gd_esquema].[Maestra] m1
 INNER JOIN Hay_TABLA.Chofer ON Chofer.Cho_DNI = m1.Chofer_Dni
@@ -256,7 +260,8 @@ GROUP BY
 	m1.Viaje_Fecha,
 	m1.Turno_Precio_Base,
 	m1.Turno_Valor_Kilometro,
-	Turno.Turno_Id
+	Turno.Turno_Id,
+	Rendicion_Nro
 
 
 
@@ -265,12 +270,13 @@ Rendicion_Nro numeric(18,0) Identity(1,1) NOT NULL,
 Cho_Id int NOT NULL,
 Turno_Id int NOT NULL,
 Rendicion_Fecha datetime DEFAULT GETDATE() NOT NULL,
-Rendicion_Total numeric(18,2) NOT NULL
+Rendicion_Total numeric(18,2) NOT NULL,
+PorcentajeDePago numeric(4,2) NOT NULL
 )
 
 SET IDENTITY_INSERT HAY_TABLA.Rendicion ON
-INSERT INTO HAY_TABLA.Rendicion(Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha, Rendicion_Total)
-SELECT DISTINCT(Rendicion_Nro), Cho_Id, Turno_Id, Rendicion_Fecha,SUM(Rendicion_Importe) 
+INSERT INTO HAY_TABLA.Rendicion(Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha, Rendicion_Total,PorcentajeDePago)
+SELECT DISTINCT(Rendicion_Nro), Cho_Id, Turno_Id, Rendicion_Fecha,SUM(Rendicion_Importe),30 
 FROM gd_esquema.Maestra
 INNER JOIN [HAY_TABLA].[Chofer] chofer ON chofer.Cho_DNI = maestra.Chofer_Dni
 INNER JOIN [HAY_TABLA].[Turno] turno ON turno.Turno_Descripcion = maestra.Turno_Descripcion
@@ -303,19 +309,6 @@ SET IDENTITY_INSERT [HAY_TABLA].Factura OFF
 
 GO
 
-CREATE TABLE [HAY_TABLA].Viaje_Rendicion(
-Rendicion_Nro numeric(18,0) NOT NULL,
-Id_Viaje INT NOT NULL,
-PorcentajeDePago numeric(4,2) NOT NULL,
-)
-GO
-
-CREATE TABLE [HAY_TABLA].Viaje_Facturacion(
-Factura_Nro numeric(18,0) NOT NULL,
-Id_Viaje INT NOT NULL
-)
-
-GO
 
 CREATE PROCEDURE [HAY_TABLA].bajaLogica @table varchar(20), @id int AS
 BEGIN
