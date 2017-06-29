@@ -255,6 +255,8 @@ INNER JOIN Hay_TABLA.Turno ON Turno.Turno_Descripcion = m1.Turno_Descripcion
 GROUP BY 
 	Chofer.Cho_Id,
 	Cliente.Cli_Id,
+	m1.Cliente_Dni,
+	m1.Chofer_Dni,
 	m1.Auto_Patente,
 	m1.Viaje_Cant_Kilometros,
 	m1.Viaje_Fecha,
