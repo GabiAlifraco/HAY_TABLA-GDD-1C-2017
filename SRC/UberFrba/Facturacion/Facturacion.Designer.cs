@@ -93,6 +93,7 @@
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 49;
             this.label2.Text = "Cliente:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // dgvFactura
             // 
@@ -143,6 +144,7 @@
             this.listBoxCliente.Name = "listBoxCliente";
             this.listBoxCliente.Size = new System.Drawing.Size(187, 316);
             this.listBoxCliente.TabIndex = 92;
+            this.listBoxCliente.SelectedIndexChanged += new System.EventHandler(this.listBoxCliente_SelectedIndexChanged);
             // 
             // btnFacturar
             // 

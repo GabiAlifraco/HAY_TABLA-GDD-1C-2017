@@ -177,9 +177,10 @@ namespace UberFrba.Facturacion
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
-            DateTime inicio = DateTime.Parse(txtFechaI.Text);
-            DateTime final = DateTime.Parse(txtFechaF.Text);
+
             if (validarFecha(txtFechaI.Text, "La fecha de inicio") && validarFecha(txtFechaF.Text, "La fecha de fin")) {
+                DateTime inicio = DateTime.Parse(txtFechaI.Text);
+                DateTime final = DateTime.Parse(txtFechaF.Text);
                 if (final > inicio)
                 {
                     if (listBoxCliente.SelectedIndex != -1)
@@ -194,6 +195,16 @@ namespace UberFrba.Facturacion
                     MessageBox.Show("La fecha de inicio debe ser menor que la fecha de fin");
                 }
             }
+        }
+
+        private void listBoxCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -15,7 +15,7 @@ using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 using UberFrba.Facturacion;
 using UberFrba.Registro_Viajes;
-
+using UberFrba.Rendicion_Viajes;
 
 namespace UberFrba.Menu
 {
@@ -97,6 +97,10 @@ namespace UberFrba.Menu
                 case "Facturación a Cliente":
                     frmFacturacion formFacutracion = new frmFacturacion();
                     formFacutracion.Show();
+                    break;
+                case "Rendición de cuenta del chofer":
+                    frmRendicion formRendicion = new frmRendicion();
+                    formRendicion.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");
