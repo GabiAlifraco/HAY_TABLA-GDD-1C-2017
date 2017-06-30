@@ -13,7 +13,9 @@ using UberFrba.Abm_Chofer;
 using UberFrba.Abm_Cliente;
 using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
+using UberFrba.Facturacion;
 using UberFrba.Registro_Viajes;
+
 
 namespace UberFrba.Menu
 {
@@ -91,6 +93,10 @@ namespace UberFrba.Menu
                 case "Registro de Viajes":
                     AltaViajes formAltaViajes = new AltaViajes();
                     formAltaViajes.Show();
+                    break;
+                case "Facturación a Cliente":
+                    frmFacturacion formFacutracion = new frmFacturacion();
+                    formFacutracion.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");
