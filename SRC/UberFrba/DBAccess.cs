@@ -13,31 +13,12 @@ namespace UberFrba
     {
         public string Conexion { get; set; }
 
-        public DBAccess() 
-        {            
+        public DBAccess()
+        {
             Conexion = @"" + cadenaConexion() + "";
         }
 
-        static public string fechaSystem()
-        {
-            StreamReader config = new StreamReader("../../configuracion.txt");
-            string linea = "";
-            string buffer = config.ReadLine();
-            while (buffer != null)
-            {
-                if (buffer.Substring(0, 5) == "Fecha")
-                {
-                    linea = buffer;
-                }
-                buffer = config.ReadLine();
-            }
-            config.Close();
-
-            return (linea.Substring(7, 2) + "-" + linea.Substring(10, 2)) + "-" + linea.Substring(13, 4); ;
-
-        }
-
-        static public string cadenaConexion()
+        public string cadenaConexion()
         {
             string user = "";
             string pass = "";
@@ -71,5 +52,50 @@ namespace UberFrba
             config.Close();
             return "Data Source=" + dtSrc + ";Initial Catalog=" + iniCtlg + ";User ID=" + user + ";Password=" + pass;
         }
+
+        public string fechaCompleta()
+        {
+            string fecha;
+            StreamReader config = new StreamReader("../../configuracion.txt");
+            string buffer = "";
+            buffer = config.ReadLine();
+            fecha = buffer.Substring(7, 10);
+            config.Close();
+            return fecha;
+        }
+
+        public int fechaAño()
+        {
+            int fecha;
+            StreamReader config = new StreamReader("../../configuracion.txt");
+            string buffer = "";
+            buffer = config.ReadLine();
+            fecha = Int32.Parse(buffer.Substring(13, 4));
+            config.Close();
+            return fecha;
+        }
+
+        public int fechaMes()
+        {
+            int fecha;
+            StreamReader config = new StreamReader("../../configuracion.txt");
+            string buffer = "";
+            buffer = config.ReadLine();
+            fecha = Int32.Parse(buffer.Substring(10, 2));
+            config.Close();
+            return fecha;
+        }
+
+        public int fechaDia()
+        {
+            int fecha;
+            StreamReader config = new StreamReader("../../configuracion.txt");
+            string buffer = "";
+            buffer = config.ReadLine();
+            fecha = Int32.Parse(buffer.Substring(7, 2));
+            config.Close();
+            return fecha;
+        }
+
     }
 }

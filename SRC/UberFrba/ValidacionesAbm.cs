@@ -9,9 +9,10 @@ namespace UberFrba
 {
     public class ValidacionesAbm
     {
+        public DBAccess Access { get; set; }
         public ValidacionesAbm()
         {
-         
+            Access = new DBAccess();
         }
 
 
@@ -38,7 +39,8 @@ namespace UberFrba
             }
             else
             {
-                DateTime hoy = DateTime.Today;
+                //DateTime hoy = DateTime.Today;
+                DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
                 if (hoy > value)
                 {
                     return true;
