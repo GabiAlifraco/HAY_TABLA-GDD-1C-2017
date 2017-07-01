@@ -14,6 +14,7 @@ using UberFrba.Abm_Cliente;
 using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 using UberFrba.Facturacion;
+using UberFrba.Listado_Estadistico;
 using UberFrba.Registro_Viajes;
 using UberFrba.Rendicion_Viajes;
 
@@ -101,6 +102,10 @@ namespace UberFrba.Menu
                 case "Rendición de cuenta del chofer":
                     frmRendicion formRendicion = new frmRendicion();
                     formRendicion.Show();
+                    break;
+                case "Listado Estadístico":
+                    ListadoEstadistico formListadoEstadistico = new ListadoEstadistico();
+                    formListadoEstadistico.Show();
                     break;
                 default:
                     Console.WriteLine("Default case");
