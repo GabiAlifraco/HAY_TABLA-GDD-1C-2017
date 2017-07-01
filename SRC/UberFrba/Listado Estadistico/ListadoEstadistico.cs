@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -24,6 +21,8 @@ namespace UberFrba.Listado_Estadistico
         {
             InitializeComponent();
             Access = new DBAccess();
+            cbListado.SelectedIndex = 0;
+            cbTrimestre.SelectedIndex = 0;
         }
 
         private void cbListado_SelectedIndexChanged(object sender, EventArgs e)
@@ -237,10 +236,15 @@ namespace UberFrba.Listado_Estadistico
         private void nudAnio_ValueChanged(object sender, EventArgs e)
         {
             anio = nudAnio.Value.ToString();
+            actualizarTrimestre();
             mostrarTop5();
         }
 
         private void cbTrimestre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizarTrimestre();
+        }
+        private void actualizarTrimestre()
         {
             switch (cbTrimestre.Text)
             {//actualizo el trimestre y muestro el top 5 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoEstadistico));
             this.nudAnio = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +42,9 @@
             // 
             // nudAnio
             // 
-            this.nudAnio.Location = new System.Drawing.Point(56, 81);
+            this.nudAnio.BackColor = System.Drawing.Color.LemonChiffon;
+            this.nudAnio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudAnio.Location = new System.Drawing.Point(71, 76);
             this.nudAnio.Maximum = new decimal(new int[] {
             2020,
             0,
@@ -53,7 +56,7 @@
             0,
             0});
             this.nudAnio.Name = "nudAnio";
-            this.nudAnio.Size = new System.Drawing.Size(120, 20);
+            this.nudAnio.Size = new System.Drawing.Size(115, 26);
             this.nudAnio.TabIndex = 10;
             this.nudAnio.Value = new decimal(new int[] {
             2015,
@@ -65,47 +68,56 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(361, 83);
+            this.label3.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(292, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.Size = new System.Drawing.Size(79, 20);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Trimestre";
+            this.label3.Text = "Trimestre:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 83);
+            this.label2.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(23, 78);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.Size = new System.Drawing.Size(42, 20);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Año";
+            this.label2.Text = "Año:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 21);
+            this.label1.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(23, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(108, 20);
             this.label1.TabIndex = 11;
             this.label1.Text = "Ver TOP 5 de:";
             // 
             // cbTrimestre
             // 
+            this.cbTrimestre.BackColor = System.Drawing.Color.LemonChiffon;
+            this.cbTrimestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTrimestre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTrimestre.FormattingEnabled = true;
             this.cbTrimestre.Items.AddRange(new object[] {
             "Enero - Marzo",
             "Abril - Junio",
             "Julio - Septiembre",
             "Octubre - Diciembre"});
-            this.cbTrimestre.Location = new System.Drawing.Point(415, 80);
+            this.cbTrimestre.Location = new System.Drawing.Point(377, 75);
             this.cbTrimestre.Name = "cbTrimestre";
-            this.cbTrimestre.Size = new System.Drawing.Size(127, 21);
+            this.cbTrimestre.Size = new System.Drawing.Size(165, 28);
             this.cbTrimestre.TabIndex = 9;
-            this.cbTrimestre.Text = "Enero - Marzo";
             this.cbTrimestre.SelectedIndexChanged += new System.EventHandler(this.cbTrimestre_SelectedIndexChanged);
             // 
             // dgvListado
             // 
+            this.dgvListado.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListado.Location = new System.Drawing.Point(24, 107);
             this.dgvListado.Name = "dgvListado";
@@ -115,15 +127,18 @@
             // 
             // cbListado
             // 
+            this.cbListado.BackColor = System.Drawing.Color.LemonChiffon;
+            this.cbListado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbListado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbListado.FormattingEnabled = true;
             this.cbListado.Items.AddRange(new object[] {
             "Clientes con mayor consumo",
             "Cliente que usó más veces el mismo automovil en sus viajes",
             "Choferes con el viaje más largo realizado",
             "Chóferes con mayor recaudación"});
-            this.cbListado.Location = new System.Drawing.Point(24, 37);
+            this.cbListado.Location = new System.Drawing.Point(24, 43);
             this.cbListado.Name = "cbListado";
-            this.cbListado.Size = new System.Drawing.Size(311, 21);
+            this.cbListado.Size = new System.Drawing.Size(518, 28);
             this.cbListado.TabIndex = 7;
             this.cbListado.SelectedIndexChanged += new System.EventHandler(this.cbListado_SelectedIndexChanged);
             // 
@@ -131,6 +146,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(566, 305);
             this.Controls.Add(this.nudAnio);
             this.Controls.Add(this.label3);
@@ -140,6 +157,7 @@
             this.Controls.Add(this.dgvListado);
             this.Controls.Add(this.cbListado);
             this.Name = "ListadoEstadistico";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListadoEstadistico";
             ((System.ComponentModel.ISupportInitialize)(this.nudAnio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
