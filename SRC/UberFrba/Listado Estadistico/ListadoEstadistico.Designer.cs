@@ -56,6 +56,7 @@
             0,
             0});
             this.nudAnio.Name = "nudAnio";
+            this.nudAnio.ReadOnly = true;
             this.nudAnio.Size = new System.Drawing.Size(115, 26);
             this.nudAnio.TabIndex = 10;
             this.nudAnio.Value = new decimal(new int[] {

@@ -68,7 +68,7 @@ namespace UberFrba.Listado_Estadistico
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT TOP 5  Vi_IdCliente ID_Cliente, Cli_Apellido Apellido, Cli_Nombre Nombre, sum (Vi_ImporteTotal) totales FROM HAY_TABLA.Viaje V JOIN HAY_TABLA.Cliente C ON C.Cli_Id = V.Vi_IdCliente WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Cli_Apellido, Cli_Nombre, Vi_IdCliente ORDER BY totales DESC");
+                string query = String.Format("SELECT TOP 5  Vi_IdCliente ID_Cliente, Cli_Apellido Apellido, Cli_Nombre Nombre, sum (Vi_ImporteTotal) totales FROM HAY_TABLA.Viaje V JOIN HAY_TABLA.Cliente C ON C.Cli_Id = V.Vi_IdCliente WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Cli_Apellido, Cli_Nombre, Vi_IdCliente ORDER BY totales DESC, ID_Cliente");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -113,7 +113,7 @@ namespace UberFrba.Listado_Estadistico
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT TOP 5 Vi_IdCliente ID_Cliente, Cli_Apellido Apellido, Cli_Nombre Nombre, Vi_AutoPatente AutoUtilizado, COUNT (Vi_Inicio) ViajesRealizados FROM [GD1C2017].[HAY_TABLA].[Viaje] V JOIN [GD1C2017].[HAY_TABLA].[Cliente] C ON  V.Vi_IdCliente = C.Cli_Id WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Cli_Apellido, Cli_Nombre, Vi_IdCliente, Vi_AutoPatente ORDER BY ViajesRealizados DESC");
+                string query = String.Format("SELECT TOP 5 Vi_IdCliente ID_Cliente, Cli_Apellido Apellido, Cli_Nombre Nombre, Vi_AutoPatente AutoUtilizado, COUNT (Vi_Inicio) ViajesRealizados FROM [GD1C2017].[HAY_TABLA].[Viaje] V JOIN [GD1C2017].[HAY_TABLA].[Cliente] C ON  V.Vi_IdCliente = C.Cli_Id WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Cli_Apellido, Cli_Nombre, Vi_IdCliente, Vi_AutoPatente ORDER BY ViajesRealizados DESC, ID_Cliente");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -206,7 +206,7 @@ namespace UberFrba.Listado_Estadistico
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT TOP 5 Vi_IdChofer ID_Chofer, Cho_Apellido Apellido, Cho_Nombre Nombre, SUM (Vi_ImporteTotal) TotalRecaudado FROM HAY_TABLA.Viaje V JOIN HAY_TABLA.Chofer C ON V.Vi_IdChofer = C.Cho_Id WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Vi_IdChofer, Cho_Apellido, Cho_Nombre ORDER BY TotalRecaudado DESC");
+                string query = String.Format("SELECT TOP 5 Vi_IdChofer ID_Chofer, Cho_Apellido Apellido, Cho_Nombre Nombre, SUM (Vi_ImporteTotal) TotalRecaudado FROM HAY_TABLA.Viaje V JOIN HAY_TABLA.Chofer C ON V.Vi_IdChofer = C.Cho_Id WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Vi_IdChofer, Cho_Apellido, Cho_Nombre ORDER BY TotalRecaudado DESC, ID_Chofer");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -237,13 +237,13 @@ namespace UberFrba.Listado_Estadistico
         {
             anio = nudAnio.Value.ToString();
             actualizarTrimestre();
-            mostrarTop5();
         }
 
         private void cbTrimestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             actualizarTrimestre();
         }
+
         private void actualizarTrimestre()
         {
             switch (cbTrimestre.Text)
