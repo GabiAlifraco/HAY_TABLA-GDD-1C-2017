@@ -86,12 +86,6 @@
     <Compile Include="Abm Rol\AltaDeRol.Designer.cs">
       <DependentUpon>AltaDeRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Turno\AbmTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +99,10 @@
       <DependentUpon>AltaTurnos.cs</DependentUpon>
     </Compile>
     <Compile Include="DBAccess.cs" />
+    <Compile Include="Facturacion\Facturacion.cs" />
+    <Compile Include="Facturacion\Facturacion.Designer.cs">
+      <DependentUpon>Facturacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facturacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,17 +145,15 @@
     <Compile Include="Registro Viajes\AltaViajes.Designer.cs">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Viajes\RegistroViajes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Viajes\RegistroViajes.Designer.cs">
-      <DependentUpon>RegistroViajes.cs</DependentUpon>
-    </Compile>
     <Compile Include="Rendicion Viajes\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion Viajes\frmRendicion.cs" />
+    <Compile Include="Rendicion Viajes\frmRendicion.Designer.cs">
+      <DependentUpon>frmRendicion.cs</DependentUpon>
     </Compile>
     <Compile Include="Turno.cs" />
     <Compile Include="ValidacionesAbm.cs" />
@@ -182,14 +178,14 @@
     <EmbeddedResource Include="Abm Rol\AltaDeRol.resx">
       <DependentUpon>AltaDeRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\AbmTurno.resx">
       <DependentUpon>AbmTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\AltaTurnos.resx">
       <DependentUpon>AltaTurnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\Facturacion.resx">
+      <DependentUpon>Facturacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx" />
     <EmbeddedResource Include="Menu\MenuFuncionesDelRol.resx">
@@ -211,8 +207,8 @@
     <EmbeddedResource Include="Registro Viajes\AltaViajes.resx">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Viajes\RegistroViajes.resx">
-      <DependentUpon>RegistroViajes.cs</DependentUpon>
+    <EmbeddedResource Include="Rendicion Viajes\frmRendicion.resx">
+      <DependentUpon>frmRendicion.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -227,7 +223,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Facturacion\fondo_1.jpg" />
+    <Content Include="Facturacion\fondo_2.jpg" />
+    <Content Include="Menu\fondo_claro.jpg" />
+    <Content Include="Menu\fondo_uber.jpg" />
+    <Content Include="Menu\fondo_uber2.jpg" />
+    <Content Include="Menu\uber_fondo3.png" />
+    <Content Include="Rendicion Viajes\fondo_1.jpg" />
+    <Content Include="Rendicion Viajes\fondo_2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
