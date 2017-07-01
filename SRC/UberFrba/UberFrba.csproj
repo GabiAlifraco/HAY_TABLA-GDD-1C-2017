@@ -99,21 +99,11 @@
       <DependentUpon>AltaTurnos.cs</DependentUpon>
     </Compile>
     <Compile Include="DBAccess.cs" />
-    <Compile Include="Facturacion\Facturacion.cs" />
+    <Compile Include="Facturacion\Facturacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Facturacion\Facturacion.Designer.cs">
       <DependentUpon>Facturacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Facturacion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Facturacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -145,13 +135,9 @@
     <Compile Include="Registro Viajes\AltaViajes.Designer.cs">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.cs">
+    <Compile Include="Rendicion Viajes\frmRendicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Rendicion Viajes\frmRendicion.cs" />
     <Compile Include="Rendicion Viajes\frmRendicion.Designer.cs">
       <DependentUpon>frmRendicion.cs</DependentUpon>
     </Compile>
