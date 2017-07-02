@@ -240,7 +240,7 @@
             // txtChoferTelefono
             // 
             this.txtChoferTelefono.Location = new System.Drawing.Point(132, 79);
-            this.txtChoferTelefono.MaxLength = 18;
+            this.txtChoferTelefono.MaxLength = 10;
             this.txtChoferTelefono.Name = "txtChoferTelefono";
             this.txtChoferTelefono.Size = new System.Drawing.Size(100, 20);
             this.txtChoferTelefono.TabIndex = 66;
@@ -249,7 +249,7 @@
             // txtChoferDNI
             // 
             this.txtChoferDNI.Location = new System.Drawing.Point(131, 40);
-            this.txtChoferDNI.MaxLength = 10;
+            this.txtChoferDNI.MaxLength = 8;
             this.txtChoferDNI.Name = "txtChoferDNI";
             this.txtChoferDNI.Size = new System.Drawing.Size(100, 20);
             this.txtChoferDNI.TabIndex = 66;
@@ -477,7 +477,7 @@
             this.panelChoferes.Controls.Add(this.btnFiltrar);
             this.panelChoferes.Controls.Add(this.txtFiltroApellido);
             this.panelChoferes.Controls.Add(this.txtFiltroNombre);
-            this.panelChoferes.Location = new System.Drawing.Point(98, 23);
+            this.panelChoferes.Location = new System.Drawing.Point(125, 29);
             this.panelChoferes.Name = "panelChoferes";
             this.panelChoferes.Size = new System.Drawing.Size(1114, 405);
             this.panelChoferes.TabIndex = 82;
@@ -510,7 +510,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1188, 550);
+            this.ClientSize = new System.Drawing.Size(1273, 491);
             this.Controls.Add(this.panelChoferes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelDatosChoferSeleccionado);

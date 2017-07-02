@@ -54,7 +54,7 @@ namespace UberFrba.Abm_Cliente
                     {
                         conexion.Open();
 
-                        if (NoExiste(conexion, txtClienteDNINuevo.Text.Trim(), "", "Cli_DNI", "DNI") && NoExiste(conexion, txtClienteTelefonoNuevo.Text.Trim(), "", "Cli_Telefono", "Telefono"))
+                        if (Validador.NoExiste(conexion, txtClienteDNINuevo.Text.Trim(), "", "Cho_DNI", "DNI", "Chofer") && NoExiste(conexion, txtClienteDNINuevo.Text.Trim(), "", "Cli_DNI", "DNI") && NoExiste(conexion, txtClienteTelefonoNuevo.Text.Trim(), "", "Cli_Telefono", "Telefono"))
                         {
                             SqlDataReader dr = cmd.ExecuteReader();
                             MessageBox.Show("El cliente fue creado exitosamente");
@@ -116,7 +116,7 @@ namespace UberFrba.Abm_Cliente
                     try
                     {
                         conexion.Open();
-                        if (NoExiste(conexion, txtClienteDNI.Text.Trim(), dgvClientes.CurrentRow.Cells[3].Value.ToString(), "Cli_DNI", "DNI") && NoExiste(conexion, txtClienteTelefono.Text.Trim(), dgvClientes.CurrentRow.Cells[5].Value.ToString(), "Cli_Telefono", "Telefono"))
+                        if (Validador.NoExiste(conexion, txtClienteDNI.Text.Trim(), "", "Cho_DNI", "DNI", "Chofer") && NoExiste(conexion, txtClienteDNI.Text.Trim(), dgvClientes.CurrentRow.Cells[3].Value.ToString(), "Cli_DNI", "DNI") && NoExiste(conexion, txtClienteTelefono.Text.Trim(), dgvClientes.CurrentRow.Cells[5].Value.ToString(), "Cli_Telefono", "Telefono"))
                         {
                             SqlDataReader dr = cmd.ExecuteReader();
                             estadoInicial();
