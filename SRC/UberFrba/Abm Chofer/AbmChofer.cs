@@ -253,7 +253,7 @@ namespace UberFrba.Abm_Chofer
                 try
                 {
 
-                    if (NoExiste(conexion, txtChoferDNI.Text.Trim(), dgvChoferes.CurrentRow.Cells[3].Value.ToString(), "Cho_DNI", "DNI") && NoExiste(conexion, txtChoferTelefono.Text.Trim(), dgvChoferes.CurrentRow.Cells[5].Value.ToString(), "Cho_Telefono", "Telefono"))
+                    if (Validador.NoExiste(conexion, txtChoferDNI.Text.Trim(), "", "Cli_DNI", "DNI", "Cliente") && NoExiste(conexion, txtChoferDNI.Text.Trim(), dgvChoferes.CurrentRow.Cells[3].Value.ToString(), "Cho_DNI", "DNI") && NoExiste(conexion, txtChoferTelefono.Text.Trim(), dgvChoferes.CurrentRow.Cells[5].Value.ToString(), "Cho_Telefono", "Telefono"))
                     {
                         conexion.Close();
                         guardarChofer();
@@ -321,7 +321,7 @@ namespace UberFrba.Abm_Chofer
                         command.Parameters.Add(param);
 
                         param = new SqlParameter("@Telefono", txtChoferTelefono.Text);
-                        param.SqlDbType = System.Data.SqlDbType.Int;
+                        param.SqlDbType = System.Data.SqlDbType.BigInt;
                         command.Parameters.Add(param);
 
                         param = new SqlParameter("@Direccion", txtChoferDireccion.Text + " " + txtChoferAltura.Text);

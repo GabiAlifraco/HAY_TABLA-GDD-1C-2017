@@ -129,6 +129,7 @@ Y se emitira un listado con los viajes correspondientes a la rendicion.Indicando
 -Fecha del viaje
 -Importe del viaje
 -Rendicion del viaje
+-Porcentaje de pago
 
 Tambien se calculara:
 -La cantidad de viajes

@@ -131,6 +131,34 @@ namespace UberFrba
             }
         return activo;
         }
+		
+		        public bool NoExiste(SqlConnection conexionAbierta, string dato, string datoActual, string nombreCampoEnTabla, string nombreDelDato, string nombreTabla)
+        {
+            if (dato == datoActual)
+            {
+                return true;
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM [HAY_TABLA].[" + nombreTabla + "] WHERE " + nombreCampoEnTabla + " = " + dato, conexionAbierta);
+                SqlDataReader dr = cmd.ExecuteReader();
+                try
+                {
+                    while (dr.Read())
+                    {
+                        MessageBox.Show(nombreDelDato + "'" + dato + "' ya se encuentra registrado en el sistema");
+                        return false;
+                    }
+                    dr.Close();
+                    return true;
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+            }
+        }
 
         public bool validarFecha(int dia, int mes, int año)
         {

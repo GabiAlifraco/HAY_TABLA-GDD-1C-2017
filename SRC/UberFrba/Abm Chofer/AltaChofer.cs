@@ -64,7 +64,7 @@ namespace UberFrba.Abm_Chofer
                     command.Parameters.Add(param);
 
                     param = new SqlParameter("@Telefono", txtTelefonoNuevo.Text);
-                    param.SqlDbType = System.Data.SqlDbType.Int;
+                    param.SqlDbType = System.Data.SqlDbType.BigInt;
                     command.Parameters.Add(param);
 
                     param = new SqlParameter("@Direccion", txtDireccionNuevo.Text + " " + txtAlturaNuevo.Text);
@@ -146,7 +146,7 @@ VALUES('bob');
                     try
                     {
 
-                        if (NoExiste(conexion, txtChoferDNINuevo.Text.Trim(), "", "Cho_DNI", "DNI") && NoExiste(conexion, txtTelefonoNuevo.Text.Trim(), "", "Cho_Telefono", "Telefono"))
+                        if (Validador.NoExiste(conexion, txtChoferDNINuevo.Text.Trim(), "", "Cho_DNI", "DNI","Chofer") && Validador.NoExiste(conexion, txtTelefonoNuevo.Text.Trim(), "", "Cho_Telefono", "Telefono","Chofer") && Validador.NoExiste(conexion, txtChoferDNINuevo.Text.Trim(), "", "Cli_DNI", "DNI", "Cliente"))
                         {
                             conexion.Close();
                             crearChofer();
@@ -162,33 +162,7 @@ VALUES('bob');
             }
         }
 
-        private bool NoExiste(SqlConnection conexionAbierta, string dato, string datoActual, string nombreCampoEnTabla, string nombreDelDato)
-        {
-            if (dato == datoActual)
-            {
-                return true;
-            }
-            else
-            {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM [HAY_TABLA].[Chofer] WHERE " + nombreCampoEnTabla + " = " + dato, conexionAbierta);
-                SqlDataReader dr = cmd.ExecuteReader();
-                try
-                {
-                    while (dr.Read())
-                    {
-                        MessageBox.Show(nombreDelDato + "'" + dato + "' ya se encuentra registrado en el sistema");
-                        return false;
-                    }
-                    dr.Close();
-                    return true;
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return true;
-                }
-            }
-        }
+
 
         private void soloNumeros(object sender, KeyPressEventArgs e)
         {

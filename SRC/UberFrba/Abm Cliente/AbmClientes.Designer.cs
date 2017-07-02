@@ -345,7 +345,7 @@
             // txtClienteTelefonoNuevo
             // 
             this.txtClienteTelefonoNuevo.Location = new System.Drawing.Point(119, 86);
-            this.txtClienteTelefonoNuevo.MaxLength = 18;
+            this.txtClienteTelefonoNuevo.MaxLength = 10;
             this.txtClienteTelefonoNuevo.Name = "txtClienteTelefonoNuevo";
             this.txtClienteTelefonoNuevo.Size = new System.Drawing.Size(100, 20);
             this.txtClienteTelefonoNuevo.TabIndex = 63;
@@ -363,7 +363,7 @@
             // txtClienteDNINuevo
             // 
             this.txtClienteDNINuevo.Location = new System.Drawing.Point(222, 40);
-            this.txtClienteDNINuevo.MaxLength = 10;
+            this.txtClienteDNINuevo.MaxLength = 8;
             this.txtClienteDNINuevo.Name = "txtClienteDNINuevo";
             this.txtClienteDNINuevo.Size = new System.Drawing.Size(100, 20);
             this.txtClienteDNINuevo.TabIndex = 61;
@@ -652,7 +652,7 @@
             // txtClienteDNI
             // 
             this.txtClienteDNI.Location = new System.Drawing.Point(131, 40);
-            this.txtClienteDNI.MaxLength = 10;
+            this.txtClienteDNI.MaxLength = 8;
             this.txtClienteDNI.Name = "txtClienteDNI";
             this.txtClienteDNI.Size = new System.Drawing.Size(100, 20);
             this.txtClienteDNI.TabIndex = 66;
@@ -661,7 +661,7 @@
             // txtClienteTelefono
             // 
             this.txtClienteTelefono.Location = new System.Drawing.Point(131, 117);
-            this.txtClienteTelefono.MaxLength = 18;
+            this.txtClienteTelefono.MaxLength = 10;
             this.txtClienteTelefono.Name = "txtClienteTelefono";
             this.txtClienteTelefono.Size = new System.Drawing.Size(100, 20);
             this.txtClienteTelefono.TabIndex = 66;
