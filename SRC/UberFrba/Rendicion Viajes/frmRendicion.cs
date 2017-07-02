@@ -164,6 +164,7 @@ namespace UberFrba.Rendicion_Viajes
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
+                    conexion.Close();
                     conexion.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())

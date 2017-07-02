@@ -341,12 +341,21 @@ namespace UberFrba.Abm_Automovil
 
                         Int32 idChofer = (Int32)command3.ExecuteScalar();
                         Int32 idTurno = (Int32)command4.ExecuteScalar();
-                        
-                        string query2 = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Turno_Id=" + idTurnoV + " AND Cho_Id=" + idChoferV + " AND Auto_Id=" + txtIdSeleccionado.Text);
+
+                        string query2 = String.Format("UPDATE[HAY_TABLA].[AsignacionDeTurnos] SET Auto_Id = 0 WHERE Turno_Id = " + idTurnoV + " AND Cho_Id = " + idChoferV);
+                      // string query2 = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Turno_Id=" + idTurnoV + " AND Cho_Id=" + idChoferV + " AND Auto_Id=" + txtIdSeleccionado.Text);
                         command2.CommandText = query2;
 
-                        string query3 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] VALUES (" + idTurno + "," + idChofer + "," + txtIdSeleccionado.Text + ")");
+                       
+                        string query3 = String.Format("UPDATE [HAY_TABLA].[AsignacionDeTurnos] SET Auto_Id = " + txtIdSeleccionado.Text + " WHERE Turno_Id =" + idTurno + "AND Cho_Id =" + idChofer);
+                        //string query3 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] VALUES (" + idTurno + "," + idChofer + "," + txtIdSeleccionado.Text + ")");
                         command8.CommandText = query3;
+
+                        /*
+                         * 
+                        string query3 = String.Format("UPDATE [HAY_TABLA].[AsignacionDeTurnos] SET Auto_Id = " + txtIdSeleccionado.Text + " WHERE Turno_Id = " + idTurno + ", Cho_Id = " + idChofer + "," + txtIdSeleccionado.Text + ")");
+                        command8.CommandText = query3;
+                         * **/
 
                         /*string query4 = String.Format("SELECT COUNT(*) FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Turno_Id=" + idTurno + "AND Auto_Id=" + txtIdSeleccionado.Text);
                         command7.CommandText = query4;
@@ -364,35 +373,40 @@ namespace UberFrba.Abm_Automovil
                             command2.ExecuteNonQuery();
                             command8.ExecuteNonQuery();
                             command10.ExecuteNonQuery();
-                            if ((patentevieja != txtPatente.Text && listaDePatentes.Contains(txtPatente.Text)) || ((txtPatente.Text != patenteQuePosee) && (!idchoferviejo.Equals(comboChofer.Text))) || (listaDeTurnos.Contains(comboTurno.Text)))
-                            {
-                                if (patentevieja != txtPatente.Text && listaDePatentes.Contains(txtPatente.Text))
+                            
+                            if (((patentevieja != txtPatente.Text && listaDePatentes.Contains(txtPatente.Text)) || ((txtPatente.Text != patenteQuePosee) && (!idchoferviejo.Equals(comboChofer.Text))) || (listaDeTurnos.Contains(comboTurno.Text)))&& patenteQuePosee != null)
                                 {
-                                    MessageBox.Show("La patente ya ha sido registrada por otro automovil");
-                                    sqlTransact.Rollback();
-                                    return;
-                                }
+                                    if (patentevieja != txtPatente.Text && listaDePatentes.Contains(txtPatente.Text))
+                                    {
+                                        MessageBox.Show("La patente ya ha sido registrada por otro automovil");
+                                        sqlTransact.Rollback();
+                                        return;
+                                    }
 
-                                if ((txtPatente.Text != patenteQuePosee) && (!idchoferviejo.Equals(comboChofer.Text)))
-                                {
-                                    MessageBox.Show("El chofer ya posee otro automovil");
-                                    sqlTransact.Rollback();
-                                    return;
-                                }
-                                if (listaDeTurnos.Contains(comboTurno.Text))
-                                {
-                                    MessageBox.Show("El chofer ya posee automovil en ese turno");
-                                    sqlTransact.Rollback();
-                                }
+                                    if ((txtPatente.Text != patenteQuePosee) && (!idchoferviejo.Equals(comboChofer.Text)))
+                                    {
+                                        MessageBox.Show("El chofer ya posee otro automovil");
+                                        sqlTransact.Rollback();
+                                        return;
+                                    }
+                                    if (listaDeTurnos.Contains(comboTurno.Text))
+                                    {
+                                        MessageBox.Show("El chofer ya posee automovil en ese turno");
+                                        sqlTransact.Rollback();
+                                    }
                             }
                             else
                             {
-                                sqlTransact.Commit();
-                                MessageBox.Show("La modificacion de los datos se ha realizado exitosamente");
-                                MostrarAutomoviles();
-                                panelDatosSeleccionado.Visible = false;
-                                panel1.Visible = true;
-                                listaDeTurnos.Clear();
+                                if (idTurnoV == idTurno) {
+                                    sqlTransact.Commit();
+                                    MessageBox.Show("La modificacion de los datos se ha realizado exitosamente");
+                                    MostrarAutomoviles();
+                                    panelDatosSeleccionado.Visible = false;
+                                    panel1.Visible = true;
+                                    listaDeTurnos.Clear();
+                                } else {
+                                MessageBox.Show("Los cambios de auto deben ser dentro del mismo turno");
+                            }   
                             }
                     }
                     catch (Exception excep)
