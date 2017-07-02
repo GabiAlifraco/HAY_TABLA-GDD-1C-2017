@@ -102,10 +102,16 @@ namespace UberFrba.Abm_Cliente
 
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimiento.Text);
-                    string query = String.Format("UPDATE [HAY_TABLA].[Cliente] SET Cli_Nombre = " + "'" + txtClienteNombre.Text.Trim() + "',Cli_Apellido =" + "'" + txtClienteApellido.Text.Trim() + "'," + "Cli_DNI =" + txtClienteDNI.Text.Trim() + ",Cli_Mail='" + txtClienteMail.Text.Trim() + "',Cli_Telefono=" + txtClienteTelefono.Text.Trim() + ",Cli_Direccion= '" + txtClienteDireccion.Text.Trim() + " " + txtClienteAltura.Text.Trim() + "',Cli_CodigoPostal =" + txtClienteCodigoPostal.Text.Trim() + ",Cli_FechaNacimiento ='" + fechaNacimiento.Date.Month.ToString() + "/" +  fechaNacimiento.Date.Day.ToString() + "/"  + fechaNacimiento.Date.Year.ToString() + "' WHERE Cli_Id =" + txtIdSeleccionado.Text);
-         
+                   
+                    string query = String.Format("UPDATE [HAY_TABLA].[Cliente] SET Cli_Nombre = " + "'" + txtClienteNombre.Text.Trim() + "',Cli_Apellido =" + "'" + txtClienteApellido.Text.Trim() + "'," + "Cli_DNI =" + txtClienteDNI.Text.Trim() + ",Cli_Mail='" + txtClienteMail.Text.Trim() + "',Cli_Telefono=" + txtClienteTelefono.Text.Trim() + ",Cli_Direccion= '" + txtClienteDireccion.Text.Trim() + " " + txtClienteAltura.Text.Trim() + "',Cli_CodigoPostal =" + txtClienteCodigoPostal.Text.Trim() + ",Cli_FechaNacimiento = @FechaNacimiento WHERE Cli_Id =" + txtIdSeleccionado.Text);
                     SqlCommand cmd = new SqlCommand(query, conexion);
+                    cmd.CommandText = query;
+
+                    DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimiento.Text);
+                    SqlParameter param = new SqlParameter("@FechaNacimiento", fechaNacimiento);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    cmd.Parameters.Add(param);
+                   
 
                     try
                     {
