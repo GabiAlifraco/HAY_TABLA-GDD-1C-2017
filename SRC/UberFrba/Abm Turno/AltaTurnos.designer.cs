@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaTurnos));
             this.numericPrecioBase = new System.Windows.Forms.NumericUpDown();
             this.numericValorKm = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,6 +54,7 @@
             // 
             // numericPrecioBase
             // 
+            this.numericPrecioBase.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericPrecioBase.DecimalPlaces = 2;
             this.numericPrecioBase.Location = new System.Drawing.Point(110, 257);
             this.numericPrecioBase.Name = "numericPrecioBase";
@@ -61,6 +63,7 @@
             // 
             // numericValorKm
             // 
+            this.numericValorKm.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericValorKm.DecimalPlaces = 2;
             this.numericValorKm.Location = new System.Drawing.Point(110, 311);
             this.numericValorKm.Name = "numericValorKm";
@@ -70,6 +73,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.LemonChiffon;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(126, 234);
             this.label6.Name = "label6";
@@ -80,8 +84,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.LemonChiffon;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(125, 290);
+            this.label5.Location = new System.Drawing.Point(127, 288);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 20);
             this.label5.TabIndex = 27;
@@ -90,8 +95,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.LemonChiffon;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(126, 178);
+            this.label4.Location = new System.Drawing.Point(137, 178);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 20);
             this.label4.TabIndex = 26;
@@ -100,6 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.LemonChiffon;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(126, 122);
             this.label3.Name = "label3";
@@ -109,17 +116,19 @@
             // 
             // txtDescripcionTurno
             // 
+            this.txtDescripcionTurno.BackColor = System.Drawing.Color.LemonChiffon;
             this.txtDescripcionTurno.Location = new System.Drawing.Point(91, 90);
             this.txtDescripcionTurno.Name = "txtDescripcionTurno";
-            this.txtDescripcionTurno.Size = new System.Drawing.Size(153, 20);
+            this.txtDescripcionTurno.Size = new System.Drawing.Size(165, 20);
             this.txtDescripcionTurno.TabIndex = 24;
             this.txtDescripcionTurno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetras);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.LemonChiffon;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(126, 71);
+            this.label2.Location = new System.Drawing.Point(126, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 20);
             this.label2.TabIndex = 23;
@@ -127,18 +136,20 @@
             // 
             // btnCrearTurno
             // 
+            this.btnCrearTurno.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnCrearTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearTurno.Location = new System.Drawing.Point(110, 337);
             this.btnCrearTurno.Name = "btnCrearTurno";
             this.btnCrearTurno.Size = new System.Drawing.Size(120, 36);
             this.btnCrearTurno.TabIndex = 22;
             this.btnCrearTurno.Text = "CREAR";
-            this.btnCrearTurno.UseVisualStyleBackColor = true;
+            this.btnCrearTurno.UseVisualStyleBackColor = false;
             this.btnCrearTurno.Click += new System.EventHandler(this.btnCrearTurno_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.LemonChiffon;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(32, 20);
             this.label1.Name = "label1";
@@ -148,6 +159,7 @@
             // 
             // numericMinutoFin
             // 
+            this.numericMinutoFin.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericMinutoFin.Cursor = System.Windows.Forms.Cursors.Default;
             this.numericMinutoFin.Location = new System.Drawing.Point(174, 201);
             this.numericMinutoFin.Maximum = new decimal(new int[] {
@@ -161,6 +173,7 @@
             // 
             // numericHoraFin
             // 
+            this.numericHoraFin.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericHoraFin.Cursor = System.Windows.Forms.Cursors.Default;
             this.numericHoraFin.Location = new System.Drawing.Point(119, 201);
             this.numericHoraFin.Maximum = new decimal(new int[] {
@@ -174,6 +187,7 @@
             // 
             // numericMinutoInicio
             // 
+            this.numericMinutoInicio.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericMinutoInicio.Cursor = System.Windows.Forms.Cursors.Default;
             this.numericMinutoInicio.Location = new System.Drawing.Point(174, 145);
             this.numericMinutoInicio.Maximum = new decimal(new int[] {
@@ -187,6 +201,7 @@
             // 
             // numericHoraInicio
             // 
+            this.numericHoraInicio.BackColor = System.Drawing.Color.LemonChiffon;
             this.numericHoraInicio.Cursor = System.Windows.Forms.Cursors.Default;
             this.numericHoraInicio.Location = new System.Drawing.Point(119, 145);
             this.numericHoraInicio.Maximum = new decimal(new int[] {
@@ -200,19 +215,22 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.LemonChiffon;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(1, 382);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(224, 36);
             this.button1.TabIndex = 40;
             this.button1.Text = "VOLVER ABM TURNO";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AltaTurnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(344, 420);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numericMinutoFin);

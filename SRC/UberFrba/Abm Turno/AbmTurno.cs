@@ -35,11 +35,6 @@ namespace UberFrba.Abm_Turno
             dgvTurnos.ReadOnly = true;
         }
 
-        private void AbmTurno_Load(object sender, EventArgs e)
-        {
-
-        }
-      
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -105,6 +100,21 @@ namespace UberFrba.Abm_Turno
                     dgvTurnos.DataSource = dtTurnos;
                     dgvTurnos.AutoResizeColumns();
                     dgvTurnos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    
+                    dgvTurnos.CurrentCell = dgvTurnos.Rows[0].Cells[0];
+                    DataGridViewRow row2 = dgvTurnos.Rows[0];
+                    if (row2.Cells[8].Value.ToString() == "False")
+                    {
+                        btnModificarTurno.Visible = false;
+                        btnAltaLogica.Visible = true;
+                        button1.Visible = false;
+                    }
+                    else
+                    {
+                        btnModificarTurno.Visible = true;
+                        btnAltaLogica.Visible = false;
+                        button1.Visible = true;
+                    }
                 }
                 catch (Exception excep)
                 {
@@ -167,17 +177,33 @@ namespace UberFrba.Abm_Turno
                     dgvTurnos.DataSource = dtTurnos;
                     dgvTurnos.AutoResizeColumns();
                     dgvTurnos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                    for (int i = 0; i < dgvTurnos.Rows.Count - 1; i++)
+                    for (int i = 0; i < dgvTurnos.Rows.Count; i++)
                     {
                         DataGridViewRow row = dgvTurnos.Rows[i];
                         if (row.Cells[8].Value.ToString() == "False")
                         {
                             row.DefaultCellStyle.BackColor = Color.LightSalmon;
                         }
+                        else
+                        {
+                            row.DefaultCellStyle.BackColor = Color.LimeGreen;
+                        }
                     }
-     
-
-
+                    dgvTurnos.CurrentCell = dgvTurnos.Rows[0].Cells[0];
+                    DataGridViewRow row2 = dgvTurnos.Rows[0];
+                    if (row2.Cells[8].Value.ToString() == "False")
+                    {
+                        btnModificarTurno.Visible = false;
+                        btnAltaLogica.Visible = true;
+                        button1.Visible = false;
+                    }
+                    else
+                    {
+                        btnModificarTurno.Visible = true;
+                        btnAltaLogica.Visible = false;
+                        button1.Visible = true;
+                    }
+                
                 }
                 catch (Exception excep)
                 {
@@ -218,6 +244,8 @@ namespace UberFrba.Abm_Turno
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+
             if (checkVerInhabilitados.Checked == true)
             {
                 MostrarTurnosInhabilitados();
@@ -227,16 +255,30 @@ namespace UberFrba.Abm_Turno
                 MostrarTurnos();
             }
             btnAltaLogica.Visible = false;
-            btnModificarTurno.Visible = false;
+            
         }
 
         private void btnModificarTurno_Click(object sender, EventArgs e)
         {
-            panelDatosSeleccionado.Visible = true;
-            panelDatosSeleccionado.Enabled = true;
             panelListaTurnos.Visible = false;
-            btnModificarTurno.Visible = false;
-            btnGuardarDatos.Visible = true;
+            panelDatosSeleccionado.Visible = true;
+
+            txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
+            txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
+            numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
+            numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
+            numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
+            numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
+            numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
+            numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
+
+            //panelDatosSeleccionado.Enabled = true;
+            //button1.Visible = false;
+            //btnCrearTurno.Visible = false;
+            //btnAltaLogica.Visible = false;
+            //btnModificarTurno.Visible = false;
+
+            //btnGuardarDatos.Visible = true;
     
         }
 
@@ -255,15 +297,17 @@ namespace UberFrba.Abm_Turno
             {
                 btnModificarTurno.Visible = true;
                 btnAltaLogica.Visible = false;
+                button1.Visible = true;
 
             }
             else
             {
                 btnModificarTurno.Visible = false;
                 btnAltaLogica.Visible = true;
+                button1.Visible = false;
             }
             
-            panelDatosSeleccionado.Enabled = false;
+           // panelDatosSeleccionado.Enabled = false;
         }
 
         private void soloLetras(object sender, KeyPressEventArgs e)
@@ -308,7 +352,7 @@ namespace UberFrba.Abm_Turno
                         btnAltaLogica.Visible = false;
                         btnModificarTurno.Visible = false;
                         panelListaTurnos.Visible = true;
-                        panelDatosSeleccionado.Enabled = false;
+                        //panelDatosSeleccionado.Enabled = false;
                         panelDatosSeleccionado.Visible = false;
 
                     }
@@ -369,6 +413,8 @@ namespace UberFrba.Abm_Turno
 
         private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)
         {
+            
+            
             if (checkVerInhabilitados.Checked == true)
             {
                 MostrarTurnosInhabilitados();
@@ -384,7 +430,7 @@ namespace UberFrba.Abm_Turno
             btnGuardarDatos.Visible = false;
             btnModificarTurno.Visible = true;
             panelListaTurnos.Visible = true;
-            panelDatosSeleccionado.Enabled = false;
+            //panelDatosSeleccionado.Enabled = false;
             panelDatosSeleccionado.Visible = false;
         }
 
@@ -413,10 +459,11 @@ namespace UberFrba.Abm_Turno
                             MostrarTurnos();
                         }
                         btnGuardarDatos.Visible = false;
-                        btnModificarTurno.Visible = false;
+                        btnModificarTurno.Visible = true;
                         btnAltaLogica.Visible = false;
+                        button1.Visible = true;
                         panelListaTurnos.Visible = true;
-                        panelDatosSeleccionado.Enabled = false;
+                        //panelDatosSeleccionado.Enabled = false;
                         panelDatosSeleccionado.Visible = false;
 
                     }
@@ -459,6 +506,11 @@ namespace UberFrba.Abm_Turno
                     }
                 }
             }
+        }
+
+        private void panelListaTurnos_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

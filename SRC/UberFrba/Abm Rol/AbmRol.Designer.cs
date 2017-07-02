@@ -30,10 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AbmRol));
             this.panelAbmRol = new System.Windows.Forms.Panel();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.btnAltaDeRol = new System.Windows.Forms.Button();
             this.panelDatosRol = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
             this.txtIdSeleccionado = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -41,9 +44,6 @@
             this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             this.panelAbmRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.panelDatosRol.SuspendLayout();
@@ -62,6 +62,29 @@
             this.panelAbmRol.Size = new System.Drawing.Size(351, 284);
             this.panelAbmRol.TabIndex = 12;
             // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(23, 3);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(147, 24);
+            this.checkVerInhabilitados.TabIndex = 11;
+            this.checkVerInhabilitados.Text = "Ver Inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(225, 197);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(89, 30);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Inhabilitar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // btnModificar
             // 
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -75,6 +98,7 @@
             // 
             // dgvRoles
             // 
+            this.dgvRoles.AllowUserToAddRows = false;
             this.dgvRoles.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRoles.Location = new System.Drawing.Point(42, 30);
@@ -111,6 +135,17 @@
             this.panelDatosRol.Size = new System.Drawing.Size(375, 324);
             this.panelDatosRol.TabIndex = 11;
             this.panelDatosRol.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(82, 256);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 34);
+            this.button1.TabIndex = 82;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label26
             // 
@@ -175,40 +210,6 @@
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Nombre del Rol";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(82, 256);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 34);
-            this.button1.TabIndex = 82;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(225, 197);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 30);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Inhabilitar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // checkVerInhabilitados
-            // 
-            this.checkVerInhabilitados.AutoSize = true;
-            this.checkVerInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkVerInhabilitados.Location = new System.Drawing.Point(23, 3);
-            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
-            this.checkVerInhabilitados.Size = new System.Drawing.Size(147, 24);
-            this.checkVerInhabilitados.TabIndex = 11;
-            this.checkVerInhabilitados.Text = "Ver Inhabilitados";
-            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
-            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // AbmRol
             // 
