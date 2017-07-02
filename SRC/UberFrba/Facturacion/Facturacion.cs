@@ -15,12 +15,13 @@ namespace UberFrba.Facturacion
     {
         public DBAccess Access { get; set; }
         public string Conexion { get; set; }
-
+        public ValidacionesAbm Validador { get; set; }
         public frmFacturacion()
         {
             InitializeComponent();
             Access = new DBAccess();
             cargar_clientes();
+            Validador = new ValidacionesAbm();
         }
 
 
@@ -69,7 +70,7 @@ namespace UberFrba.Facturacion
                 DateTime FF = (DateTime.Parse(txtFechaF.Text));
 
                 KeyValuePair<int, string> ClienteSeleccionado = (KeyValuePair<int, string>)listBoxCliente.SelectedItem;
-                string query = String.Format("SELECT [Vi_CantKilometros], CONVERT(date, [Vi_Inicio]) AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND Factura_nro IS NULL AND  Vi_Inicio BETWEEN '" + FI.Year +"-"+FI.Month+"-"+FI.Day + "' AND '" + FF.Year + "-" + FF.Month + "-"+FF.Day + "'");
+                string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND Factura_nro IS NULL AND  Vi_Inicio BETWEEN '" + FI.Year +"-"+FI.Month+"-"+FI.Day + "' AND '" + FF.Year + "-" + FF.Month + "-"+FF.Day + "'");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -150,35 +151,12 @@ namespace UberFrba.Facturacion
 
         }
 
-        public bool validarFecha(string fecha, string nombreDelCampo)
-        {
-            DateTime value;
-            if (!DateTime.TryParse(fecha, out value))
-            {
-                MessageBox.Show(nombreDelCampo + " no es valida");
-                return false;
-            }
-            else
-            {
 
-                DateTime hoy = DateTime.Now;
-                if (hoy > value)
-                {
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show(nombreDelCampo + " es mayor al la fecha actual");
-                    return false;
-                }
-
-            }
-        }
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
 
-            if (validarFecha(txtFechaI.Text, "La fecha de inicio") && validarFecha(txtFechaF.Text, "La fecha de fin")) {
+            if (Validador.validarFechaCampo(txtFechaI.Text, "La fecha de inicio") && Validador.validarFechaCampo(txtFechaF.Text, "La fecha de fin")) {
                 DateTime inicio = DateTime.Parse(txtFechaI.Text);
                 DateTime final = DateTime.Parse(txtFechaF.Text);
                 if (final > inicio)

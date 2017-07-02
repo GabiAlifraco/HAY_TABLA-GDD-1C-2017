@@ -39,15 +39,52 @@ namespace UberFrba
             }
             else
             {
-                //DateTime hoy = DateTime.Today;
-                DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
-                if (hoy > value)
+                if (value.Year > 1753)
                 {
-                    return true;
+                    DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+                    if (hoy > value)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("La fecha de nacimiento es mayor al la fecha actual");
+                        return false;
+                    }
+                }
+                else {
+                    MessageBox.Show("La fecha de nacimiento no es valida");
+                    return false;
+                }
+            }
+        }
+
+        public bool validarFechaCampo(string fecha, string nombreDelCampo)
+        {
+            DateTime value;
+            if (!DateTime.TryParse(fecha, out value))
+            {
+                MessageBox.Show(nombreDelCampo + " no es valida");
+                return false;
+            }
+            else
+            {
+                if (value.Year > 1753)
+                {
+                    DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+                    if (hoy > value)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show(nombreDelCampo + " es mayor al la fecha actual");
+                        return false;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("La fecha de nacimiento es mayor al la fecha actual");
+                    MessageBox.Show(nombreDelCampo + " no es valida");
                     return false;
                 }
             }

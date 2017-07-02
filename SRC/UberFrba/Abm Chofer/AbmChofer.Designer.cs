@@ -456,7 +456,7 @@
             this.btnCrearCliente.Name = "btnCrearCliente";
             this.btnCrearCliente.Size = new System.Drawing.Size(172, 23);
             this.btnCrearCliente.TabIndex = 81;
-            this.btnCrearCliente.Text = "CREAR CLIENTE";
+            this.btnCrearCliente.Text = "CREAR CHOFER";
             this.btnCrearCliente.UseVisualStyleBackColor = true;
             this.btnCrearCliente.Click += new System.EventHandler(this.btnCrearCliente_Click);
             // 
@@ -502,6 +502,7 @@
             this.checkVerInhabilitados.TabIndex = 69;
             this.checkVerInhabilitados.Text = "Ver inhabilitados";
             this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
             // 
             // AbmChofer
             // 

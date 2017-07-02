@@ -280,7 +280,7 @@ namespace UberFrba.Abm_Rol
                 {
                     query = String.Format("EXEC [HAY_TABLA].[altaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
                 }
-                MessageBox.Show(query);
+               
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
                 try

@@ -22,17 +22,19 @@ namespace UberFrba.Registro_Viajes
         public AltaViajes()
         {
             InitializeComponent();
-            Validador = new ValidacionesAbm();
+
             Access = new DBAccess();
             cargarChoferes();
             cargarClientes();
-
+            Validador = new ValidacionesAbm();
         }
 
         private void cargarChoferes() {
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Cho_Id,Cho_Nombre,Cho_Apellido FROM [HAY_TABLA].[Chofer]");
+
+                
+                string query = String.Format("SELECT* FROM[HAY_TABLA].[Chofer] C JOIN[HAY_TABLA].[Usuarios] U ON CONVERT(varchar(30), C.Cho_DNI) = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON UR.Nombre_Usuario = U.Usu_Username WHERE UR.Id_Rol = 3 AND UR.Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -54,7 +56,7 @@ namespace UberFrba.Registro_Viajes
         {
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Cli_Id,CLI_Nombre,Cli_Apellido FROM [HAY_TABLA].[Cliente]");
+                string query = String.Format("SELECT* FROM[HAY_TABLA].[Cliente] C JOIN[HAY_TABLA].[Usuarios] U ON CONVERT(varchar(30), C.Cli_DNI) = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON UR.Nombre_Usuario = U.Usu_Username WHERE UR.Id_Rol = 2 AND UR.Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -83,7 +85,7 @@ namespace UberFrba.Registro_Viajes
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
                 KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
-                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Cho_Id = " + choferSeleccionado.Key.ToString());
+                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE Turno_Habilitado = 1 AND AsignacionDeTurnos.Cho_Id = " + choferSeleccionado.Key.ToString());
                 SqlCommand cmd2 = new SqlCommand(query, conexion);
                 try
                 {
@@ -94,7 +96,18 @@ namespace UberFrba.Registro_Viajes
                     {
                         if (dr["Turno_Descripcion"].ToString() != "")
                         {
-                            listBoxTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString() + " " + dr["Turno_HoraInicio"].ToString() + " a " + dr["Turno_HoraFin"].ToString()));
+                          
+                            decimal HoraInicio = (decimal)dr["Turno_HoraInicio"];
+                            decimal HInicio = Math.Truncate(HoraInicio / 100);
+                            string Minicio = (HoraInicio % 100).ToString();
+                            decimal HoraFin = (decimal)dr["Turno_HoraFin"];
+                            decimal HFin = Math.Truncate(HoraFin / 100);
+                            string MFin = (HoraFin % 100).ToString();
+
+                            if (Minicio.Length == 1) { Minicio = "0" + Minicio; }
+                            if (MFin.Length == 1) { MFin = "0" + MFin; }
+
+                            listBoxTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString() + " " + HInicio.ToString() + ":" + Minicio.ToString() + " a " + HFin.ToString() + ":" + MFin.ToString()));
 
                         }
                     }
@@ -119,7 +132,7 @@ namespace UberFrba.Registro_Viajes
                 KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
                 KeyValuePair<int, string> turnoSeleccionado = (KeyValuePair<int, string>)listBoxTurnos.SelectedItem;
                 //
-                string query = String.Format("SELECT [Auto_Patente] FROM [HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Automovil ON Automovil.Auto_Id = AsignacionDeTurnos.Auto_Id WHERE AsignacionDeTurnos.Cho_Id = " + choferSeleccionado.Key.ToString() +  "AND AsignacionDeTurnos.Turno_Id =" + turnoSeleccionado.Key.ToString());
+                string query = String.Format("SELECT [Auto_Patente] FROM [HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Automovil ON Automovil.Auto_Id = AsignacionDeTurnos.Auto_Id WHERE AsignacionDeTurnos.Cho_Id = " + choferSeleccionado.Key.ToString() + "AND Auto_Habilitado = 1 AND AsignacionDeTurnos.Turno_Id =" + turnoSeleccionado.Key.ToString());
                 SqlCommand cmd2 = new SqlCommand(query, conexion);
                 try
                 {
@@ -141,7 +154,7 @@ namespace UberFrba.Registro_Viajes
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (NoHayCamposVacios() && validarFecha(txtFyHinicio.Text, "La fecha de inicio") && validarFecha(txtFyHfin.Text, "La fecha de fin"))
+            if (NoHayCamposVacios() && Validador.validarFechaCampo(txtFyHinicio.Text, "La fecha de inicio") && Validador.validarFechaCampo(txtFyHfin.Text, "La fecha de fin"))
             {// Si no hay campos vacios
                 DateTime Finicio;
                 DateTime.TryParse(txtFyHinicio.Text, out Finicio);
@@ -214,29 +227,7 @@ namespace UberFrba.Registro_Viajes
             }
         }
 
-        public bool validarFecha(string fecha, string nombreDelCampo)
-        {
-            DateTime value;
-            if (!DateTime.TryParse(fecha, out value))
-            {
-                MessageBox.Show(nombreDelCampo + " no es valida");
-                return false;
-            }
-            else
-            {
-           
-                DateTime hoy = DateTime.Today;
-                if (hoy > value) {
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show(nombreDelCampo + " es mayor al la fecha actual");
-                    return false;
-                }
 
-            }
-        }
 
         public bool ValidarViaje(DateTime Finicio, DateTime Ffinal) {
             return (ValidarInicioFin(Finicio,  Ffinal) && ValidarHorarioDentroDelTurno(Finicio) && ValidarChoferNoRealizoOtroVieajeEnEseMomento(Finicio, Ffinal) && ValidarClienteNoRealizoOtroVieajeEnEseMomento(Finicio, Ffinal));
@@ -410,9 +401,14 @@ namespace UberFrba.Registro_Viajes
                     {
                         if (Validador.validarStringVacio(txtCantidadKm.Text, "Cantidad de kilometros"))
                         {
-                            return true;
+                            if (txtAuto.Text != "")
+                            {
+                                return true;
+                            }
+                            else {
+                                MessageBox.Show("El chofer no posee un automovil habilitado para realizar el viaje");
+                            }
                         }
-
                     }else
                     {
                         MessageBox.Show("Debe seleccionar un cliente");

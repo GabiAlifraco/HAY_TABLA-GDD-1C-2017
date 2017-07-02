@@ -48,7 +48,7 @@ namespace UberFrba.Abm_Chofer
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Cho_Id = " + txtIdSeleccionado.Text);
+                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Cho_Id = " + txtIdSeleccionado.Text + "AND Turno_Habilitado = 1");
                 SqlCommand cmd2 = new SqlCommand(query, conexion);
                 try
                 {
@@ -71,7 +71,7 @@ namespace UberFrba.Abm_Chofer
             }
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT [Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion]FROM[HAY_TABLA].[Turno]");
+                string query = String.Format("SELECT [Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM [HAY_TABLA].[Turno]  where Turno_Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -257,9 +257,7 @@ namespace UberFrba.Abm_Chofer
                     {
                         conexion.Close();
                         guardarChofer();
-                        panelChoferes.Visible = true;
-                        panelDatosChoferSeleccionado.Visible = false;
-                        btnModificar.Visible = false;
+
                     }
                 }
                 catch (Exception excep)
@@ -369,6 +367,9 @@ namespace UberFrba.Abm_Chofer
 
                         sqlTransact.Commit();
                         MessageBox.Show("El chofer fue guardado con exito");
+                        panelChoferes.Visible = true;
+                        panelDatosChoferSeleccionado.Visible = false;
+                        btnModificar.Visible = false;
                         MostrarChoferes();
                     }
                     catch (Exception ex)
@@ -409,35 +410,42 @@ namespace UberFrba.Abm_Chofer
         private bool ValidarChofer(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string fechaNacimiento)
         {
             bool resultadoValidacion = true;
-            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento));
+            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento));
             return resultadoValidacion;
         }
 
         private bool NoExiste(SqlConnection conexionAbierta, string dato, string datoActual, string nombreCampoEnTabla, string nombreDelDato)
         {
-            if (dato == datoActual)
+            if (dato != "")
             {
-                return true;
-            }
-            else
-            {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM [HAY_TABLA].[Chofer] WHERE " + nombreCampoEnTabla + " = " + dato, conexionAbierta);
-                SqlDataReader dr = cmd.ExecuteReader();
-                try
+                if (dato == datoActual)
                 {
-                    while (dr.Read())
+                    return true;
+                }
+                else
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM [HAY_TABLA].[Chofer] WHERE " + nombreCampoEnTabla + " = " + dato, conexionAbierta);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    try
                     {
-                        MessageBox.Show(nombreDelDato + "'" + dato + "' ya se encuentra registrado en el sistema");
-                        return false;
+                        while (dr.Read())
+                        {
+                            MessageBox.Show(nombreDelDato + "'" + dato + "' ya se encuentra registrado en el sistema");
+                            return false;
+                        }
+                        dr.Close();
+                        return true;
                     }
-                    dr.Close();
-                    return true;
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return true;
+                    }
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return true;
-                }
+            }
+            else {
+                MessageBox.Show(nombreDelDato + " se encuentra vacio");
+                return false;
             }
         }
 
@@ -487,6 +495,11 @@ namespace UberFrba.Abm_Chofer
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+            MostrarChoferes(); 
         }
     }
 }

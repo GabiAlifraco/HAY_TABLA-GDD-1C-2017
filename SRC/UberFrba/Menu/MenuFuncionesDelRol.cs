@@ -83,7 +83,7 @@ namespace UberFrba.Menu
                     AbmAutomovil formularioAutomovil = new AbmAutomovil();
                     formularioAutomovil.Show();
                     break;
-                case "ABM de Turno":
+                case "Abm Turno":
                     AbmTurno formTurnos = new AbmTurno();
                     formTurnos.Show();
                     break;

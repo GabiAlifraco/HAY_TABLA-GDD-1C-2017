@@ -131,7 +131,7 @@ namespace UberFrba.Abm_Cliente
             if (dgvClientes.CurrentRow.Cells[9].Value.ToString() == "False")
             {
                 panelDatosClienteSeleccionado.Visible = false;
-                btnModificar.Visible = true;
+                btnModificar.Visible = false;
                 btnEliminarCliente.Visible = false;
                 btnAltaLogica.Visible = true;
             }else
@@ -210,11 +210,24 @@ namespace UberFrba.Abm_Cliente
                 string query;
                 if (checkVerInhabilitados.Checked)
                 {/// ver todos
-
-                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND  Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    if (txtFiltroDNI.Text == "") {
+                        query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    }
+                    else
+                    {
+                        query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Id_Rol = 2 AND Cli_DNI = " + txtFiltroDNI.Text.Trim() + " AND  Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    }
                 }
                 else {//ver solo habilitados
-                     query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    if (txtFiltroDNI.Text == "")
+                    {
+                        query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    }
+                    else
+                    {
+                        query = String.Format("SELECT * FROM [HAY_TABLA].[Cliente] c JOIN[HAY_TABLA].[Usuarios] U ON c.Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 2 AND Cli_DNI = " + txtFiltroDNI.Text.Trim() + " AND Cli_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cli_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    }
+                   
                 }
                
                 SqlCommand cmd = new SqlCommand(query, conexion);
@@ -357,7 +370,7 @@ namespace UberFrba.Abm_Cliente
         private bool ValidarCliente(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string codigoPostal, string fechaNacimiento)
         {
             bool resultadoValidacion = true;
-            resultadoValidacion = (Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarStringVacio(codigoPostal, "Codigo Postal") && Validador.validarFecha(fechaNacimiento));
+            resultadoValidacion = (Validador.validarMail(email) && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarStringVacio(codigoPostal, "Codigo Postal") && Validador.validarFecha(fechaNacimiento));
             return resultadoValidacion;
         }
 
@@ -463,7 +476,7 @@ namespace UberFrba.Abm_Cliente
 
         private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)
         {
-
+            MostrarClientes();
         }
 
         private void btnAltaLogica_Click(object sender, EventArgs e)

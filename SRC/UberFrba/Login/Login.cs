@@ -189,29 +189,41 @@ namespace UberFrba.Login
                     Int32 cantidadDeRoles = (Int32)cmd.ExecuteScalar();
                     SqlCommand cmd2 = new SqlCommand(query2, conexion);
                     SqlCommand cmd3 = new SqlCommand(query3, conexion);
-                    Int32 RolquePosee = (Int32)cmd3.ExecuteScalar();
+                    Int32 RolquePosee = 0;
+                    SqlDataReader dr = cmd3.ExecuteReader();
 
-                    if (cantidadDeRoles > 1)
+                    while (dr.Read())
                     {
-                        MenuGeneral formularioMenu = new MenuGeneral(id_Usuario, user_txt.Text);
-                        formularioMenu.Show();
+                        RolquePosee = (int)dr["Id_Rol"];
                     }
-                    else
-                    {
-                        try
+                    dr.Close();
+                    if (RolquePosee != 0) { 
+                        if (cantidadDeRoles > 1)
                         {
-                            SqlDataReader dr = cmd2.ExecuteReader();
-                            while (dr.Read())
+                            MenuGeneral formularioMenu = new MenuGeneral(id_Usuario, user_txt.Text);
+                            formularioMenu.Show();
+                        }
+                        else
+                        {
+                            try
                             {
-                                listRoles.Add((new KeyValuePair<string, int>(dr["Nombre"].ToString(), (int)dr["Id_Rol"])));
+                                dr = cmd2.ExecuteReader();
+                                while (dr.Read())
+                                {
+                                    listRoles.Add((new KeyValuePair<string, int>(dr["Nombre"].ToString(), (int)dr["Id_Rol"])));
+                                }
+                                MenuFuncionesDelRol formularioMenuFuncionesRol = new MenuFuncionesDelRol(id_Usuario, listRoles[0].Value);
+                                formularioMenuFuncionesRol.Show();
                             }
-                            MenuFuncionesDelRol formularioMenuFuncionesRol = new MenuFuncionesDelRol(id_Usuario, listRoles[0].Value);
-                            formularioMenuFuncionesRol.Show();
+                            catch (Exception excep)
+                            {
+                                MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        catch (Exception excep)
-                        {
-                            MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                    }else
+                    {
+                        MessageBox.Show("Usuario incorrecto");
+                        return;
                     }
                 }
 
@@ -406,7 +418,7 @@ namespace UberFrba.Login
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            if (Intentos > 3)
+            if (Intentos >= 3)
             {
                 MessageBox.Show("La cuenta no esta habilitada", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

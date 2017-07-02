@@ -338,7 +338,7 @@ namespace UberFrba.Abm_Turno
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("SELECT [Turno_Id],[Turno_Descripcion],[Turno_HoraInicio],[Turno_HoraFin] FROM [HAY_TABLA].[Turno] WHERE ((" + (horaInicio + 1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin ) or (" + (horaFin - 1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin)) AND (" + horaInicio.ToString() + " != Turno_HoraInicio AND " + horaFin.ToString() + " !=Turno_HoraFin) AND Turno_Habilitado = 1");
+                    string query = String.Format("SELECT [Turno_Descripcion],[Turno_HoraInicio],[Turno_HoraFin] FROM [HAY_TABLA].[Turno] WHERE ((" + (horaInicio + 1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin ) or (" + (horaFin - 1).ToString() + " BETWEEN Turno_HoraInicio AND Turno_HoraFin)OR (" + horaInicio.ToString() + " = Turno_HoraInicio AND " + horaFin.ToString() + " =Turno_HoraFin)) AND Turno_Habilitado = 1 AND Turno_Id <> " + txtIdTurno.Text);
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     try
                     {

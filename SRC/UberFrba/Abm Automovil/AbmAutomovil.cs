@@ -162,7 +162,7 @@ namespace UberFrba.Abm_Automovil
             comboTurno.Items.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("  SELECT [Turno_Descripcion] FROM [GD1C2017].[HAY_TABLA].[Turno] turno JOIN [GD1C2017].[HAY_TABLA].[AsignacionDeTurnos] asig ON asig.Turno_Id=turno.Turno_Id JOIN [GD1C2017].[HAY_TABLA].[Chofer] chofer ON chofer.Cho_Id=asig.Cho_Id WHERE [Cho_Nombre] + ' ' + [Cho_Apellido]='" + comboChofer.Text + "' ORDER BY turno.Turno_Id DESC ");
+                string query = String.Format("  SELECT [Turno_Descripcion] FROM [HAY_TABLA].[Turno] turno JOIN [HAY_TABLA].[AsignacionDeTurnos] asig ON asig.Turno_Id=turno.Turno_Id JOIN [HAY_TABLA].[Chofer] chofer ON chofer.Cho_Id=asig.Cho_Id WHERE [Cho_Nombre] + ' ' + [Cho_Apellido]='" + comboChofer.Text + "' ORDER BY turno.Turno_Id DESC ");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -207,7 +207,7 @@ namespace UberFrba.Abm_Automovil
                 {
                     query = String.Format("EXEC [HAY_TABLA].[altaLogicaAutomovil] " + dgvAutomovil.CurrentRow.Cells[0].Value.ToString());
                 }
-                MessageBox.Show(query);
+                
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
                 try
@@ -276,8 +276,7 @@ namespace UberFrba.Abm_Automovil
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
-            txtIdSeleccionado.Text = "";
+           
             txtPatente.Text = "";
             comboMarca.Text = "";
             txtModelo.Text = "";
@@ -607,7 +606,7 @@ namespace UberFrba.Abm_Automovil
             comboTurno.Items.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("  SELECT [Turno_Descripcion] FROM [GD1C2017].[HAY_TABLA].[Turno] turno JOIN [GD1C2017].[HAY_TABLA].[AsignacionDeTurnos] asig ON asig.Turno_Id=turno.Turno_Id JOIN [GD1C2017].[HAY_TABLA].[Chofer] chofer ON chofer.Cho_Id=asig.Cho_Id WHERE [Cho_Nombre] + ' ' + [Cho_Apellido]='" + comboChofer.Text + "' ORDER BY turno.Turno_Id DESC ");
+                string query = String.Format("  SELECT [Turno_Descripcion] FROM [HAY_TABLA].[Turno] turno JOIN [HAY_TABLA].[AsignacionDeTurnos] asig ON asig.Turno_Id=turno.Turno_Id JOIN [HAY_TABLA].[Chofer] chofer ON chofer.Cho_Id=asig.Cho_Id WHERE [Cho_Nombre] + ' ' + [Cho_Apellido]='" + comboChofer.Text + "' ORDER BY turno.Turno_Id DESC ");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {

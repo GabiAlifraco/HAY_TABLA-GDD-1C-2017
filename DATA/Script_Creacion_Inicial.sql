@@ -23,11 +23,11 @@ CREATE TABLE [HAY_TABLA].Chofer (
     Cho_Apellido 					VARCHAR(255),
 	Cho_DNI 						NUMERIC(18, 0),
 	Cho_Mail 						VARCHAR(50),
-	Cho_Telefono 					NUMERIC(18, 0),
+	Cho_Telefono 					NUMERIC(18, 0) UNIQUE,
 	Cho_Direccion 					VARCHAR(255),
 	Cho_FechaNacimiento 			DATETIME,
 	CONSTRAINT PK_Chofer 			PRIMARY KEY (Cho_ID),
-	FOREIGN KEY (Cho_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username)
+	FOREIGN KEY (Cho_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username) ON UPDATE CASCADE
 );
 
 CREATE TABLE [HAY_TABLA].Cliente(
@@ -37,12 +37,12 @@ CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Apellido 					VARCHAR(255),
 	Cli_DNI 						NUMERIC(18, 0),
 	Cli_Mail 						VARCHAR(255),
-	Cli_Telefono 					NUMERIC(18, 0),
+	Cli_Telefono 					NUMERIC(18, 0) UNIQUE,
 	Cli_Direccion 					VARCHAR(255),
 	Cli_CodigoPostal				NUMERIC(10, 0),
 	Cli_FechaNacimiento 			DATETIME,
 	CONSTRAINT PK_Cliente 			PRIMARY KEY (Cli_Id),
-	FOREIGN KEY (Cli_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username)
+	FOREIGN KEY (Cli_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username) ON UPDATE CASCADE
 );
 
 CREATE TABLE [HAY_TABLA].Automovil(
@@ -90,7 +90,7 @@ CREATE TABLE [HAY_TABLA].[USUARIO_POR_ROL] (
 	[Nombre_Usuario]				VARCHAR(30) NOT NULL REFERENCES [HAY_TABLA].[Usuarios](Usu_Username),
 	[Habilitado]					BIT DEFAULT 1,
 	PRIMARY KEY (Id_Rol, Nombre_Usuario),
-	FOREIGN KEY (Nombre_Usuario)  	REFERENCES [HAY_TABLA].Usuarios(Usu_Username),
+	FOREIGN KEY (Nombre_Usuario)  	REFERENCES [HAY_TABLA].Usuarios(Usu_Username) ON UPDATE CASCADE,
 	FOREIGN KEY (Id_Rol)  			REFERENCES [HAY_TABLA].ROL(Id_Rol)
 );
 
@@ -121,7 +121,7 @@ CREATE TABLE [HAY_TABLA].Viaje(
 	CONSTRAINT PKViaje 				PRIMARY KEY (Id_Viaje),
 	FOREIGN KEY (Vi_IdChofer) 		REFERENCES [HAY_TABLA].Chofer(Cho_Id),
 	FOREIGN KEY (Vi_IdCliente)		REFERENCES [HAY_TABLA].Cliente(Cli_Id),
-	FOREIGN KEY (Vi_AutoPatente) 	REFERENCES [HAY_TABLA].Automovil(Auto_Patente),
+	FOREIGN KEY (Vi_AutoPatente) 	REFERENCES [HAY_TABLA].Automovil(Auto_Patente) ON UPDATE CASCADE,
 	FOREIGN KEY (Vi_IdTurno) 		REFERENCES [HAY_TABLA].Turno(Turno_Id)
 );
 
@@ -260,12 +260,12 @@ INSERT INTO [HAY_TABLA].[FUNCIONALIDAD] (Descripcion)
 VALUES  ('ABM de Rol'), ('ABM de Cliente'), ('ABM de Automóvil'),
 		('ABM de Chofer'), ('Registro de Viajes'), ('Rendición de cuenta del chofer'),
 		('Facturación a Cliente'), ('Listado Estadístico'), ('Ver Viajes'),
-		('Ver Redenciones'), ('Ver Facturación') 
+		('Ver Redenciones'), ('Ver Facturación'), ('Abm Turno') 
 		
 /* INSERTS A FUNCIONALIDAD POR ROL */	
 		
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
-VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,2),(9,3),(10,3),(11,2)
+VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,2),(9,3),(10,3),(11,2),(12,1)
 
 /* INSERTS A ASIGNACION DE TURNOS */	
 
@@ -280,7 +280,7 @@ GROUP BY   maestra.Chofer_Dni,  maestra.Auto_Patente, maestra.Turno_Descripcion,
 /* INSERTS A VIAJES */	
 
 INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTurno,Vi_CantKilometros,Vi_Inicio,Vi_Fin,Rendicion_Nro,Factura_Nro,Vi_ImporteTotal)
-SELECT 
+  SELECT 
 	Chofer.Cho_Id,
 	Cliente.Cli_Id,
 	m1.Auto_Patente,
@@ -289,12 +289,13 @@ SELECT
 	m1.Viaje_Fecha as Inicio,/*INICIO*/
 	m1.Viaje_Fecha as Fin,
 	Rendicion_Nro,
-	Factura_Nro = (SELECT TOP 1 Factura_Nro FROM gd_esquema.Maestra g2 WHERE m1.Cliente_Dni = g2.Cliente_Dni AND m1.Chofer_Dni = g2.Chofer_Dni AND Factura_Nro IS NOT NULL AND m1.Viaje_Fecha = g2.Viaje_Fecha),
+	Factura_Nro = (SELECT TOP 1 Factura_Nro FROM gd_esquema.Maestra g2 WHERE m1.Cliente_Dni = g2.Cliente_Dni AND Factura_Nro IS NOT NULL AND m1.Viaje_Fecha = g2.Viaje_Fecha),
 	(m1.Turno_Precio_Base + m1.Turno_Valor_Kilometro * m1.Viaje_Cant_Kilometros) AS IMPORTE
 FROM [gd_esquema].[Maestra] m1
 INNER JOIN Hay_TABLA.Chofer ON Chofer.Cho_DNI = m1.Chofer_Dni
 INNER JOIN Hay_TABLA.Cliente ON Cliente.Cli_DNI = m1.Cliente_Dni
 INNER JOIN Hay_TABLA.Turno ON Turno.Turno_Descripcion = m1.Turno_Descripcion
+WHERE Rendicion_Nro IS NOT NULL
 GROUP BY 
 	Chofer.Cho_Id,
 	Cliente.Cli_Id,

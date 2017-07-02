@@ -15,12 +15,13 @@ namespace UberFrba.Rendicion_Viajes
     {
         public DBAccess Access { get; set; }
         public string Conexion { get; set; }
-
+        public ValidacionesAbm Validador { get; set; }
         public frmRendicion()
         {
             InitializeComponent();
             Access = new DBAccess();
             cargarChoferes();
+            Validador = new ValidacionesAbm();
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
@@ -29,30 +30,6 @@ namespace UberFrba.Rendicion_Viajes
          }
         
 
-        public bool validarFecha(string fecha, string nombreDelCampo)
-        {
-            DateTime value;
-            if (!DateTime.TryParse(fecha, out value))
-            {
-                MessageBox.Show(nombreDelCampo + " no es valida");
-                return false;
-            }
-            else
-            {
-
-                DateTime hoy = DateTime.Now;
-                if (hoy > value)
-                {
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show(nombreDelCampo + " es mayor al la fecha actual");
-                    return false;
-                }
-
-            }
-        }
 
         private void cargarChoferes()
         {
@@ -60,7 +37,7 @@ namespace UberFrba.Rendicion_Viajes
             {
 
                 
-                string query = String.Format("SELECT Cho_Id, Cho_Nombre, Cho_Apellido FROM[HAY_TABLA].[Chofer] C JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON CONVERT(varchar(30), C.Cho_DNI) = UR.Nombre_Usuario AND  Habilitado = 1 AND Id_Rol = 3");
+                string query = String.Format("SELECT Cho_Id, Cho_Nombre, Cho_Apellido FROM[HAY_TABLA].[Chofer] C JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON  C.Cho_Usuario = UR.Nombre_Usuario AND  Habilitado = 1 AND Id_Rol = 3");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -114,7 +91,7 @@ namespace UberFrba.Rendicion_Viajes
 
         private void btnRendicion_Click(object sender, EventArgs e)
         {
-            if (validarFecha(txtFechaRendicion.Text, "La fecha de rendicion"))
+            if (Validador.validarFechaCampo(txtFechaRendicion.Text, "La fecha de rendicion"))
             {
 
                 if (listBoxChoferes.SelectedIndex != -1)
@@ -163,7 +140,27 @@ namespace UberFrba.Rendicion_Viajes
                 KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
                 KeyValuePair<int, string> turnoSeleccionado = (KeyValuePair<int, string>)listBoxTurnos.SelectedItem;
 
-                string query = String.Format("SELECT [Vi_CantKilometros], CONVERT(date, [Vi_Inicio]) AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Rendicion_nro IS NULL AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
+                
+                string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Rendicion_nro IS NOT NULL AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
+                SqlCommand cmd2 = new SqlCommand(query, conexion);
+                try
+                {
+                    conexion.Open();
+                    SqlDataReader dr = cmd2.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        MessageBox.Show("Ya fue hecha una rendicion para esa fecha y ese turno para ese chofer");
+                        return;
+                    }
+                    dr.Close();
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Rendicion_nro IS NULL AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {

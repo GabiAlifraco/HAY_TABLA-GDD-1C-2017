@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AbmTurno));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.btnCrearTurno = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtIdTurno = new System.Windows.Forms.TextBox();
             this.panelDatosSeleccionado = new System.Windows.Forms.Panel();
+            this.btnDescartarCambios = new System.Windows.Forms.Button();
             this.numericMinutoFin = new System.Windows.Forms.NumericUpDown();
             this.btnGuardarDatos = new System.Windows.Forms.Button();
             this.numericHoraFin = new System.Windows.Forms.NumericUpDown();
@@ -51,9 +53,8 @@
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelListaTurnos = new System.Windows.Forms.Panel();
-            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
-            this.btnDescartarCambios = new System.Windows.Forms.Button();
             this.btnAltaLogica = new System.Windows.Forms.Button();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
@@ -112,11 +113,11 @@
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(476, 299);
+            this.button1.Location = new System.Drawing.Point(444, 299);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 36);
+            this.button1.Size = new System.Drawing.Size(154, 36);
             this.button1.TabIndex = 5;
-            this.button1.Text = "ELIMINAR";
+            this.button1.Text = "BAJA LOGICA";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -239,6 +240,17 @@
             this.panelDatosSeleccionado.Size = new System.Drawing.Size(268, 385);
             this.panelDatosSeleccionado.TabIndex = 22;
             // 
+            // btnDescartarCambios
+            // 
+            this.btnDescartarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDescartarCambios.Location = new System.Drawing.Point(15, 349);
+            this.btnDescartarCambios.Name = "btnDescartarCambios";
+            this.btnDescartarCambios.Size = new System.Drawing.Size(250, 30);
+            this.btnDescartarCambios.TabIndex = 28;
+            this.btnDescartarCambios.Text = "DESCARTAR CAMBIOS";
+            this.btnDescartarCambios.UseVisualStyleBackColor = true;
+            this.btnDescartarCambios.Click += new System.EventHandler(this.btnDescartarCambios_Click);
+            // 
             // numericMinutoFin
             // 
             this.numericMinutoFin.Cursor = System.Windows.Forms.Cursors.Default;
@@ -314,6 +326,18 @@
             this.panelListaTurnos.Size = new System.Drawing.Size(601, 350);
             this.panelListaTurnos.TabIndex = 23;
             // 
+            // btnAltaLogica
+            // 
+            this.btnAltaLogica.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAltaLogica.Location = new System.Drawing.Point(269, 299);
+            this.btnAltaLogica.Name = "btnAltaLogica";
+            this.btnAltaLogica.Size = new System.Drawing.Size(169, 36);
+            this.btnAltaLogica.TabIndex = 24;
+            this.btnAltaLogica.Text = "ALTA LOGICA";
+            this.btnAltaLogica.UseVisualStyleBackColor = true;
+            this.btnAltaLogica.Visible = false;
+            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
+            // 
             // checkVerInhabilitados
             // 
             this.checkVerInhabilitados.AutoSize = true;
@@ -325,33 +349,11 @@
             this.checkVerInhabilitados.UseVisualStyleBackColor = true;
             this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
             // 
-            // btnDescartarCambios
-            // 
-            this.btnDescartarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDescartarCambios.Location = new System.Drawing.Point(15, 349);
-            this.btnDescartarCambios.Name = "btnDescartarCambios";
-            this.btnDescartarCambios.Size = new System.Drawing.Size(250, 30);
-            this.btnDescartarCambios.TabIndex = 28;
-            this.btnDescartarCambios.Text = "DESCARTAR CAMBIOS";
-            this.btnDescartarCambios.UseVisualStyleBackColor = true;
-            this.btnDescartarCambios.Click += new System.EventHandler(this.btnDescartarCambios_Click);
-            // 
-            // btnAltaLogica
-            // 
-            this.btnAltaLogica.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAltaLogica.Location = new System.Drawing.Point(301, 299);
-            this.btnAltaLogica.Name = "btnAltaLogica";
-            this.btnAltaLogica.Size = new System.Drawing.Size(169, 36);
-            this.btnAltaLogica.TabIndex = 24;
-            this.btnAltaLogica.Text = "ALTA LOGICA";
-            this.btnAltaLogica.UseVisualStyleBackColor = true;
-            this.btnAltaLogica.Visible = false;
-            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
-            // 
             // AbmTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(964, 442);
             this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);

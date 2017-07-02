@@ -73,8 +73,8 @@
             this.btn_eliminar = new System.Windows.Forms.Button();
             this.btn_modificar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboFiltroMarca = new System.Windows.Forms.ComboBox();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.comboFiltroMarca = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAutomovil)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -170,7 +170,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 33);
             this.button1.TabIndex = 77;
-            this.button1.Text = "Volver";
+            this.button1.Text = "Vaciar filtros";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -552,15 +552,6 @@
             this.panel1.Size = new System.Drawing.Size(764, 378);
             this.panel1.TabIndex = 85;
             // 
-            // comboFiltroMarca
-            // 
-            this.comboFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboFiltroMarca.FormattingEnabled = true;
-            this.comboFiltroMarca.Location = new System.Drawing.Point(107, 42);
-            this.comboFiltroMarca.Name = "comboFiltroMarca";
-            this.comboFiltroMarca.Size = new System.Drawing.Size(100, 21);
-            this.comboFiltroMarca.TabIndex = 86;
-            // 
             // checkVerInhabilitados
             // 
             this.checkVerInhabilitados.AutoSize = true;
@@ -572,6 +563,15 @@
             this.checkVerInhabilitados.Text = "Ver Inhabilitados";
             this.checkVerInhabilitados.UseVisualStyleBackColor = true;
             this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
+            // 
+            // comboFiltroMarca
+            // 
+            this.comboFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFiltroMarca.FormattingEnabled = true;
+            this.comboFiltroMarca.Location = new System.Drawing.Point(107, 42);
+            this.comboFiltroMarca.Name = "comboFiltroMarca";
+            this.comboFiltroMarca.Size = new System.Drawing.Size(100, 21);
+            this.comboFiltroMarca.TabIndex = 86;
             // 
             // AbmAutomovil
             // 
