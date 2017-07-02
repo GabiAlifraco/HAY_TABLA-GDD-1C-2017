@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace UberFrba
 {
@@ -107,6 +108,28 @@ namespace UberFrba
             }
             else { return true; }
 
+        }
+        public bool VerificarActivoRol(int id_rol)
+        {
+            bool activo = false;
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                conexion.Open();
+                SqlTransaction sqlTransact = conexion.BeginTransaction();
+                SqlCommand command = conexion.CreateCommand();
+                command.Transaction = sqlTransact;
+                try
+                {
+                    string query = String.Format("SELECT rol.Habilitado FROM [HAY_TABLA].[ROL] rol WHERE rol.Id_Rol=" + id_rol);
+                    command.CommandText = query;
+                    activo = (bool)command.ExecuteScalar();
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        return activo;
         }
 
         public bool validarFecha(int dia, int mes, int año)

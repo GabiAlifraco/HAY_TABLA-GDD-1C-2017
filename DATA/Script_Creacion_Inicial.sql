@@ -149,6 +149,8 @@ CREATE TABLE [HAY_TABLA].Factura(
 
 /* INSERTS A USUARIOS */
 
+
+
 INSERT INTO [HAY_TABLA].[Usuarios] (Usu_Username,Usu_Password)
 VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
 
@@ -450,3 +452,7 @@ BEGIN
 
 END
 GO
+
+/* ############################## INDICE ############################## */	
+
+CREATE UNIQUE INDEX indice_viajes ON [HAY_TABLA].Viaje(Id_Viaje);

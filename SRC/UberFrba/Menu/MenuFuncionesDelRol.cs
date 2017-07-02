@@ -23,6 +23,7 @@ namespace UberFrba.Menu
     public partial class MenuFuncionesDelRol : Form
     {
         public DBAccess Access { get; set; }
+        public ValidacionesAbm Validador { get; set; }
         private string idUsuario = "";
         private string idRol = "";
 
@@ -32,6 +33,7 @@ namespace UberFrba.Menu
             idUsuario = idUser;
             idRol = idRolUsuario.ToString();
             Access = new DBAccess();
+            Validador = new ValidacionesAbm();
             MostrarFunciones(idRol);
         }
 
@@ -72,12 +74,27 @@ namespace UberFrba.Menu
             switch (listBoxFunciones.SelectedItem.ToString())
             {
                 case "ABM de Cliente":
-                    AbmClientes formularioClientes = new AbmClientes();
-                    formularioClientes.Show();
+                    if (Validador.VerificarActivoRol(2))
+                    {
+                        AbmClientes formularioClientes = new AbmClientes();
+                        formularioClientes.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
+                    
                     break;
                 case "ABM de Chofer":
-                    AbmChofer formularioChofer = new AbmChofer();
-                    formularioChofer.Show();
+                    if (Validador.VerificarActivoRol(3))
+                    {
+                        AbmChofer formularioChofer = new AbmChofer();
+                        formularioChofer.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El ROL CHOFER esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
                     break;
                 case "ABM de Automóvil":
                     AbmAutomovil formularioAutomovil = new AbmAutomovil();
