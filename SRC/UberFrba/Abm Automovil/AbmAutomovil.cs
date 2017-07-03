@@ -121,7 +121,7 @@ namespace UberFrba.Abm_Automovil
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvAutomovil.Rows.Count - 1; i++)
+                        for (int i = 0; i < dgvAutomovil.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvAutomovil.Rows[i];
                             if (row.Cells[8].Value.ToString() == "False")
@@ -187,6 +187,7 @@ namespace UberFrba.Abm_Automovil
                     MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            labelNota.Visible = false;
            
             
         }
@@ -243,6 +244,8 @@ namespace UberFrba.Abm_Automovil
             comboChofer.SelectedItem = null;
             comboTurno.SelectedItem = null;
             comboTurno.Items.Clear();
+            comboTurno.Enabled = false;
+            labelNota.Visible = true;
                         
         }
 
@@ -271,6 +274,7 @@ namespace UberFrba.Abm_Automovil
         {
             panelDatosSeleccionado.Visible = false;
             panel1.Visible = true;
+            comboTurno.Enabled = true;
             
         }
 
@@ -474,7 +478,7 @@ namespace UberFrba.Abm_Automovil
         }
         private void btn_guardar_nuevo_Click(object sender, EventArgs e)
         {
-        if (Validar(txtPatente.Text, comboMarca.Text, txtModelo.Text, txtLicencia.Text, txtRodado.Text, comboChofer.Text, comboTurno.Text))
+        if (Validar(txtPatente.Text, comboMarca.Text, txtModelo.Text, txtLicencia.Text, txtRodado.Text, comboChofer.Text, "no validar"))
             {
                  using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
@@ -540,6 +544,7 @@ namespace UberFrba.Abm_Automovil
                         sqlTransact.Rollback();
                     }
                 }
+                 comboTurno.Enabled = false;
             }
         }
 
@@ -642,7 +647,7 @@ namespace UberFrba.Abm_Automovil
 
         private void comboTurno_MouseEnter(object sender, EventArgs e)
         {
-            labelNota.Visible = true;
+            //labelNota.Visible = true;
         }
 
         private void comboTurno_MouseLeave(object sender, EventArgs e)

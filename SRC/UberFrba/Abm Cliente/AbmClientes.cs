@@ -265,7 +265,7 @@ namespace UberFrba.Abm_Cliente
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvClientes.Rows.Count - 1; i++)
+                        for (int i = 0; i < dgvClientes.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvClientes.Rows[i];
                             if (row.Cells[9].Value.ToString() == "False")

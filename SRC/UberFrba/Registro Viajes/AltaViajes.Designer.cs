@@ -44,7 +44,6 @@
             this.listBoxCliente = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBoxChoferes
@@ -189,22 +188,12 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(438, 283);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(91, 39);
-            this.btnVolver.TabIndex = 90;
-            this.btnVolver.Text = "VOLVER";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // AltaViajes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(608, 372);
-            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBoxCliente);
@@ -220,6 +209,7 @@
             this.Controls.Add(this.listBoxTurnos);
             this.Controls.Add(this.listBoxChoferes);
             this.Controls.Add(this.label29);
+            this.MaximizeBox = false;
             this.Name = "AltaViajes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaViajes";
@@ -245,6 +235,5 @@
         private System.Windows.Forms.ListBox listBoxCliente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnVolver;
     }
 }

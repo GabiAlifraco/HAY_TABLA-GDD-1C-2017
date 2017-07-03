@@ -158,6 +158,7 @@
             this.Controls.Add(this.cbTrimestre);
             this.Controls.Add(this.dgvListado);
             this.Controls.Add(this.cbListado);
+            this.MaximizeBox = false;
             this.Name = "ListadoEstadistico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListadoEstadistico";

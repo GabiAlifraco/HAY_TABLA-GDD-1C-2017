@@ -377,7 +377,9 @@
             this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "AbmTurno";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmTurno";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).EndInit();

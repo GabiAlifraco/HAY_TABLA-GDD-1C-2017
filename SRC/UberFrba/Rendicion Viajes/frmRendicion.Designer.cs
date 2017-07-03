@@ -222,7 +222,9 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.dgvRendicion);
+            this.MaximizeBox = false;
             this.Name = "frmRendicion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRendicion";
             ((System.ComponentModel.ISupportInitialize)(this.dgvRendicion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPorcentajeDePago)).EndInit();

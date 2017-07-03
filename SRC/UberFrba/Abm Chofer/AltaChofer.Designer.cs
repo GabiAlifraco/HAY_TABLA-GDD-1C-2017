@@ -288,7 +288,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(587, 444);
             this.Controls.Add(this.panelDatosNuevoCliente);
+            this.MaximizeBox = false;
             this.Name = "AltaChofer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaChofer";
             this.panelDatosNuevoCliente.ResumeLayout(false);
             this.panelDatosNuevoCliente.PerformLayout();

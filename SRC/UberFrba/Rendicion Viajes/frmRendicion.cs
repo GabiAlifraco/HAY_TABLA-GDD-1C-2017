@@ -72,7 +72,7 @@ namespace UberFrba.Rendicion_Viajes
                     {
                         if (dr["Turno_Descripcion"].ToString() != "")
                         {
-                            listBoxTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString() + " " + dr["Turno_HoraInicio"].ToString() + " a " + dr["Turno_HoraFin"].ToString()));
+                            listBoxTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
 
                         }
                     }

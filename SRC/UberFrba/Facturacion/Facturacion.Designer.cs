@@ -195,7 +195,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtFechaI);
+            this.MaximizeBox = false;
             this.Name = "frmFacturacion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facturacion";
             ((System.ComponentModel.ISupportInitialize)(this.dgvFactura)).EndInit();
             this.ResumeLayout(false);

@@ -173,7 +173,7 @@ namespace UberFrba.Abm_Chofer
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvChoferes.Rows.Count - 1; i++)
+                        for (int i = 0; i < dgvChoferes.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvChoferes.Rows[i];
                             if (row.Cells[8].Value.ToString() == "False")

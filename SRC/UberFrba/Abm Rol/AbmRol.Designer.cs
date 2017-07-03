@@ -220,6 +220,7 @@
             this.ClientSize = new System.Drawing.Size(435, 355);
             this.Controls.Add(this.panelAbmRol);
             this.Controls.Add(this.panelDatosRol);
+            this.MinimizeBox = false;
             this.Name = "AbmRol";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmRol";

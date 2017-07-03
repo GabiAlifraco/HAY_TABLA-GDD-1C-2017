@@ -122,6 +122,7 @@
 -Un chofer
 -Un turno de dicho chofer
 -Una fecha
+-Porcentaje de pago
 
 Al presionar el boton "HACER RENDICION"
 La rendicion sera registrada en la base de datos.
@@ -129,7 +130,6 @@ Y se emitira un listado con los viajes correspondientes a la rendicion.Indicando
 -Fecha del viaje
 -Importe del viaje
 -Rendicion del viaje
--Porcentaje de pago
 
 Tambien se calculara:
 -La cantidad de viajes

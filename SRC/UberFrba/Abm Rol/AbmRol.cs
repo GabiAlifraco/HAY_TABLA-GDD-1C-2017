@@ -232,7 +232,7 @@ namespace UberFrba.Abm_Rol
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvRoles.Rows.Count - 1; i++)
+                        for (int i = 0; i < dgvRoles.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvRoles.Rows[i];
                             if (row.Cells[2].Value.ToString() == "False")

@@ -206,7 +206,7 @@ namespace UberFrba.Listado_Estadistico
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT TOP 5 Vi_IdChofer ID_Chofer, Cho_Apellido Apellido, Cho_Nombre Nombre, SUM (Vi_ImporteTotal) TotalRecaudado FROM HAY_TABLA.Viaje V JOIN HAY_TABLA.Chofer C ON V.Vi_IdChofer = C.Cho_Id WHERE Vi_Inicio BETWEEN " + trimestre + " GROUP BY Vi_IdChofer, Cho_Apellido, Cho_Nombre ORDER BY TotalRecaudado DESC, ID_Chofer");
+                string query = String.Format("SELECT TOP 5 R.Cho_Id ID_Chofer, Cho_Apellido Apellido, Cho_Nombre Nombre, SUM (R.Rendicion_Total) TotalRecaudado  FROM HAY_TABLA.Rendicion R JOIN HAY_TABLA.Chofer C ON R.Cho_Id = C.Cho_Id WHERE Rendicion_Fecha BETWEEN " + trimestre + " GROUP BY R.Cho_Id, Cho_Apellido, Cho_Nombre ORDER BY TotalRecaudado DESC, ID_Chofer");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {

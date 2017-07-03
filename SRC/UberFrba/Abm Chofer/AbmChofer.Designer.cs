@@ -160,6 +160,7 @@
             // 
             // dgvChoferes
             // 
+            this.dgvChoferes.AllowUserToAddRows = false;
             this.dgvChoferes.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvChoferes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChoferes.Location = new System.Drawing.Point(31, 79);
@@ -514,6 +515,7 @@
             this.Controls.Add(this.panelChoferes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelDatosChoferSeleccionado);
+            this.MaximizeBox = false;
             this.Name = "AbmChofer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmChofer";

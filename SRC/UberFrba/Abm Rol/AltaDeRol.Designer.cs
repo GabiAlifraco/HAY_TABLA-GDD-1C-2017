@@ -107,6 +107,7 @@
             this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MinimizeBox = false;
             this.Name = "AltaDeRol";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaDeRol";

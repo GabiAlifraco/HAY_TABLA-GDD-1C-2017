@@ -99,6 +99,7 @@
             // 
             // dgvClientes
             // 
+            this.dgvClientes.AllowUserToAddRows = false;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Location = new System.Drawing.Point(12, 77);
             this.dgvClientes.Name = "dgvClientes";
@@ -772,6 +773,7 @@
             this.Controls.Add(this.btnCrearCliente);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvClientes);
+            this.MaximizeBox = false;
             this.Name = "AbmClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmClientes";

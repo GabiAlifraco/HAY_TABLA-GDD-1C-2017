@@ -247,7 +247,9 @@
             this.Controls.Add(this.txtDescripcionTurno);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCrearTurno);
+            this.MaximizeBox = false;
             this.Name = "AltaTurnos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaTurnos";
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).EndInit();

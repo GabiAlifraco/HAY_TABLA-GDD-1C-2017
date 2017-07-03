@@ -155,6 +155,7 @@
             // 
             // dgvAutomovil
             // 
+            this.dgvAutomovil.AllowUserToAddRows = false;
             this.dgvAutomovil.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
@@ -582,6 +583,7 @@
             this.ClientSize = new System.Drawing.Size(857, 469);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "AbmAutomovil";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Abm automovil";
