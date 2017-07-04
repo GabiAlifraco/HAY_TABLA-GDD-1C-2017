@@ -368,7 +368,23 @@ namespace UberFrba.Abm_Turno
 
         private bool ValidarTurno(string descripcion, decimal horaInicio, decimal horaFin, decimal precioBase, decimal valorKm)
         {
-            return (Validador.validarStringVacio(descripcion, "Descripcion") && ValidarHorario(horaInicio, horaFin));
+            if (precioBase > 0)
+            {
+                if (valorKm > 0)
+                {
+                    return (Validador.validarStringVacio(descripcion, "Descripcion") && ValidarHorario(horaInicio, horaFin));
+                }
+                else
+                {
+                    MessageBox.Show("El valor del km debe ser mayor que 0");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("El precio base debe ser mayor que 0");
+                return false;
+            }
         }
 
         private bool ValidarHorario(decimal horaInicio, decimal horaFin)

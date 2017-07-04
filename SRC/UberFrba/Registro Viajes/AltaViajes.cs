@@ -154,7 +154,7 @@ namespace UberFrba.Registro_Viajes
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (NoHayCamposVacios() && Validador.validarFechaCampo(txtFyHinicio.Text, "La fecha de inicio") && Validador.validarFechaCampo(txtFyHfin.Text, "La fecha de fin"))
+            if (NoHayCamposVaciosOen0() && Validador.validarFechaCampo(txtFyHinicio.Text, "La fecha de inicio") && Validador.validarFechaCampo(txtFyHfin.Text, "La fecha de fin"))
             {// Si no hay campos vacios
                 DateTime Finicio;
                 DateTime.TryParse(txtFyHinicio.Text, out Finicio);
@@ -392,22 +392,27 @@ namespace UberFrba.Registro_Viajes
             }
         }
 
-        private bool NoHayCamposVacios()
+        private bool NoHayCamposVaciosOen0()
         {
             if (listBoxChoferes.SelectedIndex != -1) {
                 if (listBoxTurnos.SelectedIndex != -1)
                 {
                     if (listBoxCliente.SelectedIndex != -1)
                     {
-                        if (Validador.validarStringVacio(txtCantidadKm.Text, "Cantidad de kilometros"))
+                        if ((Convert.ToInt64(txtCantidadKm.Text) > 0))
                         {
                             if (txtAuto.Text != "")
                             {
                                 return true;
                             }
-                            else {
+                            else
+                            {
                                 MessageBox.Show("El chofer no posee un automovil habilitado para realizar el viaje");
                             }
+                        }
+                        else {
+                            MessageBox.Show("La cantidad de kms debe ser mayor que 0");
+                            return false;
                         }
                     }else
                     {

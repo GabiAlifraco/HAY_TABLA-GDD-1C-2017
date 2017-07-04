@@ -35,7 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAuto = new System.Windows.Forms.TextBox();
-            this.txtCantidadKm = new System.Windows.Forms.TextBox();
             this.txtFyHinicio = new System.Windows.Forms.MaskedTextBox();
             this.txtFyHfin = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,6 +43,8 @@
             this.listBoxCliente = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.txtCantidadKm = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCantidadKm)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxChoferes
@@ -101,14 +102,6 @@
             this.txtAuto.Name = "txtAuto";
             this.txtAuto.Size = new System.Drawing.Size(116, 20);
             this.txtAuto.TabIndex = 78;
-            // 
-            // txtCantidadKm
-            // 
-            this.txtCantidadKm.Location = new System.Drawing.Point(205, 227);
-            this.txtCantidadKm.Name = "txtCantidadKm";
-            this.txtCantidadKm.Size = new System.Drawing.Size(100, 20);
-            this.txtCantidadKm.TabIndex = 79;
-            this.txtCantidadKm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
             // 
             // txtFyHinicio
             // 
@@ -188,12 +181,20 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
+            // txtCantidadKm
+            // 
+            this.txtCantidadKm.Location = new System.Drawing.Point(207, 228);
+            this.txtCantidadKm.Name = "txtCantidadKm";
+            this.txtCantidadKm.Size = new System.Drawing.Size(98, 20);
+            this.txtCantidadKm.TabIndex = 90;
+            // 
             // AltaViajes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(608, 372);
+            this.Controls.Add(this.txtCantidadKm);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBoxCliente);
@@ -202,7 +203,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtFyHfin);
             this.Controls.Add(this.txtFyHinicio);
-            this.Controls.Add(this.txtCantidadKm);
             this.Controls.Add(this.txtAuto);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -213,6 +213,7 @@
             this.Name = "AltaViajes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AltaViajes";
+            ((System.ComponentModel.ISupportInitialize)(this.txtCantidadKm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,7 +227,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtAuto;
-        private System.Windows.Forms.TextBox txtCantidadKm;
         private System.Windows.Forms.MaskedTextBox txtFyHinicio;
         private System.Windows.Forms.MaskedTextBox txtFyHfin;
         private System.Windows.Forms.Label label3;
@@ -235,5 +235,6 @@
         private System.Windows.Forms.ListBox listBoxCliente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.NumericUpDown txtCantidadKm;
     }
 }
