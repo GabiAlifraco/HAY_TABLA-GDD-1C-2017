@@ -124,6 +124,10 @@ namespace UberFrba.Menu
                     ListadoEstadistico formListadoEstadistico = new ListadoEstadistico();
                     formListadoEstadistico.Show();
                     break;
+                case "Ver Viajes":
+                    VerViajes formVerViajes = new VerViajes();
+                    formVerViajes.Show();
+                    break;
                 default:
                     Console.WriteLine("Default case");
                     break;
