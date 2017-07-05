@@ -99,7 +99,7 @@ namespace UberFrba.Rendicion_Viajes
                     if (listBoxTurnos.SelectedIndex != -1)
                     {
                         if (txtPorcentajeDePago.Text != "") {
-                            HacerRedencion();
+                            MostrarRendicion();
                         } else {
                             MessageBox.Show("Se debe ingresar un porcentaje de pago");
                         }
@@ -116,9 +116,9 @@ namespace UberFrba.Rendicion_Viajes
             }
         }
 
-        void HacerRedencion()
+        void MostrarRendicion()
         {
-            DataTable dtRendicion = new DataTable("Factura");
+            DataTable dtRendicion = new DataTable("Rendicion de cuentas");
 
             DataColumn cCantidadKms = new DataColumn("Kms");
             DataColumn cFecha = new DataColumn("Fecha");

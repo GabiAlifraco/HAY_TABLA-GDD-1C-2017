@@ -13,7 +13,6 @@ namespace UberFrba.Abm_Chofer
 {
     public partial class AltaChofer : Form
     {
-        private List<KeyValuePair<int, string>> listaKVPTurnos = new List<KeyValuePair<int, string>>();
         public DBAccess Access { get; set; }
         public ValidacionesAbm Validador { get; set; }
         public AltaChofer()
@@ -21,7 +20,7 @@ namespace UberFrba.Abm_Chofer
             Access = new DBAccess();
             Validador = new ValidacionesAbm();
             InitializeComponent();
-            mostrarTurnos();
+
         }
 
         private void btnCancelarCrear_Click(object sender, EventArgs e)
@@ -92,35 +91,6 @@ namespace UberFrba.Abm_Chofer
                     //sqlTransact.Rollback();
                 }
                 conexion.Close();
-            }
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-            {
-                conexion.Open();
-                SqlCommand command2 = conexion.CreateCommand();
-                try
-                {
-                    string query1 = String.Format(" SELECT Cho_Id FROM [HAY_TABLA].[Chofer] WHERE Cho_DNI = " + txtChoferDNINuevo.Text);
-                    command2.CommandText = query1;
-                    SqlDataReader dr = command2.ExecuteReader();
-                    int idChofer = 0;
-                    while (dr.Read())
-                    {
-                        idChofer = (int)dr["Cho_Id"];
-                    }
-                    dr.Close();
-                    foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
-                    {
-                        query1 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + idChofer + ",0)");
-                        command2.CommandText = query1;
-                        command2.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error");
-
-                }
-
             }
         }
 
@@ -199,30 +169,8 @@ VALUES('bob');
             return resultadoValidacion;
         }
 
-        private void mostrarTurnos() {
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-            {
-                string query = String.Format("SELECT [Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion]FROM[HAY_TABLA].[Turno] WHERE Turno_Habilitado = 1");
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                try
-                {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    
-                    while (dr.Read())
-                    {
-                        if (dr["Turno_Descripcion"].ToString() != "")
-                        {
-                            listaKVPTurnos.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
-                            listaTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
-                        }
-                    }
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+
+
+
     }
 }

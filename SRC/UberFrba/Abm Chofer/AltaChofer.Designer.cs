@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaChofer));
             this.panelDatosNuevoCliente = new System.Windows.Forms.Panel();
-            this.listaTurnos = new System.Windows.Forms.CheckedListBox();
             this.txtApellidoNuevo = new System.Windows.Forms.TextBox();
             this.txtNombreNuevo = new System.Windows.Forms.TextBox();
             this.txtAlturaNuevo = new System.Windows.Forms.TextBox();
@@ -57,7 +56,6 @@
             // panelDatosNuevoCliente
             // 
             this.panelDatosNuevoCliente.BackColor = System.Drawing.Color.Transparent;
-            this.panelDatosNuevoCliente.Controls.Add(this.listaTurnos);
             this.panelDatosNuevoCliente.Controls.Add(this.txtApellidoNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtNombreNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtAlturaNuevo);
@@ -80,16 +78,8 @@
             this.panelDatosNuevoCliente.Controls.Add(this.btnCrear);
             this.panelDatosNuevoCliente.Location = new System.Drawing.Point(51, 12);
             this.panelDatosNuevoCliente.Name = "panelDatosNuevoCliente";
-            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(333, 404);
+            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(333, 217);
             this.panelDatosNuevoCliente.TabIndex = 64;
-            // 
-            // listaTurnos
-            // 
-            this.listaTurnos.FormattingEnabled = true;
-            this.listaTurnos.Location = new System.Drawing.Point(23, 173);
-            this.listaTurnos.Name = "listaTurnos";
-            this.listaTurnos.Size = new System.Drawing.Size(208, 94);
-            this.listaTurnos.TabIndex = 65;
             // 
             // txtApellidoNuevo
             // 
@@ -138,7 +128,7 @@
             // 
             // btnCancelarCrear
             // 
-            this.btnCancelarCrear.Location = new System.Drawing.Point(130, 289);
+            this.btnCancelarCrear.Location = new System.Drawing.Point(156, 169);
             this.btnCancelarCrear.Name = "btnCancelarCrear";
             this.btnCancelarCrear.Size = new System.Drawing.Size(101, 23);
             this.btnCancelarCrear.TabIndex = 60;
@@ -273,7 +263,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(23, 289);
+            this.btnCrear.Location = new System.Drawing.Point(49, 169);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(101, 23);
             this.btnCrear.TabIndex = 28;
@@ -286,7 +276,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(587, 444);
+            this.ClientSize = new System.Drawing.Size(416, 247);
             this.Controls.Add(this.panelDatosNuevoCliente);
             this.MaximizeBox = false;
             this.Name = "AltaChofer";
@@ -321,6 +311,5 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.MaskedTextBox txtNacimientoNuevo;
         private System.Windows.Forms.Button btnCrear;
-        private System.Windows.Forms.CheckedListBox listaTurnos;
     }
 }

@@ -45,6 +45,7 @@
             this.txtCantidadViajes = new System.Windows.Forms.TextBox();
             this.txtCantKms = new System.Windows.Forms.TextBox();
             this.txtPorcentajeDePago = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRendicion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPorcentajeDePago)).BeginInit();
             this.SuspendLayout();
@@ -154,11 +155,11 @@
             // 
             // btnRendicion
             // 
-            this.btnRendicion.Location = new System.Drawing.Point(125, 293);
+            this.btnRendicion.Location = new System.Drawing.Point(122, 271);
             this.btnRendicion.Name = "btnRendicion";
-            this.btnRendicion.Size = new System.Drawing.Size(149, 59);
+            this.btnRendicion.Size = new System.Drawing.Size(195, 59);
             this.btnRendicion.TabIndex = 112;
-            this.btnRendicion.Text = "HACER RENDICION";
+            this.btnRendicion.Text = "MOSTRAR VIAJES A RENDIR";
             this.btnRendicion.UseVisualStyleBackColor = true;
             this.btnRendicion.Click += new System.EventHandler(this.btnRendicion_Click);
             // 
@@ -200,12 +201,22 @@
             this.txtPorcentajeDePago.Size = new System.Drawing.Size(55, 20);
             this.txtPorcentajeDePago.TabIndex = 116;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(578, 377);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(209, 46);
+            this.button1.TabIndex = 117;
+            this.button1.Text = "CONFIRMAR RENDICION";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // frmRendicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1073, 502);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtPorcentajeDePago);
             this.Controls.Add(this.txtImporteTotal);
             this.Controls.Add(this.txtCantidadViajes);
@@ -251,5 +262,6 @@
         private System.Windows.Forms.TextBox txtCantidadViajes;
         private System.Windows.Forms.TextBox txtCantKms;
         private System.Windows.Forms.NumericUpDown txtPorcentajeDePago;
+        private System.Windows.Forms.Button button1;
     }
 }

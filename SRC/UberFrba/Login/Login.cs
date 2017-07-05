@@ -212,7 +212,7 @@ namespace UberFrba.Login
                                 {
                                     listRoles.Add((new KeyValuePair<string, int>(dr["Nombre"].ToString(), (int)dr["Id_Rol"])));
                                 }
-                                MenuFuncionesDelRol formularioMenuFuncionesRol = new MenuFuncionesDelRol(id_Usuario, listRoles[0].Value);
+                                MenuFuncionesDelRol formularioMenuFuncionesRol = new MenuFuncionesDelRol(id_Usuario, RolquePosee);
                                 formularioMenuFuncionesRol.Show();
                             }
                             catch (Exception excep)

@@ -41,9 +41,8 @@
             this.txtFiltroChofer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelDatosSeleccionado = new System.Windows.Forms.Panel();
-            this.labelNota = new System.Windows.Forms.Label();
+            this.listaTurnos = new System.Windows.Forms.CheckedListBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.comboTurno = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboChofer = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -160,7 +159,7 @@
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
             this.dgvAutomovil.Name = "dgvAutomovil";
-            this.dgvAutomovil.Size = new System.Drawing.Size(751, 242);
+            this.dgvAutomovil.Size = new System.Drawing.Size(808, 328);
             this.dgvAutomovil.TabIndex = 76;
             this.dgvAutomovil.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAutomovil_CellClick);
             // 
@@ -197,9 +196,8 @@
             // panelDatosSeleccionado
             // 
             this.panelDatosSeleccionado.BackColor = System.Drawing.Color.LemonChiffon;
-            this.panelDatosSeleccionado.Controls.Add(this.labelNota);
+            this.panelDatosSeleccionado.Controls.Add(this.listaTurnos);
             this.panelDatosSeleccionado.Controls.Add(this.button2);
-            this.panelDatosSeleccionado.Controls.Add(this.comboTurno);
             this.panelDatosSeleccionado.Controls.Add(this.label10);
             this.panelDatosSeleccionado.Controls.Add(this.comboChofer);
             this.panelDatosSeleccionado.Controls.Add(this.label7);
@@ -225,27 +223,24 @@
             this.panelDatosSeleccionado.Controls.Add(this.label3);
             this.panelDatosSeleccionado.Controls.Add(this.label2);
             this.panelDatosSeleccionado.Controls.Add(this.txtClienteNacimiento);
-            this.panelDatosSeleccionado.Location = new System.Drawing.Point(189, 156);
+            this.panelDatosSeleccionado.Location = new System.Drawing.Point(125, 158);
             this.panelDatosSeleccionado.Name = "panelDatosSeleccionado";
-            this.panelDatosSeleccionado.Size = new System.Drawing.Size(475, 177);
+            this.panelDatosSeleccionado.Size = new System.Drawing.Size(672, 177);
             this.panelDatosSeleccionado.TabIndex = 81;
             this.panelDatosSeleccionado.Visible = false;
             // 
-            // labelNota
+            // listaTurnos
             // 
-            this.labelNota.AutoSize = true;
-            this.labelNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNota.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.labelNota.Location = new System.Drawing.Point(36, 158);
-            this.labelNota.Name = "labelNota";
-            this.labelNota.Size = new System.Drawing.Size(398, 13);
-            this.labelNota.TabIndex = 90;
-            this.labelNota.Text = "Nota: El auto sera asignado a todos los turnos disponibles del chofer";
+            this.listaTurnos.FormattingEnabled = true;
+            this.listaTurnos.Location = new System.Drawing.Point(372, 47);
+            this.listaTurnos.Name = "listaTurnos";
+            this.listaTurnos.Size = new System.Drawing.Size(169, 94);
+            this.listaTurnos.TabIndex = 86;
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(385, 38);
+            this.button2.Location = new System.Drawing.Point(579, 31);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 35);
             this.button2.TabIndex = 89;
@@ -253,25 +248,14 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btn_guardar_nuevo_Click);
             // 
-            // comboTurno
-            // 
-            this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboTurno.FormattingEnabled = true;
-            this.comboTurno.Location = new System.Drawing.Point(195, 131);
-            this.comboTurno.Name = "comboTurno";
-            this.comboTurno.Size = new System.Drawing.Size(154, 21);
-            this.comboTurno.TabIndex = 88;
-            this.comboTurno.MouseEnter += new System.EventHandler(this.comboTurno_MouseEnter);
-            this.comboTurno.MouseLeave += new System.EventHandler(this.comboTurno_MouseLeave);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(192, 114);
+            this.label10.Location = new System.Drawing.Point(369, 31);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.Size = new System.Drawing.Size(43, 13);
             this.label10.TabIndex = 87;
-            this.label10.Text = "Turno:";
+            this.label10.Text = "Turnos:";
             // 
             // comboChofer
             // 
@@ -281,7 +265,6 @@
             this.comboChofer.Name = "comboChofer";
             this.comboChofer.Size = new System.Drawing.Size(154, 21);
             this.comboChofer.TabIndex = 86;
-            this.comboChofer.SelectionChangeCommitted += new System.EventHandler(this.comboChofer_SelectionChangeCommitted);
             // 
             // label7
             // 
@@ -295,7 +278,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(385, 119);
+            this.button5.Location = new System.Drawing.Point(579, 114);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 33);
             this.button5.TabIndex = 84;
@@ -306,7 +289,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(385, 80);
+            this.button4.Location = new System.Drawing.Point(579, 75);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 33);
             this.button4.TabIndex = 83;
@@ -317,7 +300,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(385, 40);
+            this.button3.Location = new System.Drawing.Point(579, 35);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 33);
             this.button3.TabIndex = 82;
@@ -497,7 +480,7 @@
             // 
             this.btn_nuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_nuevo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_nuevo.Location = new System.Drawing.Point(43, 315);
+            this.btn_nuevo.Location = new System.Drawing.Point(58, 402);
             this.btn_nuevo.Name = "btn_nuevo";
             this.btn_nuevo.Size = new System.Drawing.Size(141, 33);
             this.btn_nuevo.TabIndex = 82;
@@ -509,7 +492,7 @@
             // 
             this.btn_eliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_eliminar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_eliminar.Location = new System.Drawing.Point(205, 315);
+            this.btn_eliminar.Location = new System.Drawing.Point(220, 402);
             this.btn_eliminar.Name = "btn_eliminar";
             this.btn_eliminar.Size = new System.Drawing.Size(141, 33);
             this.btn_eliminar.TabIndex = 83;
@@ -521,7 +504,7 @@
             // 
             this.btn_modificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_modificar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_modificar.Location = new System.Drawing.Point(370, 316);
+            this.btn_modificar.Location = new System.Drawing.Point(385, 403);
             this.btn_modificar.Name = "btn_modificar";
             this.btn_modificar.Size = new System.Drawing.Size(141, 33);
             this.btn_modificar.TabIndex = 84;
@@ -548,16 +531,16 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label32);
             this.panel1.Controls.Add(this.txtFiltroPatente);
-            this.panel1.Location = new System.Drawing.Point(51, 60);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(764, 378);
+            this.panel1.Size = new System.Drawing.Size(1007, 541);
             this.panel1.TabIndex = 85;
             // 
             // checkVerInhabilitados
             // 
             this.checkVerInhabilitados.AutoSize = true;
             this.checkVerInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkVerInhabilitados.Location = new System.Drawing.Point(528, 320);
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(543, 407);
             this.checkVerInhabilitados.Name = "checkVerInhabilitados";
             this.checkVerInhabilitados.Size = new System.Drawing.Size(147, 24);
             this.checkVerInhabilitados.TabIndex = 87;
@@ -580,7 +563,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(857, 469);
+            this.ClientSize = new System.Drawing.Size(1395, 565);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
@@ -636,15 +619,13 @@
         private System.Windows.Forms.Button btn_nuevo;
         private System.Windows.Forms.Button btn_eliminar;
         private System.Windows.Forms.Button btn_modificar;
-        private System.Windows.Forms.ComboBox comboTurno;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboChofer;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboFiltroMarca;
-        private System.Windows.Forms.Label labelNota;
         private System.Windows.Forms.CheckBox checkVerInhabilitados;
-
+        private System.Windows.Forms.CheckedListBox listaTurnos;
     }
 }

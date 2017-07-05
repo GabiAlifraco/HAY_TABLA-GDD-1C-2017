@@ -13,8 +13,6 @@ namespace UberFrba.Abm_Chofer
 {
     public partial class AbmChofer : Form
     {
-        private List<KeyValuePair<int, string>> listaKVPTurnos = new List<KeyValuePair<int, string>>();
-        private List<KeyValuePair<int, string>> listaKVPTurnosSeleccionados = new List<KeyValuePair<int, string>>();
         public DBAccess Access { get; set; }
         public ValidacionesAbm Validador { get; set; }
         public AbmChofer()
@@ -36,72 +34,10 @@ namespace UberFrba.Abm_Chofer
         {
             panelChoferes.Visible = false;
             panelDatosChoferSeleccionado.Visible = true;
-            mostrarTurnos();
 
         }
 
-        private void mostrarTurnos()
-        {
-            listaKVPTurnos.Clear();
-            listaKVPTurnosSeleccionados.Clear();
-            listaTurnos.Items.Clear();
-
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-            {
-                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Cho_Id = " + txtIdSeleccionado.Text + "AND Turno_Habilitado = 1");
-                SqlCommand cmd2 = new SqlCommand(query, conexion);
-                try
-                {
-                    conexion.Open();
-                    SqlDataReader dr = cmd2.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        if (dr["Turno_Descripcion"].ToString() != "")
-                        {
-                            listaKVPTurnosSeleccionados.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
-
-                        }
-                    }
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-            {
-                string query = String.Format("SELECT [Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM [HAY_TABLA].[Turno]  where Turno_Habilitado = 1");
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                try
-                {
-                    
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    int a = 0;
-                    while (dr.Read())
-                    {
-                        if (dr["Turno_Descripcion"].ToString() != "")
-                        {
-                            listaKVPTurnos.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
-                            listaTurnos.Items.Add(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()));
-                            if (listaKVPTurnosSeleccionados.Contains(new KeyValuePair<int, string>((int)dr["Turno_Id"], dr["Turno_Descripcion"].ToString()))) {
-                                listaTurnos.SetItemChecked(a, true);
-                            }
-                            
-                        }
-                        a++;
-                    }
-                    conexion.Close();
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-
-        }
+     
 
         void MostrarChoferes()
         {
@@ -334,36 +270,6 @@ namespace UberFrba.Abm_Chofer
                         command.Parameters.Add(param);
 
                         command.ExecuteNonQuery();
-                        
-                        foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
-                        {
-                                if (listaKVPTurnosSeleccionados.Contains(new KeyValuePair<int, string>(turno.Key, turno.Value)))
-                                {
-                                    //ya esta en la bd guardado ese turno seleccionado
-                                }else
-                                {
-                                    //agrego un nuevo turno al chofer, lo tengo que guardar
-                                    query = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + txtIdSeleccionado.Text + ",0)");
-                                    command.CommandText = query;
-                                    command.ExecuteNonQuery();
-                                }
-  
-                        }
-                        foreach (KeyValuePair<int, string> turno in listaKVPTurnosSeleccionados)
-                        {
-                            if (listaTurnos.CheckedItems.Contains(new KeyValuePair<int, string>(turno.Key, turno.Value)))
-                            {
-                                //ya esta en la bd guardado ese turno seleccionado
-                            }
-                            else
-                            {
-                                //elimino un nuevo turno al chofer, estaba selecionado y ahora ya no.
-                                query = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Turno_Id =" + turno.Key.ToString() + " AND Cho_Id=" + txtIdSeleccionado.Text);
-                                command.CommandText = query;
-                                command.ExecuteNonQuery();
-                            }
-
-                        }
 
                         sqlTransact.Commit();
                         MessageBox.Show("El chofer fue guardado con exito");

@@ -40,8 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvChoferes = new System.Windows.Forms.DataGridView();
             this.panelDatosChoferSeleccionado = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.listaTurnos = new System.Windows.Forms.CheckedListBox();
             this.txtChoferAltura = new System.Windows.Forms.TextBox();
             this.txtChoferDireccion = new System.Windows.Forms.TextBox();
             this.txtChoferTelefono = new System.Windows.Forms.TextBox();
@@ -172,8 +170,6 @@
             // panelDatosChoferSeleccionado
             // 
             this.panelDatosChoferSeleccionado.BackColor = System.Drawing.Color.Transparent;
-            this.panelDatosChoferSeleccionado.Controls.Add(this.label8);
-            this.panelDatosChoferSeleccionado.Controls.Add(this.listaTurnos);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferAltura);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferDireccion);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferTelefono);
@@ -201,24 +197,6 @@
             this.panelDatosChoferSeleccionado.Size = new System.Drawing.Size(536, 262);
             this.panelDatosChoferSeleccionado.TabIndex = 80;
             this.panelDatosChoferSeleccionado.Visible = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label8.Location = new System.Drawing.Point(292, 66);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 68;
-            this.label8.Text = "Turnos:";
-            // 
-            // listaTurnos
-            // 
-            this.listaTurnos.FormattingEnabled = true;
-            this.listaTurnos.Location = new System.Drawing.Point(295, 82);
-            this.listaTurnos.Name = "listaTurnos";
-            this.listaTurnos.Size = new System.Drawing.Size(208, 94);
-            this.listaTurnos.TabIndex = 67;
             // 
             // txtChoferAltura
             // 
@@ -478,7 +456,7 @@
             this.panelChoferes.Controls.Add(this.btnFiltrar);
             this.panelChoferes.Controls.Add(this.txtFiltroApellido);
             this.panelChoferes.Controls.Add(this.txtFiltroNombre);
-            this.panelChoferes.Location = new System.Drawing.Point(125, 29);
+            this.panelChoferes.Location = new System.Drawing.Point(98, 12);
             this.panelChoferes.Name = "panelChoferes";
             this.panelChoferes.Size = new System.Drawing.Size(1114, 405);
             this.panelChoferes.TabIndex = 82;
@@ -568,8 +546,6 @@
         private System.Windows.Forms.Button btnEliminarChofer;
         private System.Windows.Forms.Button btnCrearCliente;
         private System.Windows.Forms.Panel panelChoferes;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckedListBox listaTurnos;
         private System.Windows.Forms.CheckBox checkVerInhabilitados;
         private System.Windows.Forms.Button btnAltaLogica;
     }
