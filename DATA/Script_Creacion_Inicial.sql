@@ -114,8 +114,6 @@ CREATE TABLE [HAY_TABLA].Viaje(
 	Vi_CantKilometros 				NUMERIC(18, 0),
 	Vi_Inicio 						DATETIME,
 	Vi_Fin 							DATETIME,
-	Rendicion_Nro 					NUMERIC(18,0),
-	Factura_Nro 					NUMERIC(18,0),
 	Vi_ImporteTotal 				NUMERIC(18, 2),
 	CONSTRAINT PKViaje 				PRIMARY KEY (Id_Viaje),
 	FOREIGN KEY (Vi_IdChofer) 		REFERENCES [HAY_TABLA].Chofer(Cho_Id),
@@ -145,11 +143,20 @@ CREATE TABLE [HAY_TABLA].Factura(
 	FOREIGN KEY (Cli_Id)   			REFERENCES [HAY_TABLA].Cliente(Cli_Id)
 );
 
+CREATE TABLE [HAY_TABLA].Detalle_Viaje_Rendicion(
+Rendicion_Nro 						NUMERIC(18,0) NOT NULL,
+Id_Viaje 							INT NOT NULL,
+PorcentajeDePago 					NUMERIC(4,2) NOT NULL,
+);
+
+CREATE TABLE [HAY_TABLA].Detalle_Viaje_Facturacion(
+Factura_Nro 						NUMERIC(18,0) NOT NULL,
+Id_Viaje 							INT NOT NULL
+);
+
 /* ############################## INSERTS A TABLAS MAESTRAS ############################## */
 
 /* INSERTS A USUARIOS */
-
-
 
 INSERT INTO [HAY_TABLA].[Usuarios] (Usu_Username,Usu_Password)
 VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
@@ -280,7 +287,7 @@ GROUP BY   maestra.Chofer_Dni,  maestra.Auto_Patente, maestra.Turno_Descripcion,
 
 /* INSERTS A VIAJES */	
 
-INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTurno,Vi_CantKilometros,Vi_Inicio,Vi_Fin,Rendicion_Nro,Factura_Nro,Vi_ImporteTotal)
+INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTurno,Vi_CantKilometros,Vi_Inicio,Vi_Fin,Vi_ImporteTotal)
   SELECT 
 	Chofer.Cho_Id,
 	Cliente.Cli_Id,
@@ -289,8 +296,6 @@ INSERT INTO [HAY_TABLA].Viaje (Vi_IdChofer, Vi_IdCliente,Vi_AutoPatente, Vi_IdTu
 	m1.Viaje_Cant_Kilometros,
 	m1.Viaje_Fecha as Inicio,/*INICIO*/
 	m1.Viaje_Fecha as Fin,
-	Rendicion_Nro,
-	Factura_Nro = (SELECT TOP 1 Factura_Nro FROM gd_esquema.Maestra g2 WHERE m1.Cliente_Dni = g2.Cliente_Dni AND Factura_Nro IS NOT NULL AND m1.Viaje_Fecha = g2.Viaje_Fecha),
 	(m1.Turno_Precio_Base + m1.Turno_Valor_Kilometro * m1.Viaje_Cant_Kilometros) AS IMPORTE
 FROM [gd_esquema].[Maestra] m1
 INNER JOIN Hay_TABLA.Chofer ON Chofer.Cho_DNI = m1.Chofer_Dni
@@ -307,8 +312,7 @@ GROUP BY
 	m1.Viaje_Fecha,
 	m1.Turno_Precio_Base,
 	m1.Turno_Valor_Kilometro,
-	Turno.Turno_Id,
-	Rendicion_Nro
+	Turno.Turno_Id
 	
 /* INSERTS A RENDICION */	
 	
@@ -338,6 +342,35 @@ WHERE Factura_Nro IS NOT NULL
 GROUP BY Factura_Nro, Factura_Fecha_Inicio, Factura_Fecha_Fin, c.Cli_Id, Cliente_Dni
 ORDER BY Factura_Nro
 SET IDENTITY_INSERT [HAY_TABLA].Factura OFF
+GO
+
+/* INSERTS A Detalle_Viaje_Rendicion */	
+
+INSERT INTO [HAY_TABLA].Detalle_Viaje_Rendicion(Rendicion_Nro, Id_Viaje, PorcentajeDePago)
+SELECT m.Rendicion_Nro,Id_Viaje,30
+FROM [gd_esquema].[Maestra] m
+INNER JOIN [HAY_TABLA].[Chofer] c2 ON c2.Cho_DNI=m.Chofer_Dni
+INNER JOIN [HAY_TABLA].[Viaje] v ON 
+(v.Vi_Inicio=m.Viaje_Fecha 
+AND m.Viaje_Cant_Kilometros=v.Vi_CantKilometros
+AND v.Vi_AutoPatente=m.Auto_Patente
+AND v.Vi_IdChofer = c2.Cho_Id)
+WHERE m.Rendicion_Nro IS NOT NULL
+GROUP BY m.Rendicion_Nro,Id_Viaje
+
+/* INSERTS A Detalle_Viaje_Facturacion */	
+
+INSERT INTO [HAY_TABLA].Detalle_Viaje_Facturacion(Factura_Nro, Id_Viaje)
+SELECT m.Factura_Nro,Id_Viaje
+FROM [gd_esquema].[Maestra] m
+JOIN [HAY_TABLA].[Cliente] c2 ON c2.Cli_DNI=m.Cliente_Dni
+JOIN [HAY_TABLA].[Viaje] v ON 
+(v.Vi_Inicio=m.Viaje_Fecha 
+AND m.Viaje_Cant_Kilometros=v.Vi_CantKilometros
+AND v.Vi_AutoPatente=m.Auto_Patente 
+AND v.Vi_IdCliente = c2.Cli_Id)
+WHERE m.Factura_Nro IS NOT NULL
+GROUP BY m.Factura_Nro,Id_Viaje
 GO
 
 /* ############################## PROCEDURES ############################## */	

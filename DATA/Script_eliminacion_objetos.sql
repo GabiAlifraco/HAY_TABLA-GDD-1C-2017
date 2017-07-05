@@ -21,6 +21,8 @@ DROP TABLE [HAY_TABLA].Chofer
 DROP TABLE [HAY_TABLA].Cliente
 DROP TABLE [HAY_TABLA].Turno
 DROP TABLE [HAY_TABLA].Usuarios
+DROP TABLE [HAY_TABLA].Detalle_Viaje_Rendicion
+DROP TABLE [HAY_TABLA].Detalle_Viaje_Facturacion
 
 DROP PROCEDURE [HAY_TABLA].[bajaLogica]
 DROP PROCEDURE [HAY_TABLA].bajaLogicaRolDelUsuario
