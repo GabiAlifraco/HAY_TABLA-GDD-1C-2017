@@ -76,7 +76,7 @@ namespace UberFrba.Abm_Automovil
                     " cho.Cho_Nombre + ' ' + cho.Cho_Apellido AS Nombre_y_Apellido_Chofer,A.Auto_Habilitado AS habilitado FROM [HAY_TABLA].[Automovil] A" +
                     " JOIN [HAY_TABLA].AsignacionDeTurnos asig ON asig.Auto_Id = A.Auto_id" +
                     " JOIN [HAY_TABLA].Chofer cho ON asig.Cho_Id = cho.Cho_Id" +
-                    " WHERE Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'"+ 
+                    " WHERE Auto_Marca LIKE '%" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'" + 
                     " GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,cho.Cho_Nombre,cho.Cho_Apellido,A.Auto_Habilitado" + " ORDER BY A.Auto_Id DESC"
                     );
                 }
@@ -86,7 +86,7 @@ namespace UberFrba.Abm_Automovil
                     " cho.Cho_Nombre + ' ' + cho.Cho_Apellido AS Nombre_y_Apellido_Chofer,A.Auto_Habilitado AS habilitado FROM [HAY_TABLA].[Automovil] A" +
                     " JOIN [HAY_TABLA].AsignacionDeTurnos asig ON asig.Auto_Id = A.Auto_id" +
                     " JOIN [HAY_TABLA].Chofer cho ON asig.Cho_Id = cho.Cho_Id" +
-                    " WHERE Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'" + "AND A.Auto_Habilitado=1 "+
+                    " WHERE Auto_Marca LIKE '%" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'" + "AND A.Auto_Habilitado=1 " +
                     " GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,cho.Cho_Nombre,cho.Cho_Apellido,A.Auto_Habilitado" + " ORDER BY A.Auto_Id DESC");
                 }
                     
@@ -120,7 +120,7 @@ namespace UberFrba.Abm_Automovil
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvAutomovil.Rows.Count; i++)
+                        for (int i = 0; i < dgvAutomovil.Rows.Count -1; i++)
                         {
                             DataGridViewRow row = dgvAutomovil.Rows[i];
                             if (row.Cells[7].Value.ToString() == "False")

@@ -154,7 +154,6 @@
             // 
             // dgvAutomovil
             // 
-            this.dgvAutomovil.AllowUserToAddRows = false;
             this.dgvAutomovil.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
