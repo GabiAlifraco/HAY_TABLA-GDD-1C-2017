@@ -129,6 +129,10 @@
     <Compile Include="Registro Viajes\AltaViajes.Designer.cs">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Registro Viajes\VerViajes.cs" />
+    <Compile Include="Registro Viajes\VerViajes.Designer.cs">
+      <DependentUpon>VerViajes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Rendicion Viajes\frmRendicion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +191,9 @@
     <EmbeddedResource Include="Registro Viajes\AltaViajes.resx">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro Viajes\VerViajes.resx">
+      <DependentUpon>VerViajes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Rendicion Viajes\frmRendicion.resx">
       <DependentUpon>frmRendicion.cs</DependentUpon>
     </EmbeddedResource>
@@ -210,6 +217,8 @@
     <Content Include="Menu\fondo_uber.jpg" />
     <Content Include="Menu\fondo_uber2.jpg" />
     <Content Include="Menu\uber_fondo3.png" />
+    <Content Include="Registro Viajes\fondo_1.jpg" />
+    <Content Include="Registro Viajes\fondo_2.jpg" />
     <Content Include="Rendicion Viajes\fondo_1.jpg" />
     <Content Include="Rendicion Viajes\fondo_2.jpg" />
   </ItemGroup>

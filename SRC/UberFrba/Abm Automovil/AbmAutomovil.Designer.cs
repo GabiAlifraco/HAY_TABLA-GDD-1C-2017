@@ -533,7 +533,7 @@
             this.panel1.Controls.Add(this.txtFiltroPatente);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 541);
+            this.panel1.Size = new System.Drawing.Size(840, 468);
             this.panel1.TabIndex = 85;
             // 
             // checkVerInhabilitados
@@ -563,7 +563,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1395, 565);
+            this.ClientSize = new System.Drawing.Size(876, 499);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
