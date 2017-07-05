@@ -25,16 +25,16 @@ namespace UberFrba.Menu
         public DBAccess Access { get; set; }
         public ValidacionesAbm Validador { get; set; }
         private string idUsuario = "";
-        private string idRol = "";
+        private int idRol;
 
         public MenuFuncionesDelRol(string idUser, int idRolUsuario)
         {
             InitializeComponent();
             idUsuario = idUser;
-            idRol = idRolUsuario.ToString();
+            idRol = idRolUsuario;
             Access = new DBAccess();
             Validador = new ValidacionesAbm();
-            MostrarFunciones(idRol);
+            MostrarFunciones(idRol.ToString());
         }
 
         private void MostrarFunciones(string idRol)
@@ -125,7 +125,7 @@ namespace UberFrba.Menu
                     formListadoEstadistico.Show();
                     break;
                 case "Ver Viajes":
-                    VerViajes formVerViajes = new VerViajes();
+                    VerViajes formVerViajes = new VerViajes(idUsuario, idRol);
                     formVerViajes.Show();
                     break;
                 default:

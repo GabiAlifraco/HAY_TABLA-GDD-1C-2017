@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerViajes));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nudAnio = new System.Windows.Forms.NumericUpDown();
@@ -49,6 +50,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Info;
             this.label2.Location = new System.Drawing.Point(261, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
@@ -100,14 +102,16 @@
             this.dgvListado.Location = new System.Drawing.Point(16, 56);
             this.dgvListado.Name = "dgvListado";
             this.dgvListado.ReadOnly = true;
-            this.dgvListado.Size = new System.Drawing.Size(735, 150);
+            this.dgvListado.Size = new System.Drawing.Size(735, 352);
             this.dgvListado.TabIndex = 4;
             // 
             // VerViajes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 218);
+            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(796, 462);
             this.Controls.Add(this.dgvListado);
             this.Controls.Add(this.cbTrimestre);
             this.Controls.Add(this.nudAnio);
