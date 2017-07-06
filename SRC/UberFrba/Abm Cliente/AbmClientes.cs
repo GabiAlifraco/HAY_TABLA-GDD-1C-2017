@@ -38,7 +38,7 @@ namespace UberFrba.Abm_Cliente
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            if (ValidarCliente(txtClienteNombreNuevo.Text, txtClienteApellidoNuevo.Text, txtClienteDNINuevo.Text, txtClienteMailNuevo.Text, txtClienteTelefonoNuevo.Text, txtClienteDireccionNuevo.Text, txtClienteAlturaNuevo.Text, txtClienteCodigoPostalNuevo.Text, txtClienteNacimientoNuevo.Text))
+            if (ValidarCliente(txtClienteNombreNuevo.Text, txtClienteApellidoNuevo.Text, txtClienteDNINuevo.Text, txtClienteMailNuevo.Text, txtClienteTelefonoNuevo.Text, txtClienteDireccionNuevo.Text, txtClienteAlturaNuevo.Text, txtClienteCodigoPostalNuevo.Text, txtClienteNacimientoNuevo.Text, textBox3.Text, textBox1.Text, textBox2.Text))
             {
 
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
@@ -47,8 +47,8 @@ namespace UberFrba.Abm_Cliente
 
                     DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimientoNuevo.Text);
 
-                    string query = String.Format("INSERT INTO [HAY_TABLA].[Cliente] (Cli_Nombre,Cli_Apellido,Cli_DNI,Cli_Mail,Cli_Telefono,Cli_Direccion,Cli_CodigoPostal,Cli_FechaNacimiento) VALUES (");
-                    query += "'" + txtClienteNombreNuevo.Text.Trim() + "','" + txtClienteApellidoNuevo.Text.Trim() + "'," + txtClienteDNINuevo.Text.Trim() + ",'" + txtClienteMailNuevo.Text.Trim() + "'," + txtClienteTelefonoNuevo.Text.Trim() + ",'" + txtClienteDireccionNuevo.Text.Trim() + " " + txtClienteAlturaNuevo.Text.Trim() + "'," + txtClienteCodigoPostalNuevo.Text.Trim() + ",'" + fechaNacimiento.Date.Day.ToString() + "/" + fechaNacimiento.Date.Month.ToString() + "/" + fechaNacimiento.Date.Year.ToString() + "')";
+                    string query = String.Format("INSERT INTO [HAY_TABLA].[Cliente] (Cli_Nombre,Cli_Apellido,Cli_DNI,Cli_Mail,Cli_Telefono,Cli_Direccion,Cli_CodigoPostal,Cli_FechaNacimiento,Cli_Piso,Cli_Departamento,Cli_Localidad) VALUES (");
+                    query += "'" + txtClienteNombreNuevo.Text.Trim() + "','" + txtClienteApellidoNuevo.Text.Trim() + "'," + txtClienteDNINuevo.Text.Trim() + ",'" + txtClienteMailNuevo.Text.Trim() + "'," + txtClienteTelefonoNuevo.Text.Trim() + ",'" + txtClienteDireccionNuevo.Text.Trim() + " " + txtClienteAlturaNuevo.Text.Trim() + "'," + txtClienteCodigoPostalNuevo.Text.Trim() + ",'" + fechaNacimiento.Date.Day.ToString() + "/" + fechaNacimiento.Date.Month.ToString() + "/" + fechaNacimiento.Date.Year.ToString() + "'," + textBox3.Text.Trim() + ",'" + textBox1.Text.Trim() + "','"+ textBox1.Text.Trim() +"')";
   
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     try
@@ -98,13 +98,13 @@ namespace UberFrba.Abm_Cliente
 
         private void btnGuardarDatos_Click(object sender, EventArgs e)
         {
-            if (ValidarCliente(txtClienteNombre.Text, txtClienteApellido.Text, txtClienteDNI.Text, txtClienteMail.Text, txtClienteTelefono.Text, txtClienteDireccion.Text, txtClienteAltura.Text, txtClienteCodigoPostal.Text, txtClienteNacimiento.Text))
+            if (ValidarCliente(txtClienteNombre.Text, txtClienteApellido.Text, txtClienteDNI.Text, txtClienteMail.Text, txtClienteTelefono.Text, txtClienteDireccion.Text, txtClienteAltura.Text, txtClienteCodigoPostal.Text, txtClienteNacimiento.Text, textBox5.Text, textBox6.Text, textBox4.Text))
             {
 
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                   
-                    string query = String.Format("UPDATE [HAY_TABLA].[Cliente] SET Cli_Nombre = " + "'" + txtClienteNombre.Text.Trim() + "',Cli_Apellido =" + "'" + txtClienteApellido.Text.Trim() + "'," + "Cli_DNI =" + txtClienteDNI.Text.Trim() + ",Cli_Mail='" + txtClienteMail.Text.Trim() + "',Cli_Telefono=" + txtClienteTelefono.Text.Trim() + ",Cli_Direccion= '" + txtClienteDireccion.Text.Trim() + " " + txtClienteAltura.Text.Trim() + "',Cli_CodigoPostal =" + txtClienteCodigoPostal.Text.Trim() + ",Cli_FechaNacimiento = @FechaNacimiento WHERE Cli_Id =" + txtIdSeleccionado.Text);
+
+                    string query = String.Format("UPDATE [HAY_TABLA].[Cliente] SET Cli_Nombre = " + "'" + txtClienteNombre.Text.Trim() + "',Cli_Apellido =" + "'" + txtClienteApellido.Text.Trim() + "'," + "Cli_DNI =" + txtClienteDNI.Text.Trim() + ",Cli_Mail='" + txtClienteMail.Text.Trim() + "',Cli_Telefono=" + txtClienteTelefono.Text.Trim() + ",Cli_Direccion= '" + txtClienteDireccion.Text.Trim() + " " + txtClienteAltura.Text.Trim() + "',Cli_CodigoPostal =" + txtClienteCodigoPostal.Text.Trim() + ",Cli_Piso =" + textBox5.Text.Trim() + ",Cli_Departamento='" + textBox6.Text.Trim() + "',Cli_Localidad='" + textBox4.Text.Trim() + "',Cli_FechaNacimiento = @FechaNacimiento WHERE Cli_Id =" + txtIdSeleccionado.Text);
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     cmd.CommandText = query;
 
@@ -135,7 +135,7 @@ namespace UberFrba.Abm_Cliente
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvClientes.CurrentRow.Cells[9].Value.ToString() == "False")
+            if (dgvClientes.CurrentRow.Cells[12].Value.ToString() == "False")
             {
                 panelDatosClienteSeleccionado.Visible = false;
                 btnModificar.Visible = false;
@@ -152,8 +152,11 @@ namespace UberFrba.Abm_Cliente
                 string dir = dgvClientes.CurrentRow.Cells[6].Value.ToString();
                 txtClienteDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
                 txtClienteAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-                txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[7].Value.ToString();
-                DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[8].Value.ToString());
+                textBox5.Text=dgvClientes.CurrentRow.Cells[7].Value.ToString();
+                textBox6.Text=dgvClientes.CurrentRow.Cells[8].Value.ToString();
+                textBox4.Text=dgvClientes.CurrentRow.Cells[9].Value.ToString();
+                txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[10].Value.ToString();
+                DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[11].Value.ToString());
                 string fNacimiento;
                 if (fechaNacimiento.Date.Day < 10)
                 {
@@ -197,6 +200,9 @@ namespace UberFrba.Abm_Cliente
             DataColumn cMail = new DataColumn("Mail");
             DataColumn cTelefono = new DataColumn("Telefono");
             DataColumn cDireccion = new DataColumn("Direccion");
+            DataColumn cPiso = new DataColumn("Piso");
+            DataColumn cDepartamento = new DataColumn("Departamento");
+            DataColumn cLocalidad = new DataColumn("Localidad");
             DataColumn cCodigoPostal = new DataColumn("CodigoPostal");
             DataColumn cFechaNacimiento = new DataColumn("FechaNacimiento");
             DataColumn cHabilitado = new DataColumn("Habilitado");
@@ -208,6 +214,9 @@ namespace UberFrba.Abm_Cliente
             dtClientes.Columns.Add(cMail);
             dtClientes.Columns.Add(cTelefono);
             dtClientes.Columns.Add(cDireccion);
+            dtClientes.Columns.Add(cPiso);
+            dtClientes.Columns.Add(cDepartamento);
+            dtClientes.Columns.Add(cLocalidad);
             dtClientes.Columns.Add(cCodigoPostal);
             dtClientes.Columns.Add(cFechaNacimiento);
             dtClientes.Columns.Add(cHabilitado);
@@ -253,6 +262,9 @@ namespace UberFrba.Abm_Cliente
                         row["Mail"] = dr["Cli_Mail"].ToString();
                         row["Telefono"] = dr["Cli_Telefono"].ToString();
                         row["Direccion"] = dr["Cli_Direccion"].ToString();
+                        row["Piso"] = dr["Cli_Piso"].ToString();
+                        row["Departamento"] = dr["Cli_Departamento"].ToString();
+                        row["Localidad"] = dr["Cli_Localidad"].ToString();
                         row["CodigoPostal"] = dr["Cli_CodigoPostal"].ToString();
                         row["FechaNacimiento"] = dr["Cli_FechaNacimiento"].ToString();
                         row["Habilitado"] = dr["Habilitado"].ToString();
@@ -269,7 +281,7 @@ namespace UberFrba.Abm_Cliente
                         for (int i = 0; i < dgvClientes.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvClientes.Rows[i];
-                            if (row.Cells[9].Value.ToString() == "False")
+                            if (row.Cells[12].Value.ToString() == "False")
                             {
                                 row.DefaultCellStyle.BackColor = Color.LightSalmon;
                             }
@@ -374,10 +386,10 @@ namespace UberFrba.Abm_Cliente
 
 
 
-        private bool ValidarCliente(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string codigoPostal, string fechaNacimiento)
+        private bool ValidarCliente(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string codigoPostal, string fechaNacimiento, string piso, string departamento, string localidad)
         {
             bool resultadoValidacion = true;
-            resultadoValidacion = (Validador.validarMail(email) && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarStringVacio(codigoPostal, "Codigo Postal") && Validador.validarFecha(fechaNacimiento));
+            resultadoValidacion = (Validador.validarMail(email) && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarStringVacio(codigoPostal, "Codigo Postal") && Validador.validarFecha(fechaNacimiento) && Validador.validarStringVacio(piso, "Piso") && Validador.validarStringVacio(departamento, "Departamento") && Validador.validarStringVacio(localidad, "Localidad"));
             return resultadoValidacion;
         }
 
@@ -401,6 +413,9 @@ namespace UberFrba.Abm_Cliente
             txtClienteMail.Enabled = estado;
             txtClienteTelefono.Enabled = estado;
             txtClienteDireccion.Enabled = estado;
+            textBox5.Enabled = estado;
+            textBox6.Enabled = estado;
+            textBox4.Enabled = estado;
             txtClienteAltura.Enabled = estado;
             txtClienteCodigoPostal.Enabled = estado;
             txtClienteNacimiento.Enabled = estado;
@@ -471,16 +486,6 @@ namespace UberFrba.Abm_Cliente
 
         #endregion
 
-        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void AbmClientes_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)
         {
             MostrarClientes();
@@ -525,6 +530,9 @@ namespace UberFrba.Abm_Cliente
             dia = 1 + rand.Next(10,28);
             string fechaJunta = (dia.ToString() + mes.ToString() + anno.ToString());
             //DateTime fechaNacimiento2 = DateTime.Parse(fechaJunta);
+            int piso = rnd.Next(0, 99);
+            string departamento = RandomPassword.Generate();
+            string localidad = RandomPassword.Generate();
 
             txtClienteNombreNuevo.Text = aleatorio1;
             txtClienteApellidoNuevo.Text = aleatorio2;
@@ -535,7 +543,30 @@ namespace UberFrba.Abm_Cliente
             txtClienteCodigoPostalNuevo.Text = codigo_postal.ToString();
             txtClienteAlturaNuevo.Text = altura.ToString();
             txtClienteNacimientoNuevo.Text = fechaJunta;
+            textBox3.Text = piso.ToString();
+            textBox1.Text = departamento;
+            textBox2.Text = localidad;
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
 
         }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtClienteDireccion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AbmClientes_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

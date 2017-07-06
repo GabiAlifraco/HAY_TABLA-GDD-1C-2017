@@ -25,6 +25,9 @@ CREATE TABLE [HAY_TABLA].Chofer (
 	Cho_Mail 						VARCHAR(50),
 	Cho_Telefono 					NUMERIC(18, 0) UNIQUE,
 	Cho_Direccion 					VARCHAR(255),
+	Cho_Piso 						NUMERIC(18,0) NOT NULL DEFAULT 0,
+	Cho_Departamento 				VARCHAR(10) NOT NULL DEFAULT 'N/A',
+	Cho_Localidad 					VARCHAR(20) NOT NULL DEFAULT 'N/A',
 	Cho_FechaNacimiento 			DATETIME,
 	CONSTRAINT PK_Chofer 			PRIMARY KEY (Cho_ID),
 	FOREIGN KEY (Cho_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username) ON UPDATE CASCADE
@@ -39,7 +42,10 @@ CREATE TABLE [HAY_TABLA].Cliente(
 	Cli_Mail 						VARCHAR(255),
 	Cli_Telefono 					NUMERIC(18, 0) UNIQUE,
 	Cli_Direccion 					VARCHAR(255),
-	Cli_CodigoPostal				NUMERIC(10, 0),
+	Cli_Piso 						NUMERIC(18,0) NOT NULL DEFAULT 0,
+	Cli_Departamento 				VARCHAR(10) NOT NULL DEFAULT 'N/A',
+	Cli_Localidad 					VARCHAR(20) NOT NULL DEFAULT 'N/A',
+	Cli_CodigoPostal				NUMERIC(10, 0) NOT NULL DEFAULT 0,
 	Cli_FechaNacimiento 			DATETIME,
 	CONSTRAINT PK_Cliente 			PRIMARY KEY (Cli_Id),
 	FOREIGN KEY (Cli_Usuario) 		REFERENCES [HAY_TABLA].Usuarios(Usu_Username) ON UPDATE CASCADE
