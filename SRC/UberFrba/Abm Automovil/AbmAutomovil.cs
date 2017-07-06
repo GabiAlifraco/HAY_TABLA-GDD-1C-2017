@@ -157,6 +157,14 @@ namespace UberFrba.Abm_Automovil
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
+            txtIdSeleccionado.Text = dgvAutomovil.CurrentRow.Cells[0].Value.ToString();
+            txtPatente.Text = dgvAutomovil.CurrentRow.Cells[1].Value.ToString();
+            comboMarca.Text = dgvAutomovil.CurrentRow.Cells[2].Value.ToString();
+            txtModelo.Text = dgvAutomovil.CurrentRow.Cells[3].Value.ToString();
+            txtLicencia.Text = dgvAutomovil.CurrentRow.Cells[4].Value.ToString();
+            txtRodado.Text = dgvAutomovil.CurrentRow.Cells[5].Value.ToString();
+            comboChofer.Text = dgvAutomovil.CurrentRow.Cells[6].Value.ToString();
+
             mostrarTurnosEnModificar();
             cargar_choferesEnModificar();
             panelDatosSeleccionado.Visible = true;
@@ -219,10 +227,9 @@ namespace UberFrba.Abm_Automovil
             //comboTurno.SelectedItem = null;
             //comboTurno.Items.Clear();
             //comboTurno.Enabled = false;
-
-
+  
             mostrarTurnos();
-        }
+        }   
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -249,7 +256,11 @@ namespace UberFrba.Abm_Automovil
         {
             panelDatosSeleccionado.Visible = false;
             panel1.Visible = true;
-
+            
+            for (int i = listaTurnos.Items.Count - 1; i >= 0; i--)
+            {
+                    listaTurnos.Items.RemoveAt(i);
+            }
             
         }
 
@@ -422,6 +433,7 @@ namespace UberFrba.Abm_Automovil
         }
         private void btn_guardar_nuevo_Click(object sender, EventArgs e)
         {
+
         if (Validar(txtPatente.Text, comboMarca.Text, txtModelo.Text, txtLicencia.Text, txtRodado.Text, comboChofer.Text, listaTurnos.CheckedItems.Count))
             {
                  using (SqlConnection conexion = new SqlConnection(Access.Conexion))
@@ -475,6 +487,10 @@ namespace UberFrba.Abm_Automovil
                         sqlTransact.Rollback();
                     }
                 }
+            }
+            for (int i = listaTurnos.Items.Count - 1; i >= 0; i--)
+            {
+                listaTurnos.Items.RemoveAt(i);
             }
         }
 
@@ -600,10 +616,10 @@ namespace UberFrba.Abm_Automovil
             listaKVPTurnos.Clear();
             listaKVPTurnosSeleccionados.Clear();
             listaTurnos.Items.Clear();
-
+            
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Auto_Id = " + txtIdSeleccionado.Text + "AND Turno_Habilitado = 1");
+                string query = String.Format("SELECT Turno.[Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion] FROM[HAY_TABLA].[AsignacionDeTurnos] INNER JOIN[HAY_TABLA].Turno ON Turno.Turno_Id = AsignacionDeTurnos.Turno_Id WHERE AsignacionDeTurnos.Auto_Id = " + dgvAutomovil.CurrentRow.Cells[0].Value.ToString() + " AND Turno_Habilitado = 1");
                 SqlCommand cmd2 = new SqlCommand(query, conexion);
                 try
                 {
@@ -658,6 +674,8 @@ namespace UberFrba.Abm_Automovil
 
 
         }
+
+
 
     }
 }
