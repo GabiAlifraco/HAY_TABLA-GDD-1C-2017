@@ -92,6 +92,7 @@
     <Compile Include="Abm Turno\AltaTurnos.designer.cs">
       <DependentUpon>AltaTurnos.cs</DependentUpon>
     </Compile>
+    <Compile Include="RandomPassword.cs" />
     <Compile Include="DBAccess.cs" />
     <Compile Include="Facturacion\Facturacion.cs">
       <SubType>Form</SubType>
@@ -129,7 +130,9 @@
     <Compile Include="Registro Viajes\AltaViajes.Designer.cs">
       <DependentUpon>AltaViajes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Viajes\VerViajes.cs" />
+    <Compile Include="Registro Viajes\VerViajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Registro Viajes\VerViajes.Designer.cs">
       <DependentUpon>VerViajes.cs</DependentUpon>
     </Compile>
