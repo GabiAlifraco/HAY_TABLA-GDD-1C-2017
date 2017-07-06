@@ -50,24 +50,18 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.comboMarca = new System.Windows.Forms.ComboBox();
-            this.txtClienteCodigoPostal = new System.Windows.Forms.TextBox();
             this.txtRodado = new System.Windows.Forms.TextBox();
             this.txtPatente = new System.Windows.Forms.TextBox();
             this.txtLicencia = new System.Windows.Forms.TextBox();
             this.txtModelo = new System.Windows.Forms.TextBox();
-            this.btnDescartarCambios = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtIdSeleccionado = new System.Windows.Forms.TextBox();
-            this.btnGuardarDatos = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtClienteNacimiento = new System.Windows.Forms.MaskedTextBox();
             this.btn_nuevo = new System.Windows.Forms.Button();
             this.btn_eliminar = new System.Windows.Forms.Button();
             this.btn_modificar = new System.Windows.Forms.Button();
@@ -146,7 +140,7 @@
             this.label29.BackColor = System.Drawing.Color.LemonChiffon;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label29.Location = new System.Drawing.Point(3, 0);
+            this.label29.Location = new System.Drawing.Point(-1, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(95, 20);
             this.label29.TabIndex = 70;
@@ -154,12 +148,11 @@
             // 
             // dgvAutomovil
             // 
-            this.dgvAutomovil.AllowUserToAddRows = false;
             this.dgvAutomovil.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAutomovil.Location = new System.Drawing.Point(0, 68);
             this.dgvAutomovil.Name = "dgvAutomovil";
-            this.dgvAutomovil.Size = new System.Drawing.Size(808, 328);
+            this.dgvAutomovil.Size = new System.Drawing.Size(730, 328);
             this.dgvAutomovil.TabIndex = 76;
             this.dgvAutomovil.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAutomovil_CellClick);
             // 
@@ -205,27 +198,21 @@
             this.panelDatosSeleccionado.Controls.Add(this.button4);
             this.panelDatosSeleccionado.Controls.Add(this.button3);
             this.panelDatosSeleccionado.Controls.Add(this.comboMarca);
-            this.panelDatosSeleccionado.Controls.Add(this.txtClienteCodigoPostal);
             this.panelDatosSeleccionado.Controls.Add(this.txtRodado);
             this.panelDatosSeleccionado.Controls.Add(this.txtPatente);
             this.panelDatosSeleccionado.Controls.Add(this.txtLicencia);
             this.panelDatosSeleccionado.Controls.Add(this.txtModelo);
-            this.panelDatosSeleccionado.Controls.Add(this.btnDescartarCambios);
             this.panelDatosSeleccionado.Controls.Add(this.label27);
             this.panelDatosSeleccionado.Controls.Add(this.label26);
             this.panelDatosSeleccionado.Controls.Add(this.txtIdSeleccionado);
-            this.panelDatosSeleccionado.Controls.Add(this.btnGuardarDatos);
-            this.panelDatosSeleccionado.Controls.Add(this.label9);
-            this.panelDatosSeleccionado.Controls.Add(this.label8);
             this.panelDatosSeleccionado.Controls.Add(this.label6);
             this.panelDatosSeleccionado.Controls.Add(this.label5);
             this.panelDatosSeleccionado.Controls.Add(this.label4);
             this.panelDatosSeleccionado.Controls.Add(this.label3);
             this.panelDatosSeleccionado.Controls.Add(this.label2);
-            this.panelDatosSeleccionado.Controls.Add(this.txtClienteNacimiento);
-            this.panelDatosSeleccionado.Location = new System.Drawing.Point(125, 158);
+            this.panelDatosSeleccionado.Location = new System.Drawing.Point(53, 134);
             this.panelDatosSeleccionado.Name = "panelDatosSeleccionado";
-            this.panelDatosSeleccionado.Size = new System.Drawing.Size(672, 177);
+            this.panelDatosSeleccionado.Size = new System.Drawing.Size(672, 176);
             this.panelDatosSeleccionado.TabIndex = 81;
             this.panelDatosSeleccionado.Visible = false;
             // 
@@ -317,14 +304,6 @@
             this.comboMarca.Size = new System.Drawing.Size(100, 21);
             this.comboMarca.TabIndex = 67;
             // 
-            // txtClienteCodigoPostal
-            // 
-            this.txtClienteCodigoPostal.Location = new System.Drawing.Point(8, 233);
-            this.txtClienteCodigoPostal.MaxLength = 10;
-            this.txtClienteCodigoPostal.Name = "txtClienteCodigoPostal";
-            this.txtClienteCodigoPostal.Size = new System.Drawing.Size(100, 20);
-            this.txtClienteCodigoPostal.TabIndex = 66;
-            // 
             // txtRodado
             // 
             this.txtRodado.Location = new System.Drawing.Point(263, 88);
@@ -357,16 +336,6 @@
             this.txtModelo.Size = new System.Drawing.Size(100, 20);
             this.txtModelo.TabIndex = 66;
             // 
-            // btnDescartarCambios
-            // 
-            this.btnDescartarCambios.Location = new System.Drawing.Point(156, 259);
-            this.btnDescartarCambios.Name = "btnDescartarCambios";
-            this.btnDescartarCambios.Size = new System.Drawing.Size(139, 23);
-            this.btnDescartarCambios.TabIndex = 62;
-            this.btnDescartarCambios.Text = "DESCARTAR CAMBIOS";
-            this.btnDescartarCambios.UseVisualStyleBackColor = true;
-            this.btnDescartarCambios.Visible = false;
-            // 
             // label27
             // 
             this.label27.AutoSize = true;
@@ -393,34 +362,6 @@
             this.txtIdSeleccionado.Name = "txtIdSeleccionado";
             this.txtIdSeleccionado.Size = new System.Drawing.Size(100, 20);
             this.txtIdSeleccionado.TabIndex = 59;
-            // 
-            // btnGuardarDatos
-            // 
-            this.btnGuardarDatos.Location = new System.Drawing.Point(11, 259);
-            this.btnGuardarDatos.Name = "btnGuardarDatos";
-            this.btnGuardarDatos.Size = new System.Drawing.Size(139, 23);
-            this.btnGuardarDatos.TabIndex = 27;
-            this.btnGuardarDatos.Text = "GUARDAR CAMBIOS";
-            this.btnGuardarDatos.UseVisualStyleBackColor = true;
-            this.btnGuardarDatos.Visible = false;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(112, 217);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(96, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Fecha Nacimiento:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 219);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 13);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "Codigo postal:";
             // 
             // label6
             // 
@@ -467,15 +408,6 @@
             this.label2.TabIndex = 15;
             this.label2.Text = "Modelo:";
             // 
-            // txtClienteNacimiento
-            // 
-            this.txtClienteNacimiento.Location = new System.Drawing.Point(118, 233);
-            this.txtClienteNacimiento.Mask = "00/00/0000";
-            this.txtClienteNacimiento.Name = "txtClienteNacimiento";
-            this.txtClienteNacimiento.Size = new System.Drawing.Size(62, 20);
-            this.txtClienteNacimiento.TabIndex = 14;
-            this.txtClienteNacimiento.ValidatingType = typeof(System.DateTime);
-            // 
             // btn_nuevo
             // 
             this.btn_nuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -517,9 +449,9 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.checkVerInhabilitados);
             this.panel1.Controls.Add(this.comboFiltroMarca);
+            this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.btn_modificar);
             this.panel1.Controls.Add(this.btn_eliminar);
-            this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.btn_nuevo);
             this.panel1.Controls.Add(this.label30);
             this.panel1.Controls.Add(this.label31);
@@ -531,10 +463,11 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label32);
             this.panel1.Controls.Add(this.txtFiltroPatente);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(27, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 541);
+            this.panel1.Size = new System.Drawing.Size(749, 454);
             this.panel1.TabIndex = 85;
+            
             // 
             // checkVerInhabilitados
             // 
@@ -563,7 +496,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1395, 565);
+            this.ClientSize = new System.Drawing.Size(797, 478);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
@@ -598,24 +531,18 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboMarca;
-        private System.Windows.Forms.TextBox txtClienteCodigoPostal;
         private System.Windows.Forms.TextBox txtRodado;
         private System.Windows.Forms.TextBox txtPatente;
         private System.Windows.Forms.TextBox txtLicencia;
         private System.Windows.Forms.TextBox txtModelo;
-        private System.Windows.Forms.Button btnDescartarCambios;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox txtIdSeleccionado;
-        private System.Windows.Forms.Button btnGuardarDatos;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox txtClienteNacimiento;
         private System.Windows.Forms.Button btn_nuevo;
         private System.Windows.Forms.Button btn_eliminar;
         private System.Windows.Forms.Button btn_modificar;
