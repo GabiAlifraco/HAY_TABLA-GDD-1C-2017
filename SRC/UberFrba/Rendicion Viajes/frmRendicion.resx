@@ -120,13 +120,12 @@
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>Para rendir cuentas al chofer se deben ingresar:
 -Un chofer
--Un turno de dicho chofer
+-Turno(Uno solo por rendicion.Puede estar habilitado o inhabilitado.Porque puede tener un chofer viajes no rendidos en un turno inhabilitado) 
 -Una fecha
 -Porcentaje de pago
 
-Al presionar el boton "HACER RENDICION"
-La rendicion sera registrada en la base de datos.
-Y se emitira un listado con los viajes correspondientes a la rendicion.Indicando por cada viaje:
+Al presionar el boton "MOSTRAR RENDICION"
+Se emitira un listado con los viajes correspondientes a la rendicion.Indicando por cada viaje:
 -Fecha del viaje
 -Importe del viaje
 -Rendicion del viaje
@@ -136,7 +135,10 @@ Tambien se calculara:
 -La cantidad de kms que suman dichos viajes
 -El importe total de la rendicion
 
-Los viajes que conforman la rendicion son los que se realizaron en la fecha y turno elegidos, y que todavia no han sido rendidos</value>
+Una vez emitido el listado, si se hace click en 'CONFIRMAR RENDICION':
+La rendicion sera registrada en la base de datos y se hara efectica.
+Si se encuentran discrepancias o errores se puede cancelar la rendicion.
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -134,7 +134,6 @@ CREATE TABLE [HAY_TABLA].Rendicion(
 	Turno_Id 						INT NOT NULL,
 	Rendicion_Fecha 				DATETIME DEFAULT GETDATE() NOT NULL,
 	Rendicion_Total 				NUMERIC(18,2) NOT NULL,
-	PorcentajeDePago 				NUMERIC(4,2) NOT NULL,
 	CONSTRAINT PKRendicion			PRIMARY KEY (Rendicion_Nro),
 	FOREIGN KEY (Turno_Id) 			REFERENCES [HAY_TABLA].Turno(Turno_Id),
 	FOREIGN KEY (Cho_Id)   			REFERENCES [HAY_TABLA].Chofer(Cho_Id)
@@ -323,8 +322,8 @@ GROUP BY
 /* INSERTS A RENDICION */	
 	
 SET IDENTITY_INSERT HAY_TABLA.Rendicion ON
-INSERT INTO HAY_TABLA.Rendicion(Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha, Rendicion_Total,PorcentajeDePago)
-SELECT DISTINCT(Rendicion_Nro), Cho_Id, Turno_Id, Rendicion_Fecha,SUM(Rendicion_Importe),30 
+INSERT INTO HAY_TABLA.Rendicion(Rendicion_Nro, Cho_Id, Turno_Id, Rendicion_Fecha, Rendicion_Total)
+SELECT DISTINCT(Rendicion_Nro), Cho_Id, Turno_Id, Rendicion_Fecha,SUM(Rendicion_Importe)
 FROM gd_esquema.Maestra
 INNER JOIN [HAY_TABLA].[Chofer] chofer ON chofer.Cho_DNI = maestra.Chofer_Dni
 INNER JOIN [HAY_TABLA].[Turno] turno ON turno.Turno_Descripcion = maestra.Turno_Descripcion

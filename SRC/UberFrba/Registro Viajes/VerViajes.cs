@@ -48,7 +48,7 @@ namespace UberFrba.Registro_Viajes
                     }
                     return clienteId;
                 }
-                catch (Exception excep)
+                catch
                 {
                     return "0";
                 }
@@ -72,7 +72,7 @@ namespace UberFrba.Registro_Viajes
                     }
                     return choferId;
                 }
-                catch (Exception excep)
+                catch
                 {
                     return "0";
                 }

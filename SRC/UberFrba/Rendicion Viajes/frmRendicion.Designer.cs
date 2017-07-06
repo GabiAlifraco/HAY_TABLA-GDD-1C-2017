@@ -45,7 +45,8 @@
             this.txtCantidadViajes = new System.Windows.Forms.TextBox();
             this.txtCantKms = new System.Windows.Forms.TextBox();
             this.txtPorcentajeDePago = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnConfirmarRendicion = new System.Windows.Forms.Button();
+            this.btnCancelarRendicion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRendicion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPorcentajeDePago)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +54,7 @@
             // dgvRendicion
             // 
             this.dgvRendicion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRendicion.Location = new System.Drawing.Point(406, 40);
+            this.dgvRendicion.Location = new System.Drawing.Point(388, 40);
             this.dgvRendicion.Name = "dgvRendicion";
             this.dgvRendicion.Size = new System.Drawing.Size(381, 331);
             this.dgvRendicion.TabIndex = 51;
@@ -62,7 +63,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label5.Location = new System.Drawing.Point(790, 21);
+            this.label5.Location = new System.Drawing.Point(772, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 97;
@@ -71,9 +72,9 @@
             // richTextBox1
             // 
             this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(793, 37);
+            this.richTextBox1.Location = new System.Drawing.Point(775, 37);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(272, 334);
+            this.richTextBox1.Size = new System.Drawing.Size(290, 412);
             this.richTextBox1.TabIndex = 96;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -111,7 +112,7 @@
             this.listBoxTurnos.FormattingEnabled = true;
             this.listBoxTurnos.Location = new System.Drawing.Point(208, 71);
             this.listBoxTurnos.Name = "listBoxTurnos";
-            this.listBoxTurnos.Size = new System.Drawing.Size(147, 134);
+            this.listBoxTurnos.Size = new System.Drawing.Size(174, 134);
             this.listBoxTurnos.TabIndex = 107;
             // 
             // listBoxChoferes
@@ -121,7 +122,6 @@
             this.listBoxChoferes.Name = "listBoxChoferes";
             this.listBoxChoferes.Size = new System.Drawing.Size(147, 134);
             this.listBoxChoferes.TabIndex = 106;
-            this.listBoxChoferes.SelectedIndexChanged += new System.EventHandler(this.listBoxChoferes_SelectedIndexChanged);
             // 
             // label29
             // 
@@ -147,7 +147,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label2.Location = new System.Drawing.Point(403, 24);
+            this.label2.Location = new System.Drawing.Point(385, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 13);
             this.label2.TabIndex = 111;
@@ -166,7 +166,7 @@
             // txtImporteTotal
             // 
             this.txtImporteTotal.Enabled = false;
-            this.txtImporteTotal.Location = new System.Drawing.Point(406, 403);
+            this.txtImporteTotal.Location = new System.Drawing.Point(388, 403);
             this.txtImporteTotal.Name = "txtImporteTotal";
             this.txtImporteTotal.Size = new System.Drawing.Size(136, 20);
             this.txtImporteTotal.TabIndex = 115;
@@ -174,7 +174,7 @@
             // txtCantidadViajes
             // 
             this.txtCantidadViajes.Enabled = false;
-            this.txtCantidadViajes.Location = new System.Drawing.Point(406, 429);
+            this.txtCantidadViajes.Location = new System.Drawing.Point(388, 429);
             this.txtCantidadViajes.Name = "txtCantidadViajes";
             this.txtCantidadViajes.Size = new System.Drawing.Size(381, 20);
             this.txtCantidadViajes.TabIndex = 114;
@@ -182,7 +182,7 @@
             // txtCantKms
             // 
             this.txtCantKms.Enabled = false;
-            this.txtCantKms.Location = new System.Drawing.Point(406, 377);
+            this.txtCantKms.Location = new System.Drawing.Point(388, 377);
             this.txtCantKms.Name = "txtCantKms";
             this.txtCantKms.Size = new System.Drawing.Size(136, 20);
             this.txtCantKms.TabIndex = 113;
@@ -201,14 +201,27 @@
             this.txtPorcentajeDePago.Size = new System.Drawing.Size(55, 20);
             this.txtPorcentajeDePago.TabIndex = 116;
             // 
-            // button1
+            // btnConfirmarRendicion
             // 
-            this.button1.Location = new System.Drawing.Point(578, 377);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(209, 46);
-            this.button1.TabIndex = 117;
-            this.button1.Text = "CONFIRMAR RENDICION";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnConfirmarRendicion.Location = new System.Drawing.Point(530, 377);
+            this.btnConfirmarRendicion.Name = "btnConfirmarRendicion";
+            this.btnConfirmarRendicion.Size = new System.Drawing.Size(119, 46);
+            this.btnConfirmarRendicion.TabIndex = 117;
+            this.btnConfirmarRendicion.Text = "CONFIRMAR RENDICION";
+            this.btnConfirmarRendicion.UseVisualStyleBackColor = true;
+            this.btnConfirmarRendicion.Visible = false;
+            this.btnConfirmarRendicion.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnCancelarRendicion
+            // 
+            this.btnCancelarRendicion.Location = new System.Drawing.Point(650, 377);
+            this.btnCancelarRendicion.Name = "btnCancelarRendicion";
+            this.btnCancelarRendicion.Size = new System.Drawing.Size(119, 46);
+            this.btnCancelarRendicion.TabIndex = 118;
+            this.btnCancelarRendicion.Text = "CANCELAR RENDICION";
+            this.btnCancelarRendicion.UseVisualStyleBackColor = true;
+            this.btnCancelarRendicion.Visible = false;
+            this.btnCancelarRendicion.Click += new System.EventHandler(this.btnCancelarRendicion_Click);
             // 
             // frmRendicion
             // 
@@ -216,7 +229,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1073, 502);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCancelarRendicion);
+            this.Controls.Add(this.btnConfirmarRendicion);
             this.Controls.Add(this.txtPorcentajeDePago);
             this.Controls.Add(this.txtImporteTotal);
             this.Controls.Add(this.txtCantidadViajes);
@@ -262,6 +276,7 @@
         private System.Windows.Forms.TextBox txtCantidadViajes;
         private System.Windows.Forms.TextBox txtCantKms;
         private System.Windows.Forms.NumericUpDown txtPorcentajeDePago;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnConfirmarRendicion;
+        private System.Windows.Forms.Button btnCancelarRendicion;
     }
 }
