@@ -75,7 +75,7 @@ CREATE TABLE [HAY_TABLA].AsignacionDeTurnos(
 	Cho_Id 							INT NOT NULL,
 	Auto_Id 						INT NOT NULL,
 	FOREIGN KEY (Turno_Id) 			REFERENCES [HAY_TABLA].Turno(Turno_Id),
-	FOREIGN KEY (Cho_Id)   			REFERENCES [HAY_TABLA].Chofer(Cho_Id)
+	FOREIGN KEY (Auto_Id)   		REFERENCES [HAY_TABLA].Automovil(Auto_Id)
  );
 
 CREATE TABLE [HAY_TABLA].[ROL] (

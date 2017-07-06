@@ -70,6 +70,7 @@ namespace UberFrba.Abm_Automovil
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
                 string query;
+                string query2;
                 if (checkVerInhabilitados.Checked)
                 {
                     query = String.Format("SELECT A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado," +
@@ -79,6 +80,12 @@ namespace UberFrba.Abm_Automovil
                     " WHERE Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'"+ 
                     " GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,cho.Cho_Nombre,cho.Cho_Apellido,A.Auto_Habilitado" + " ORDER BY A.Auto_Id DESC"
                     );
+
+
+                    query2 = String.Format("SELECT A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,A.Auto_Habilitado AS habilitado FROM [HAY_TABLA].[Automovil] A " +
+                    "JOIN [HAY_TABLA].AsignacionDeTurnos asig ON asig.Auto_Id = A.Auto_id " +
+                    "WHERE NOT EXISTS(SELECT * FROM[HAY_TABLA].[Chofer] c WHERE c.Cho_Id = asig.Cho_Id) AND Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%'" +
+                    "GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,A.Auto_Habilitado ORDER BY A.Auto_Id DESC");
                 }
                 else
                 {
@@ -88,6 +95,12 @@ namespace UberFrba.Abm_Automovil
                     " JOIN [HAY_TABLA].Chofer cho ON asig.Cho_Id = cho.Cho_Id" +
                     " WHERE Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND cho.Cho_Nombre + ' ' + cho.Cho_Apellido LIKE '%" + txtFiltroChofer.Text.Trim() + "%'" + "AND A.Auto_Habilitado=1 "+
                     " GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,cho.Cho_Nombre,cho.Cho_Apellido,A.Auto_Habilitado" + " ORDER BY A.Auto_Id DESC");
+
+
+                    query2 = String.Format("SELECT A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,A.Auto_Habilitado AS habilitado FROM [HAY_TABLA].[Automovil] A " +
+                    "JOIN [HAY_TABLA].AsignacionDeTurnos asig ON asig.Auto_Id = A.Auto_id " +
+                    "WHERE NOT EXISTS(SELECT * FROM[HAY_TABLA].[Chofer] c WHERE c.Cho_Id = asig.Cho_Id) AND Auto_Marca LIKE '" + comboFiltroMarca.Text.Trim() + "%' AND Auto_Modelo LIKE '%" + txtFiltroModelo.Text.Trim() + "%' AND Auto_Patente LIKE '%" + txtFiltroPatente.Text.Trim() + "%' AND A.Auto_Habilitado = 1 " +
+                    "GROUP BY A.Auto_Id,Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado,A.Auto_Habilitado ORDER BY A.Auto_Id DESC");
                 }
                     
                     SqlCommand cmd = new SqlCommand(query, conexion);
@@ -113,10 +126,38 @@ namespace UberFrba.Abm_Automovil
                         dtAutomoviles.Rows.Add(row);
 
                     }
+                    dr.Close();
+
+                    if(txtFiltroChofer.Text == "")
+                    {//Si no filtra por chofer entonces muestros los que no tienen chofer
+                        cmd = new SqlCommand(query2, conexion);
+                        dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+
+                            DataRow row = dtAutomoviles.NewRow();
+                            row["Id"] = dr["Auto_Id"].ToString();
+                            row["Patente"] = dr["Auto_Patente"].ToString();
+                            row["Marca"] = dr["Auto_Marca"].ToString();
+                            row["Modelo"] = dr["Auto_Modelo"].ToString();
+                            row["Licencia"] = dr["Auto_Licencia"].ToString();
+                            row["Rodado"] = dr["Auto_Rodado"].ToString();
+                            row["Chofer"] = "SIN CHOFER";
+                            row["Habilitado"] = dr["habilitado"].ToString();
+
+                            listaDePatentes.Add(dr["Auto_Patente"].ToString());
+
+                            dtAutomoviles.Rows.Add(row);
+
+                        }
+                    }
+
+
                     dgvAutomovil.DataSource = dtAutomoviles;
                     dgvAutomovil.AutoResizeColumns();
                     dgvAutomovil.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                    dgvAutomovil.CurrentCell = dgvAutomovil.Rows[0].Cells[0];
+                    btn_modificar.Visible = false;
+                    //dgvAutomovil.CurrentCell = dgvAutomovil.Rows[0].Cells[0];
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
@@ -273,7 +314,6 @@ namespace UberFrba.Abm_Automovil
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string idchoferviejo =dgvAutomovil.CurrentRow.Cells[6].Value.ToString();
                     string patentevieja = dgvAutomovil.CurrentRow.Cells[1].Value.ToString();
                     
                     conexion.Open();
@@ -300,53 +340,59 @@ namespace UberFrba.Abm_Automovil
                     command10.Transaction = sqlTransact;
                     try
                     {
-                        string query = String.Format("UPDATE [HAY_TABLA].[Automovil] SET Auto_Patente='" + txtPatente.Text.Trim() + "',Auto_Marca='" + comboMarca.Text.Trim() + "',Auto_Modelo='" + txtModelo.Text.Trim() + "',Auto_Licencia='" + txtLicencia.Text.Trim() + "',Auto_Rodado='" + txtRodado.Text.Trim() + "' WHERE Auto_Id =" + txtIdSeleccionado.Text);
-                        command.CommandText = query;
-                        command.ExecuteNonQuery();
 
-                        string queryidChoferviejo = String.Format("SELECT Cho_Id FROM [HAY_TABLA].Chofer WHERE [Cho_Nombre] + ' ' + [Cho_Apellido] ='" + idchoferviejo + "'");
+                        
+                        string queryidChoferviejo = String.Format("SELECT TOP 1 [Cho_Id] FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Auto_Id = " + txtIdSeleccionado.Text);
                         command5.CommandText = queryidChoferviejo; 
                         Int32 idChoferV = (Int32)command5.ExecuteScalar();
 
-                        string queryidChofernuevo = String.Format("SELECT Cho_Id FROM [HAY_TABLA].Chofer WHERE [Cho_Nombre] + ' ' + [Cho_Apellido] ='" + comboChofer.Text.Trim() + "'");
-                        command3.CommandText = queryidChofernuevo;
-                        Int32 idChoferNuevo = (Int32)command3.ExecuteScalar();
+                        KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)comboChofer.SelectedItem;
+
+                        string query = "SELECT TOP 1 Au.Auto_Id,Au.Auto_Patente FROM[HAY_TABLA].[Automovil] Au JOIN [HAY_TABLA].[AsignacionDeTurnos] A ON Au.Auto_Id = A.Auto_Id WHERE A.Cho_Id = " + choferSeleccionado.Key.ToString();
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+                        cmd.Transaction = sqlTransact;
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        string patenteDelAutoActual = "";
+                        while (dr.Read())
+                        {
+                            patenteDelAutoActual = dr["Auto_Patente"].ToString();
+                        }
+                        dr.Close();
+
+                        if (patenteDelAutoActual != "" && choferSeleccionado.Key != idChoferV)
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Los choferes no pueden tener mas de un auto asignado al mismo tiempo: El chofer '" + choferSeleccionado.Value + "' tiene asignado el auto con patente '" + patenteDelAutoActual + "', al asignarle el nuevo auto perdera la asignacion del actual.¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                //el auto del chofer nuevo queda huerfano
+                                query = String.Format("UPDATE [HAY_TABLA].[AsignacionDeTurnos] SET Cho_Id = 0 WHERE Cho_Id = " + choferSeleccionado.Key);
+                                command3.CommandText = query;
+                                command3.ExecuteNonQuery();
+
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+
+                        query = String.Format("UPDATE [HAY_TABLA].[Automovil] SET Auto_Patente='" + txtPatente.Text.Trim() + "',Auto_Marca='" + comboMarca.Text.Trim() + "',Auto_Modelo='" + txtModelo.Text.Trim() + "',Auto_Licencia='" + txtLicencia.Text.Trim() + "',Auto_Rodado='" + txtRodado.Text.Trim() + "' WHERE Auto_Id =" + txtIdSeleccionado.Text);
+                        command.CommandText = query;
+                        command.ExecuteNonQuery();
+
+                            //borro todas las asignaciones que tenia el auto que estoy modificando, despues las voy a insertar con su nuevo chofer
+                                query = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Auto_Id = " + txtIdSeleccionado.Text);
+                                command3.CommandText = query;
+                                command3.ExecuteNonQuery();
+
+                            foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
+                            {
+                                string query2 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + choferSeleccionado.Key + "," + txtIdSeleccionado.Text + ")");
+                                command2.CommandText = query2;
+                                command2.ExecuteNonQuery();
+
+                            }
                         
-                        foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
-                        {
-                            if (listaKVPTurnosSeleccionados.Contains(new KeyValuePair<int, string>(turno.Key, turno.Value)))
-                            {
-                                //ya esta en la bd guardado ese turno seleccionado
-                            }
-                            else
-                            {
-                                //agrego un nuevo turno al automovil, lo tengo que guardar
-                                query = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + idChoferV.ToString() + ","+ txtIdSeleccionado.Text + ")");
-                                command.CommandText = query;
-                                command.ExecuteNonQuery();
-                            }
-
-                        }
-                        foreach (KeyValuePair<int, string> turno in listaKVPTurnosSeleccionados)
-                        {
-                            if (listaTurnos.CheckedItems.Contains(new KeyValuePair<int, string>(turno.Key, turno.Value)))
-                            {
-                                //ya esta en la bd guardado ese turno seleccionado
-                            }
-                            else
-                            {
-                                //elimino turno al auto, estaba selecionado y ahora ya no.
-                                query = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Turno_Id =" + turno.Key.ToString() + " AND Cho_Id=" + idChoferV.ToString() + "AND Auto_Id=" + txtIdSeleccionado.Text);
-                                command.CommandText = query;
-                                command.ExecuteNonQuery();
-                            }
-
-                        }
-
-                        string query3 = String.Format("UPDATE [HAY_TABLA].[AsignacionDeTurnos] SET Cho_Id = " + idChoferNuevo.ToString() + " WHERE Auto_Id =" + txtIdSeleccionado.Text);
-                        command8.CommandText = query3;
-                        command8.ExecuteNonQuery();
-
                         sqlTransact.Commit();
                         MessageBox.Show("La modificacion de los datos se ha realizado exitosamente");
                         MostrarAutomoviles();
@@ -403,6 +449,7 @@ namespace UberFrba.Abm_Automovil
 
         private void dgvAutomovil_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            btn_modificar.Visible = true;
             txtIdSeleccionado.Text = dgvAutomovil.CurrentRow.Cells[0].Value.ToString();
             txtPatente.Text = dgvAutomovil.CurrentRow.Cells[1].Value.ToString();
             comboMarca.Text = dgvAutomovil.CurrentRow.Cells[2].Value.ToString();
@@ -413,13 +460,58 @@ namespace UberFrba.Abm_Automovil
             if (dgvAutomovil.CurrentRow.Cells[7].Value.ToString().Equals("True"))
             {
                 btn_eliminar.Text = "Inhabilitar";
+                btn_modificar.Visible = true;
             }
             else
             {
+                btn_modificar.Visible = false;
                 btn_eliminar.Text = "Habilitar";
             }
                                
         }
+
+        private bool validarChoferSinAuto()
+        {
+            //    if (dato == datoActual)
+            //   {
+            //       return true;
+            //  }
+            // else
+            //{
+            
+            KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)comboChofer.SelectedItem;
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                conexion.Open();
+                try
+                {
+                    string query = "SELECT TOP 1 Au.Auto_Id,Au.Auto_Patente FROM[HAY_TABLA].[Automovil] Au JOIN [HAY_TABLA].[AsignacionDeTurnos] A ON Au.Auto_Id = A.Auto_Id WHERE A.Cho_Id = " + choferSeleccionado.Key.ToString();
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Los choferes no pueden tener mas de un auto asignado al mismo tiempo: El chofer '" + choferSeleccionado.Value + "' tiene asignado al auto con patente '" + dr["Auto_Patente"].ToString() + "'", "Advertencia", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            return true;
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return false;
+                        }
+                    }
+                    dr.Close();
+                    return true;
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+            }
+         //   }
+        }
+
         private void btn_guardar_nuevo_Click(object sender, EventArgs e)
         {
         if (Validar(txtPatente.Text, comboMarca.Text, txtModelo.Text, txtLicencia.Text, txtRodado.Text, comboChofer.Text, listaTurnos.CheckedItems.Count))
@@ -441,20 +533,42 @@ namespace UberFrba.Abm_Automovil
 					try
                     {
 
-						
-						string queryidChofernuevo = String.Format("SELECT Cho_Id FROM [HAY_TABLA].Chofer WHERE [Cho_Nombre] + ' ' + [Cho_Apellido] ='" + comboChofer.Text.Trim() + "'");
-                        command4.CommandText = queryidChofernuevo;
-                        Int32 idChofer = (Int32)command4.ExecuteScalar();
+                        KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)comboChofer.SelectedItem;
+                        string query = "SELECT TOP 1 Au.Auto_Id,Au.Auto_Patente FROM[HAY_TABLA].[Automovil] Au JOIN [HAY_TABLA].[AsignacionDeTurnos] A ON Au.Auto_Id = A.Auto_Id WHERE A.Cho_Id = " + choferSeleccionado.Key.ToString();
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+                        cmd.Transaction = sqlTransact;
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        string patenteDelAutoActual = "";
+                        while (dr.Read())
+                        {
+                            patenteDelAutoActual = dr["Auto_Patente"].ToString();
+                        }
+                        dr.Close();
+                        if (patenteDelAutoActual != "") {
+                            DialogResult dialogResult = MessageBox.Show("Los choferes no pueden tener mas de un auto asignado al mismo tiempo: El chofer '" + choferSeleccionado.Value + "' tiene asignado el auto con patente '" + patenteDelAutoActual + "', al asignarle el nuevo auto perdera la asignacion del actual.¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                query = String.Format("UPDATE [HAY_TABLA].[AsignacionDeTurnos] SET Cho_Id = 0 WHERE Cho_Id = " + choferSeleccionado.Key.ToString());
+                                //query = String.Format("DELETE FROM [HAY_TABLA].[AsignacionDeTurnos] WHERE Cho_Id = " + choferSeleccionado.Key.ToString());
+                                command3.CommandText = query;
+                                command3.ExecuteNonQuery();
 
-                        string query3 = String.Format("INSERT INTO [HAY_TABLA].[Automovil] (Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado) OUTPUT Inserted.Auto_Id VALUES (");
-                        query3 += "'" + txtPatente.Text.Trim() + "','" + comboMarca.Text.Trim() + "','" + txtModelo.Text.Trim() + "','" + txtLicencia.Text.Trim() + "','" + txtRodado.Text.Trim() + "')";
-                        command3.CommandText = query3;
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+ 
+
+                        query = String.Format("INSERT INTO [HAY_TABLA].[Automovil] (Auto_Patente,Auto_Marca,Auto_Modelo,Auto_Licencia,Auto_Rodado) OUTPUT Inserted.Auto_Id VALUES (");
+                        query += "'" + txtPatente.Text.Trim() + "','" + comboMarca.Text.Trim() + "','" + txtModelo.Text.Trim() + "','" + txtLicencia.Text.Trim() + "','" + txtRodado.Text.Trim() + "')";
+                        command3.CommandText = query;
                         Int32 idAuto = (Int32)command3.ExecuteScalar();
 
-                        //while { insert into asignacion SET AUTO_ID = ... , Cho_Id = ...., TURNO_ID =...}
                         foreach (KeyValuePair<int, string> turno in listaTurnos.CheckedItems)
                         {
-                            string query2 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + idChofer + "," + idAuto + ")");
+                            string query2 = String.Format("INSERT INTO [HAY_TABLA].[AsignacionDeTurnos] (Turno_Id, Cho_Id,Auto_Id) VALUES (" + turno.Key.ToString() + "," + choferSeleccionado.Key + "," + idAuto + ")");
                             command2.CommandText = query2;
                             command2.ExecuteNonQuery();
 
@@ -465,10 +579,11 @@ namespace UberFrba.Abm_Automovil
                         MostrarAutomoviles();
                         panelDatosSeleccionado.Visible = false;
                         panel1.Visible = true;
-						cargar_marcas();
-						cargar_choferes();
-                        
-					}
+                        cargar_marcas();
+                        cargar_choferes();
+                        return;
+
+                    }
 					catch (Exception excep)
                     {
                         MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -508,7 +623,9 @@ namespace UberFrba.Abm_Automovil
             comboChofer.Items.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT  Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM [HAY_TABLA].[Chofer] c WHERE NOT EXISTS(SELECT * FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE A.Cho_Id = c.Cho_Id)");
+                //string query = String.Format("SELECT  Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM [HAY_TABLA].[Chofer] c WHERE NOT EXISTS(SELECT * FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE A.Cho_Id = c.Cho_Id)");
+                string query = String.Format("SELECT C.Cho_Id, Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM[HAY_TABLA].[Chofer] C JOIN[HAY_TABLA].[Usuarios] U ON CONVERT(varchar(30), C.Cho_DNI) = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON UR.Nombre_Usuario = U.Usu_Username WHERE UR.Id_Rol = 3 AND UR.Habilitado = 1");
+               
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -516,7 +633,8 @@ namespace UberFrba.Abm_Automovil
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        comboChofer.Items.Add(dr["Nombre_y_Apellido_Chofer"].ToString());
+                        comboChofer.Items.Add(new KeyValuePair<int, string>((int)dr["Cho_Id"], dr["Nombre_y_Apellido_Chofer"].ToString()));
+                        
                     }
 
                 }
@@ -532,7 +650,8 @@ namespace UberFrba.Abm_Automovil
             comboChofer.Items.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT  Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM [HAY_TABLA].[Chofer] c WHERE Cho_Id = " + "(SELECT TOP 1 a.Cho_Id FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE a.Auto_Id = " + dgvAutomovil.CurrentRow.Cells[0].Value.ToString() + ") OR NOT EXISTS(SELECT * FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE A.Cho_Id = c.Cho_Id)");
+                //  string query = String.Format("SELECT  Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM [HAY_TABLA].[Chofer] c WHERE Cho_Id = " + "(SELECT TOP 1 a.Cho_Id FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE a.Auto_Id = " + dgvAutomovil.CurrentRow.Cells[0].Value.ToString() + ") OR NOT EXISTS(SELECT * FROM [HAY_TABLA].[AsignacionDeTurnos] a WHERE A.Cho_Id = c.Cho_Id)");
+                string query = String.Format("SELECT C.Cho_Id, Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM[HAY_TABLA].[Chofer] C JOIN[HAY_TABLA].[Usuarios] U ON CONVERT(varchar(30), C.Cho_DNI) = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON UR.Nombre_Usuario = U.Usu_Username WHERE UR.Id_Rol = 3 AND UR.Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -540,9 +659,18 @@ namespace UberFrba.Abm_Automovil
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        comboChofer.Items.Add(dr["Nombre_y_Apellido_Chofer"].ToString());
+                        comboChofer.Items.Add(new KeyValuePair<int, string>((int)dr["Cho_Id"], dr["Nombre_y_Apellido_Chofer"].ToString()));
                     }
-                    comboChofer.Text = dgvAutomovil.CurrentRow.Cells[6].Value.ToString();
+                    dr.Close();
+
+
+                    query = String.Format("SELECT TOP 1 C.Cho_Id, Cho_Nombre + ' ' + Cho_Apellido AS Nombre_y_Apellido_Chofer FROM[HAY_TABLA].[Chofer] C JOIN [HAY_TABLA].[AsignacionDeTurnos] A ON C.Cho_Id = A.Cho_Id WHERE A.Auto_Id = " + txtIdSeleccionado.Text);
+                    cmd = new SqlCommand(query, conexion);
+                    dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        comboChofer.Text = new KeyValuePair<int, string>((int)dr["Cho_Id"], dr["Nombre_y_Apellido_Chofer"].ToString()).ToString();
+                    }
 
                 }
                 catch (Exception excep)
@@ -569,6 +697,9 @@ namespace UberFrba.Abm_Automovil
 
         private void mostrarTurnos()
         {
+            listaKVPTurnos.Clear();
+            listaKVPTurnosSeleccionados.Clear();
+            listaTurnos.Items.Clear();
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
                 string query = String.Format("SELECT [Turno_Id],[Turno_HoraInicio],[Turno_HoraFin],[Turno_Descripcion]FROM[HAY_TABLA].[Turno] WHERE Turno_Habilitado = 1");
@@ -658,6 +789,7 @@ namespace UberFrba.Abm_Automovil
 
 
         }
+
 
     }
 }
