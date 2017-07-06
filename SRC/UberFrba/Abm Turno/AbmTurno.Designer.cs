@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AbmTurno));
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.btnCrearTurno = new System.Windows.Forms.Button();
             this.btnModificarTurno = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -52,9 +51,8 @@
             this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
             this.panelListaTurnos = new System.Windows.Forms.Panel();
-            this.btnAltaLogica = new System.Windows.Forms.Button();
+            this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
@@ -63,6 +61,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutoInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).BeginInit();
             this.panelListaTurnos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -75,19 +74,6 @@
             this.label1.Size = new System.Drawing.Size(267, 42);
             this.label1.TabIndex = 1;
             this.label1.Text = "ABM TURNOS";
-            // 
-            // dgvTurnos
-            // 
-            this.dgvTurnos.AllowUserToAddRows = false;
-            this.dgvTurnos.AllowUserToDeleteRows = false;
-            this.dgvTurnos.BackgroundColor = System.Drawing.Color.LemonChiffon;
-            this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTurnos.Location = new System.Drawing.Point(14, 34);
-            this.dgvTurnos.Name = "dgvTurnos";
-            this.dgvTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTurnos.Size = new System.Drawing.Size(710, 176);
-            this.dgvTurnos.TabIndex = 2;
-            this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTurnos_CellClick);
             // 
             // btnCrearTurno
             // 
@@ -134,7 +120,6 @@
             this.label2.Size = new System.Drawing.Size(92, 20);
             this.label2.TabIndex = 6;
             this.label2.Text = "Descripcion";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtDescripcionTurno
             // 
@@ -193,7 +178,6 @@
             this.numericValorKm.Name = "numericValorKm";
             this.numericValorKm.Size = new System.Drawing.Size(128, 20);
             this.numericValorKm.TabIndex = 18;
-            this.numericValorKm.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // numericPrecioBase
             // 
@@ -203,7 +187,6 @@
             this.numericPrecioBase.Name = "numericPrecioBase";
             this.numericPrecioBase.Size = new System.Drawing.Size(120, 20);
             this.numericPrecioBase.TabIndex = 18;
-            this.numericPrecioBase.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label8
             // 
@@ -331,30 +314,25 @@
             // panelListaTurnos
             // 
             this.panelListaTurnos.BackColor = System.Drawing.Color.Transparent;
-            this.panelListaTurnos.Controls.Add(this.btnAltaLogica);
+            this.panelListaTurnos.Controls.Add(this.dgvTurnos);
             this.panelListaTurnos.Controls.Add(this.checkVerInhabilitados);
             this.panelListaTurnos.Controls.Add(this.btnModificarTurno);
             this.panelListaTurnos.Controls.Add(this.button1);
-            this.panelListaTurnos.Controls.Add(this.dgvTurnos);
             this.panelListaTurnos.Controls.Add(this.btnCrearTurno);
             this.panelListaTurnos.Location = new System.Drawing.Point(7, 62);
             this.panelListaTurnos.Name = "panelListaTurnos";
             this.panelListaTurnos.Size = new System.Drawing.Size(738, 264);
             this.panelListaTurnos.TabIndex = 23;
-            this.panelListaTurnos.Paint += new System.Windows.Forms.PaintEventHandler(this.panelListaTurnos_Paint);
             // 
-            // btnAltaLogica
+            // dgvTurnos
             // 
-            this.btnAltaLogica.BackColor = System.Drawing.Color.LemonChiffon;
-            this.btnAltaLogica.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAltaLogica.Location = new System.Drawing.Point(366, 219);
-            this.btnAltaLogica.Name = "btnAltaLogica";
-            this.btnAltaLogica.Size = new System.Drawing.Size(169, 36);
-            this.btnAltaLogica.TabIndex = 24;
-            this.btnAltaLogica.Text = "ALTA LOGICA";
-            this.btnAltaLogica.UseVisualStyleBackColor = false;
-            this.btnAltaLogica.Visible = false;
-            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
+            this.dgvTurnos.BackgroundColor = System.Drawing.Color.LemonChiffon;
+            this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTurnos.Location = new System.Drawing.Point(14, 37);
+            this.dgvTurnos.Name = "dgvTurnos";
+            this.dgvTurnos.Size = new System.Drawing.Size(710, 176);
+            this.dgvTurnos.TabIndex = 77;
+            this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTurnos_CellClick);
             // 
             // checkVerInhabilitados
             // 
@@ -373,7 +351,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(760, 354);
+            this.ClientSize = new System.Drawing.Size(776, 354);
             this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.label1);
@@ -381,7 +359,6 @@
             this.Name = "AbmTurno";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AbmTurno";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).EndInit();
             this.panelDatosSeleccionado.ResumeLayout(false);
@@ -392,6 +369,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericHoraInicio)).EndInit();
             this.panelListaTurnos.ResumeLayout(false);
             this.panelListaTurnos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,7 +377,6 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvTurnos;
         private System.Windows.Forms.Button btnCrearTurno;
         private System.Windows.Forms.Button btnModificarTurno;
         private System.Windows.Forms.Button button1;
@@ -422,6 +399,6 @@
         private System.Windows.Forms.Panel panelListaTurnos;
         private System.Windows.Forms.CheckBox checkVerInhabilitados;
         private System.Windows.Forms.Button btnDescartarCambios;
-        private System.Windows.Forms.Button btnAltaLogica;
+        private System.Windows.Forms.DataGridView dgvTurnos;
     }
 }

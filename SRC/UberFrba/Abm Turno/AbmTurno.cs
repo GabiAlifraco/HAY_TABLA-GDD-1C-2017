@@ -34,17 +34,6 @@ namespace UberFrba.Abm_Turno
             panelDatosSeleccionado.Visible = false;
             dgvTurnos.ReadOnly = true;
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
  
         void MostrarTurnos()
         {
@@ -106,14 +95,12 @@ namespace UberFrba.Abm_Turno
                     if (row2.Cells[8].Value.ToString() == "False")
                     {
                         btnModificarTurno.Visible = false;
-                        btnAltaLogica.Visible = true;
-                        button1.Visible = false;
+                        button1.Text = "ALTA LOGICA";
                     }
                     else
                     {
                         btnModificarTurno.Visible = true;
-                        btnAltaLogica.Visible = false;
-                        button1.Visible = true;
+                        button1.Text = "BAJA LOGICA";
                     }
                 }
                 catch (Exception excep)
@@ -177,7 +164,7 @@ namespace UberFrba.Abm_Turno
                     dgvTurnos.DataSource = dtTurnos;
                     dgvTurnos.AutoResizeColumns();
                     dgvTurnos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                    for (int i = 0; i < dgvTurnos.Rows.Count; i++)
+                    for (int i = 0; i < dgvTurnos.Rows.Count -1 ; i++)
                     {
                         DataGridViewRow row = dgvTurnos.Rows[i];
                         if (row.Cells[8].Value.ToString() == "False")
@@ -194,14 +181,12 @@ namespace UberFrba.Abm_Turno
                     if (row2.Cells[8].Value.ToString() == "False")
                     {
                         btnModificarTurno.Visible = false;
-                        btnAltaLogica.Visible = true;
-                        button1.Visible = false;
+                        button1.Text = "ALTA LOGICA";
                     }
                     else
                     {
                         btnModificarTurno.Visible = true;
-                        btnAltaLogica.Visible = false;
-                        button1.Visible = true;
+                        button1.Text = "BAJA LOGICA";
                     }
                 
                 }
@@ -227,24 +212,17 @@ namespace UberFrba.Abm_Turno
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvTurnos.CurrentRow.Cells[0].Value.ToString() != "")
             {
-                string query = String.Format("EXEC [HAY_TABLA].[bajaLogica] 'TURNO', " + dgvTurnos.CurrentRow.Cells[0].Value.ToString());   
-                SqlCommand cmd = new SqlCommand(query, conexion);
-
-                try
-                {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                 if (dgvTurnos.CurrentRow.Cells[8].Value.ToString().Equals("True"))
+                 {
+                    bajalogica();
+                 }
+                 else
+                 {
+                    altalogica();
+                 }        
             }
-
 
             if (checkVerInhabilitados.Checked == true)
             {
@@ -254,7 +232,50 @@ namespace UberFrba.Abm_Turno
             {
                 MostrarTurnos();
             }
-            btnAltaLogica.Visible = false;
+            
+        }
+
+        private void altalogica()
+        {
+            decimal horaInicio = numericHoraInicio.Value * 100 + numericMinutoInicio.Value;
+            decimal horaFin = numericHoraFin.Value * 100 + numericMinutoFin.Value;
+            if (ValidarAltaLogica(horaInicio, horaFin))
+            {
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+                {
+                    string query = String.Format("EXEC [HAY_TABLA].[altaLogica] 'TURNO', " + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void bajalogica()
+        {
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                    string query = String.Format("EXEC [HAY_TABLA].[bajaLogica] 'TURNO', " + dgvTurnos.CurrentRow.Cells[0].Value.ToString());
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             
         }
 
@@ -284,30 +305,30 @@ namespace UberFrba.Abm_Turno
 
         private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
-            txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
-            numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
-            numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
-            numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
-            numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
-            numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
-            numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
-            bool habilitado = Convert.ToBoolean(dgvTurnos.CurrentRow.Cells[8].Value);
-            if (habilitado)
+            if (dgvTurnos.CurrentRow.Cells[0].Value.ToString() != "")
             {
-                btnModificarTurno.Visible = true;
-                btnAltaLogica.Visible = false;
-                button1.Visible = true;
+                txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
+                txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
+                numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
+                numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
+                numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
+                numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
+                numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
+                numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
+                bool habilitado = Convert.ToBoolean(dgvTurnos.CurrentRow.Cells[8].Value);
+                if (habilitado)
+                {
+                    btnModificarTurno.Visible = true;
+                    button1.Text = "BAJA LOGICA";
 
-            }
-            else
-            {
-                btnModificarTurno.Visible = false;
-                btnAltaLogica.Visible = true;
-                button1.Visible = false;
+                }
+                else
+                {
+                    btnModificarTurno.Visible = false;
+                    button1.Text = "ALTA LOGICA";
+                }
             }
             
-           // panelDatosSeleccionado.Enabled = false;
         }
 
         private void soloLetras(object sender, KeyPressEventArgs e)
@@ -349,10 +370,8 @@ namespace UberFrba.Abm_Turno
                             MostrarTurnos();
                         }
                         btnGuardarDatos.Visible = false;
-                        btnAltaLogica.Visible = false;
                         btnModificarTurno.Visible = false;
                         panelListaTurnos.Visible = true;
-                        //panelDatosSeleccionado.Enabled = false;
                         panelDatosSeleccionado.Visible = false;
 
                     }
@@ -446,52 +465,10 @@ namespace UberFrba.Abm_Turno
             btnGuardarDatos.Visible = false;
             btnModificarTurno.Visible = true;
             panelListaTurnos.Visible = true;
-            //panelDatosSeleccionado.Enabled = false;
             panelDatosSeleccionado.Visible = false;
         }
-
-        private void btnAltaLogica_Click(object sender, EventArgs e)
-        {
-            decimal horaInicio = numericHoraInicio.Value * 100 + numericMinutoInicio.Value;
-            decimal horaFin = numericHoraFin.Value * 100 + numericMinutoFin.Value;
-            if (ValidarAltaLogica(horaInicio, horaFin))
-            {
-                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-                {
-                    string query = String.Format("UPDATE [HAY_TABLA].Turno SET Turno_Habilitado = 1 " + " WHERE Turno_Id = " + txtIdTurno.Text);
-
-                    SqlCommand cmd = new SqlCommand(query, conexion);
-
-                    try
-                    {
-                        conexion.Open();
-                        SqlDataReader dr = cmd.ExecuteReader();
-                        if (checkVerInhabilitados.Checked == true)
-                        {
-                            MostrarTurnosInhabilitados();
-                        }
-                        else
-                        {
-                            MostrarTurnos();
-                        }
-                        btnGuardarDatos.Visible = false;
-                        btnModificarTurno.Visible = true;
-                        btnAltaLogica.Visible = false;
-                        button1.Visible = true;
-                        panelListaTurnos.Visible = true;
-                        //panelDatosSeleccionado.Enabled = false;
-                        panelDatosSeleccionado.Visible = false;
-
-                    }
-                    catch (Exception excep)
-                    {
-                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-
-        private bool ValidarAltaLogica(decimal horaInicio, decimal horaFin)
+        
+               private bool ValidarAltaLogica(decimal horaInicio, decimal horaFin)
         {
             if (horaInicio > horaFin)
             {
@@ -524,9 +501,5 @@ namespace UberFrba.Abm_Turno
             }
         }
 
-        private void panelListaTurnos_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
