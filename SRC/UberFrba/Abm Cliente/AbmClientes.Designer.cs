@@ -388,6 +388,7 @@
             this.label28.Size = new System.Drawing.Size(93, 13);
             this.label28.TabIndex = 59;
             this.label28.Text = "CLIENTE NUEVO";
+            this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // label29
             // 
