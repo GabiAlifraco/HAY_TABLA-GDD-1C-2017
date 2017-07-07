@@ -26,6 +26,7 @@ namespace UberFrba.Abm_Chofer
 
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {
+            this.Close();
             AltaChofer altaChoferForm = new AltaChofer();
             altaChoferForm.Show();
         }
@@ -41,7 +42,7 @@ namespace UberFrba.Abm_Chofer
 
         void MostrarChoferes()
         {
-            DataTable dtChoferes = new DataTable("Clientes");
+            DataTable dtChoferes = new DataTable("Choferes");
 
             DataColumn cId = new DataColumn("Id");
             DataColumn cNombre = new DataColumn("Nombre");
@@ -50,6 +51,9 @@ namespace UberFrba.Abm_Chofer
             DataColumn cMail = new DataColumn("Mail");
             DataColumn cTelefono = new DataColumn("Telefono");
             DataColumn cDireccion = new DataColumn("Direccion");
+            DataColumn cPiso = new DataColumn("Piso");
+            DataColumn cDepartamento = new DataColumn("Departamento");
+            DataColumn cLocalidad = new DataColumn("Localidad");
             DataColumn cFechaNacimiento = new DataColumn("FechaNacimiento");
             DataColumn cHabilitado = new DataColumn("Habilitado");
 
@@ -60,13 +64,14 @@ namespace UberFrba.Abm_Chofer
             dtChoferes.Columns.Add(cMail);
             dtChoferes.Columns.Add(cTelefono);
             dtChoferes.Columns.Add(cDireccion);
+            dtChoferes.Columns.Add(cPiso);
+            dtChoferes.Columns.Add(cDepartamento);
+            dtChoferes.Columns.Add(cLocalidad);
             dtChoferes.Columns.Add(cFechaNacimiento);
             dtChoferes.Columns.Add(cHabilitado);
 
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-
-             
 
                 string query;
                 if (checkVerInhabilitados.Checked)
@@ -95,6 +100,9 @@ namespace UberFrba.Abm_Chofer
                         row["Mail"] = dr["Cho_Mail"].ToString();
                         row["Telefono"] = dr["Cho_Telefono"].ToString();
                         row["Direccion"] = dr["Cho_Direccion"].ToString();
+                        row["Piso"] = dr["Cho_Piso"].ToString();
+                        row["Departamento"] = dr["Cho_Departamento"].ToString();
+                        row["Localidad"] = dr["Cho_Localidad"].ToString();
                         row["FechaNacimiento"] = dr["Cho_FechaNacimiento"].ToString();
                         row["Habilitado"] = dr["Habilitado"].ToString();
 
@@ -112,7 +120,7 @@ namespace UberFrba.Abm_Chofer
                         for (int i = 0; i < dgvChoferes.Rows.Count; i++)
                         {
                             DataGridViewRow row = dgvChoferes.Rows[i];
-                            if (row.Cells[8].Value.ToString() == "False")
+                            if (row.Cells[11].Value.ToString() == "False")
                             {
                                 row.DefaultCellStyle.BackColor = Color.LightSalmon;
                             }
@@ -133,7 +141,7 @@ namespace UberFrba.Abm_Chofer
 
         private void dgvChoferes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvChoferes.CurrentRow.Cells[8].Value.ToString() == "False")
+            if (dgvChoferes.CurrentRow.Cells[11].Value.ToString() == "False")
             {
                 panelDatosChoferSeleccionado.Visible = false;
                 btnModificar.Visible = false;
@@ -151,8 +159,10 @@ namespace UberFrba.Abm_Chofer
                 string dir = dgvChoferes.CurrentRow.Cells[6].Value.ToString();
                 txtChoferDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
                 txtChoferAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-
-                DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[7].Value.ToString());
+                txtPiso.Text = dgvChoferes.CurrentRow.Cells[7].Value.ToString();
+                txtDepto.Text = dgvChoferes.CurrentRow.Cells[8].Value.ToString();
+                textBox1.Text = dgvChoferes.CurrentRow.Cells[9].Value.ToString();
+                DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[10].Value.ToString());
                 string fNacimiento;
                 if (fechaNacimiento.Date.Day < 10)
                 {
@@ -225,7 +235,7 @@ namespace UberFrba.Abm_Chofer
         private void guardarChofer()
         {
 
-            if (ValidarChofer(txtChoferNombre.Text, txtChoferApellido.Text, txtChoferDNI.Text, txtChoferMail.Text, txtChoferTelefono.Text, txtChoferDireccion.Text, txtChoferAltura.Text, txtChoferNacimiento.Text))
+            if (ValidarChofer(txtChoferNombre.Text, txtChoferApellido.Text, txtChoferDNI.Text, txtChoferMail.Text, txtChoferTelefono.Text, txtChoferDireccion.Text, txtChoferAltura.Text, txtChoferNacimiento.Text, txtPiso.Text,txtDepto.Text,textBox1.Text))
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
@@ -235,7 +245,7 @@ namespace UberFrba.Abm_Chofer
                     command.Transaction = sqlTransact;
                     try
                     {
-                        string query = String.Format("UPDATE [HAY_TABLA].[Chofer] SET Cho_Nombre = @Nombre, Cho_Apellido = @Apellido, Cho_DNI =@DNI, Cho_Mail=@Mail, Cho_Telefono = @Telefono, Cho_Direccion= @Direccion,Cho_FechaNacimiento = @FechaNacimiento  WHERE Cho_Id =" + txtIdSeleccionado.Text);
+                        string query = String.Format("UPDATE [HAY_TABLA].[Chofer] SET Cho_Nombre = @Nombre, Cho_Apellido = @Apellido, Cho_DNI =@DNI, Cho_Mail=@Mail, Cho_Telefono = @Telefono, Cho_Direccion= @Direccion,Cho_FechaNacimiento = @FechaNacimiento,Cho_Piso= @Piso,Cho_Departamento= @Departamento,Cho_Localidad= @Localidad  WHERE Cho_Id =" + txtIdSeleccionado.Text);
 
 
                         command.CommandText = query;
@@ -267,6 +277,18 @@ namespace UberFrba.Abm_Chofer
                         DateTime fechaNacimiento = DateTime.Parse(txtChoferNacimiento.Text);
                         param = new SqlParameter("@FechaNacimiento", fechaNacimiento);
                         param.SqlDbType = System.Data.SqlDbType.DateTime;
+                        command.Parameters.Add(param);
+
+                        param = new SqlParameter("@Piso", txtPiso.Text);
+                        param.SqlDbType = System.Data.SqlDbType.BigInt;
+                        command.Parameters.Add(param);
+
+                        param = new SqlParameter("@Departamento", txtDepto.Text);
+                        param.SqlDbType = System.Data.SqlDbType.VarChar;
+                        command.Parameters.Add(param);
+
+                        param = new SqlParameter("@Localidad", textBox1.Text);
+                        param.SqlDbType = System.Data.SqlDbType.VarChar;
                         command.Parameters.Add(param);
 
                         command.ExecuteNonQuery();
@@ -313,10 +335,10 @@ namespace UberFrba.Abm_Chofer
             }
         }
 
-        private bool ValidarChofer(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string fechaNacimiento)
+        private bool ValidarChofer(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string fechaNacimiento,string piso,string departamento,string localidad)
         {
             bool resultadoValidacion = true;
-            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento));
+            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento) && Validador.validarStringVacio(piso, "Piso") && Validador.validarStringVacio(departamento, "Departamento") && Validador.validarStringVacio(localidad, "Localidad"));
             return resultadoValidacion;
         }
 

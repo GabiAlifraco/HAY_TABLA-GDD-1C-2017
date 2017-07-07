@@ -40,6 +40,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvChoferes = new System.Windows.Forms.DataGridView();
             this.panelDatosChoferSeleccionado = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDepto = new System.Windows.Forms.TextBox();
+            this.txtPiso = new System.Windows.Forms.TextBox();
+            this.txtLocalidad = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtChoferAltura = new System.Windows.Forms.TextBox();
             this.txtChoferDireccion = new System.Windows.Forms.TextBox();
             this.txtChoferTelefono = new System.Windows.Forms.TextBox();
@@ -161,15 +167,21 @@
             this.dgvChoferes.AllowUserToAddRows = false;
             this.dgvChoferes.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvChoferes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChoferes.Location = new System.Drawing.Point(31, 79);
+            this.dgvChoferes.Location = new System.Drawing.Point(3, 79);
             this.dgvChoferes.Name = "dgvChoferes";
-            this.dgvChoferes.Size = new System.Drawing.Size(1034, 263);
+            this.dgvChoferes.Size = new System.Drawing.Size(1226, 263);
             this.dgvChoferes.TabIndex = 68;
             this.dgvChoferes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChoferes_CellClick);
             // 
             // panelDatosChoferSeleccionado
             // 
             this.panelDatosChoferSeleccionado.BackColor = System.Drawing.Color.Transparent;
+            this.panelDatosChoferSeleccionado.Controls.Add(this.textBox1);
+            this.panelDatosChoferSeleccionado.Controls.Add(this.txtDepto);
+            this.panelDatosChoferSeleccionado.Controls.Add(this.txtPiso);
+            this.panelDatosChoferSeleccionado.Controls.Add(this.txtLocalidad);
+            this.panelDatosChoferSeleccionado.Controls.Add(this.label10);
+            this.panelDatosChoferSeleccionado.Controls.Add(this.label11);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferAltura);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferDireccion);
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferTelefono);
@@ -194,13 +206,69 @@
             this.panelDatosChoferSeleccionado.Controls.Add(this.txtChoferNacimiento);
             this.panelDatosChoferSeleccionado.Location = new System.Drawing.Point(58, 51);
             this.panelDatosChoferSeleccionado.Name = "panelDatosChoferSeleccionado";
-            this.panelDatosChoferSeleccionado.Size = new System.Drawing.Size(536, 262);
+            this.panelDatosChoferSeleccionado.Size = new System.Drawing.Size(536, 192);
             this.panelDatosChoferSeleccionado.TabIndex = 80;
             this.panelDatosChoferSeleccionado.Visible = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(262, 118);
+            this.textBox1.MaxLength = 50;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(101, 20);
+            this.textBox1.TabIndex = 71;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetras);
+            // 
+            // txtDepto
+            // 
+            this.txtDepto.Location = new System.Drawing.Point(132, 118);
+            this.txtDepto.MaxLength = 10;
+            this.txtDepto.Name = "txtDepto";
+            this.txtDepto.Size = new System.Drawing.Size(100, 20);
+            this.txtDepto.TabIndex = 72;
+            // 
+            // txtPiso
+            // 
+            this.txtPiso.Location = new System.Drawing.Point(8, 118);
+            this.txtPiso.MaxLength = 50;
+            this.txtPiso.Name = "txtPiso";
+            this.txtPiso.Size = new System.Drawing.Size(101, 20);
+            this.txtPiso.TabIndex = 70;
+            this.txtPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
+            // 
+            // txtLocalidad
+            // 
+            this.txtLocalidad.AutoSize = true;
+            this.txtLocalidad.BackColor = System.Drawing.Color.LemonChiffon;
+            this.txtLocalidad.Location = new System.Drawing.Point(260, 102);
+            this.txtLocalidad.Name = "txtLocalidad";
+            this.txtLocalidad.Size = new System.Drawing.Size(56, 13);
+            this.txtLocalidad.TabIndex = 69;
+            this.txtLocalidad.Text = "Localidad:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label10.Location = new System.Drawing.Point(129, 102);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 13);
+            this.label10.TabIndex = 68;
+            this.label10.Text = "Departamento:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label11.Location = new System.Drawing.Point(5, 102);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 67;
+            this.label11.Text = "Piso:";
+            // 
             // txtChoferAltura
             // 
-            this.txtChoferAltura.Location = new System.Drawing.Point(119, 138);
+            this.txtChoferAltura.Location = new System.Drawing.Point(386, 79);
             this.txtChoferAltura.MaxLength = 6;
             this.txtChoferAltura.Name = "txtChoferAltura";
             this.txtChoferAltura.Size = new System.Drawing.Size(48, 20);
@@ -209,7 +277,7 @@
             // 
             // txtChoferDireccion
             // 
-            this.txtChoferDireccion.Location = new System.Drawing.Point(8, 138);
+            this.txtChoferDireccion.Location = new System.Drawing.Point(262, 79);
             this.txtChoferDireccion.MaxLength = 50;
             this.txtChoferDireccion.Name = "txtChoferDireccion";
             this.txtChoferDireccion.Size = new System.Drawing.Size(101, 20);
@@ -236,7 +304,7 @@
             // 
             // txtChoferApellido
             // 
-            this.txtChoferApellido.Location = new System.Drawing.Point(389, 41);
+            this.txtChoferApellido.Location = new System.Drawing.Point(385, 41);
             this.txtChoferApellido.MaxLength = 50;
             this.txtChoferApellido.Name = "txtChoferApellido";
             this.txtChoferApellido.Size = new System.Drawing.Size(100, 20);
@@ -245,7 +313,7 @@
             // 
             // txtChoferNombre
             // 
-            this.txtChoferNombre.Location = new System.Drawing.Point(266, 40);
+            this.txtChoferNombre.Location = new System.Drawing.Point(262, 40);
             this.txtChoferNombre.MaxLength = 50;
             this.txtChoferNombre.Name = "txtChoferNombre";
             this.txtChoferNombre.Size = new System.Drawing.Size(100, 20);
@@ -254,7 +322,7 @@
             // 
             // btnDescartarCambios
             // 
-            this.btnDescartarCambios.Location = new System.Drawing.Point(47, 211);
+            this.btnDescartarCambios.Location = new System.Drawing.Point(277, 144);
             this.btnDescartarCambios.Name = "btnDescartarCambios";
             this.btnDescartarCambios.Size = new System.Drawing.Size(139, 23);
             this.btnDescartarCambios.TabIndex = 62;
@@ -294,7 +362,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label24.Location = new System.Drawing.Point(116, 122);
+            this.label24.Location = new System.Drawing.Point(382, 63);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(34, 13);
             this.label24.TabIndex = 57;
@@ -302,7 +370,7 @@
             // 
             // btnGuardarDatos
             // 
-            this.btnGuardarDatos.Location = new System.Drawing.Point(47, 182);
+            this.btnGuardarDatos.Location = new System.Drawing.Point(47, 144);
             this.btnGuardarDatos.Name = "btnGuardarDatos";
             this.btnGuardarDatos.Size = new System.Drawing.Size(139, 23);
             this.btnGuardarDatos.TabIndex = 27;
@@ -314,7 +382,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label22.Location = new System.Drawing.Point(9, 122);
+            this.label22.Location = new System.Drawing.Point(322, 63);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(30, 13);
             this.label22.TabIndex = 55;
@@ -332,7 +400,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label9.Location = new System.Drawing.Point(184, 122);
+            this.label9.Location = new System.Drawing.Point(383, 102);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(96, 13);
             this.label9.TabIndex = 22;
@@ -342,7 +410,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label7.Location = new System.Drawing.Point(6, 103);
+            this.label7.Location = new System.Drawing.Point(260, 63);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 20;
@@ -352,7 +420,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label6.Location = new System.Drawing.Point(129, 66);
+            this.label6.Location = new System.Drawing.Point(129, 63);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 19;
@@ -362,7 +430,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label5.Location = new System.Drawing.Point(5, 66);
+            this.label5.Location = new System.Drawing.Point(5, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 18;
@@ -382,7 +450,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label3.Location = new System.Drawing.Point(386, 25);
+            this.label3.Location = new System.Drawing.Point(382, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 16;
@@ -392,7 +460,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label2.Location = new System.Drawing.Point(262, 24);
+            this.label2.Location = new System.Drawing.Point(258, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 15;
@@ -400,7 +468,7 @@
             // 
             // txtChoferNacimiento
             // 
-            this.txtChoferNacimiento.Location = new System.Drawing.Point(187, 138);
+            this.txtChoferNacimiento.Location = new System.Drawing.Point(387, 118);
             this.txtChoferNacimiento.Mask = "00/00/0000";
             this.txtChoferNacimiento.Name = "txtChoferNacimiento";
             this.txtChoferNacimiento.Size = new System.Drawing.Size(62, 20);
@@ -456,9 +524,9 @@
             this.panelChoferes.Controls.Add(this.btnFiltrar);
             this.panelChoferes.Controls.Add(this.txtFiltroApellido);
             this.panelChoferes.Controls.Add(this.txtFiltroNombre);
-            this.panelChoferes.Location = new System.Drawing.Point(98, 12);
+            this.panelChoferes.Location = new System.Drawing.Point(29, 12);
             this.panelChoferes.Name = "panelChoferes";
-            this.panelChoferes.Size = new System.Drawing.Size(1114, 405);
+            this.panelChoferes.Size = new System.Drawing.Size(1232, 405);
             this.panelChoferes.TabIndex = 82;
             // 
             // btnAltaLogica
@@ -490,9 +558,9 @@
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1273, 491);
+            this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.Controls.Add(this.panelChoferes);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.MaximizeBox = false;
             this.Name = "AbmChofer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -548,5 +616,11 @@
         private System.Windows.Forms.Panel panelChoferes;
         private System.Windows.Forms.CheckBox checkVerInhabilitados;
         private System.Windows.Forms.Button btnAltaLogica;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDepto;
+        private System.Windows.Forms.TextBox txtPiso;
+        private System.Windows.Forms.Label txtLocalidad;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }

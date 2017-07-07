@@ -25,6 +25,8 @@ namespace UberFrba.Abm_Chofer
 
         private void btnCancelarCrear_Click(object sender, EventArgs e)
         {
+            AbmChofer formChofer = new AbmChofer();
+            formChofer.Show();
             this.Close();
         }
 
@@ -43,7 +45,7 @@ namespace UberFrba.Abm_Chofer
                 try
                 {
                     //string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento) OUTPUT Inserted.Cho_Id VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento) ");
-                    string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento) VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento) ");
+                    string query = String.Format("INSERT INTO [HAY_TABLA].[Chofer] (Cho_Nombre, Cho_Apellido, Cho_DNI, Cho_Mail, Cho_Telefono, Cho_Direccion, Cho_FechaNacimiento,Cho_Piso,Cho_Departamento,Cho_Localidad) VALUES (@Nombre,@Apellido,@DNI,@Mail,@Telefono,@Direccion,@FechaNacimiento,@Piso,@Departamento,@Localidad) ");
                     command.CommandText = query;
 
                     SqlParameter param = new SqlParameter("@Nombre", txtNombreNuevo.Text);
@@ -73,6 +75,18 @@ namespace UberFrba.Abm_Chofer
                     DateTime fechaNacimiento = DateTime.Parse(txtNacimientoNuevo.Text);
                     param = new SqlParameter("@FechaNacimiento", fechaNacimiento);
                     param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    command.Parameters.Add(param);
+
+                    param = new SqlParameter("@Piso", txtPiso.Text);
+                    param.SqlDbType = System.Data.SqlDbType.BigInt;
+                    command.Parameters.Add(param);
+
+                    param = new SqlParameter("@Departamento", txtDepto.Text);
+                    param.SqlDbType = System.Data.SqlDbType.VarChar;
+                    command.Parameters.Add(param);
+
+                    param = new SqlParameter("@Localidad", textBox1.Text);
+                    param.SqlDbType = System.Data.SqlDbType.VarChar;
                     command.Parameters.Add(param);
 
                     command.ExecuteNonQuery();
@@ -107,7 +121,7 @@ VALUES('bob');
         {
 
 
-            if (ValidarChofer(txtNombreNuevo.Text, txtApellidoNuevo.Text, txtChoferDNINuevo.Text, txtMailNuevo.Text, txtTelefonoNuevo.Text, txtDireccionNuevo.Text, txtAlturaNuevo.Text, txtNacimientoNuevo.Text))
+            if (ValidarChofer(txtNombreNuevo.Text, txtApellidoNuevo.Text, txtChoferDNINuevo.Text, txtMailNuevo.Text, txtTelefonoNuevo.Text, txtDireccionNuevo.Text, txtAlturaNuevo.Text, txtNacimientoNuevo.Text, txtPiso.Text, txtDepto.Text, textBox1.Text))
             {
 
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
@@ -120,6 +134,9 @@ VALUES('bob');
                         {
                             conexion.Close();
                             crearChofer();
+
+                            AbmChofer formChofer = new AbmChofer();
+                            formChofer.Show();
                             this.Close();
                         }
 
@@ -162,13 +179,45 @@ VALUES('bob');
 
 
 
-        private bool ValidarChofer(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string fechaNacimiento)
+        private bool ValidarChofer(string nombre, string apellido, string dni, string email, string telefono, string calle, string altura, string fechaNacimiento,string piso,string departamento,string localidad)
         {
             bool resultadoValidacion = true;
-            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarStringVacio(telefono,"Telefono") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento));
+            resultadoValidacion = (Validador.validarStringVacio(email, "Mail") && Validador.validarStringVacio(telefono, "Telefono") && Validador.validarMail(email) && Validador.validarStringVacio(nombre, "Nombre") && Validador.validarStringVacio(apellido, "Apellido") && Validador.validarStringVacio(dni, "DNI") && Validador.validarStringVacio(calle, "Calle") && Validador.validarStringVacio(altura, "Altura") && Validador.validarFecha(fechaNacimiento) && Validador.validarStringVacio(piso, "Piso") && Validador.validarStringVacio(departamento, "Departamento") && Validador.validarStringVacio(localidad, "Localidad"));
             return resultadoValidacion;
         }
 
+        private void label28_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            string aleatorio1 = RandomPassword.Generate();
+            string aleatorio2 = RandomPassword.Generate();
+            string aleatorio3 = RandomPassword.Generate();
+            int dni_aleatorio = rnd.Next(16000000, 45000000);
+            int telefono_aleatorio = rnd.Next(1500000000, 1599999999);
+            int altura = rnd.Next(0000, 9999);
+            int dia, mes, anno;
+            Random rand = new Random();
+            anno = 1 + rand.Next(1950, 2016);
+            mes = 1 + rand.Next(10, 12);
+            dia = 1 + rand.Next(10, 28);
+            string fechaJunta = (dia.ToString() + mes.ToString() + anno.ToString());
+
+            int piso = rnd.Next(0, 99);
+            string departamento = RandomPassword.Generate();
+            string localidad = RandomPassword.Generate();
+
+            txtNombreNuevo.Text = aleatorio1;
+            txtApellidoNuevo.Text = aleatorio2;
+            txtMailNuevo.Text = aleatorio1 + "_" + aleatorio2 + "@gmail.com";
+            txtDireccionNuevo.Text = aleatorio3;
+            txtChoferDNINuevo.Text = dni_aleatorio.ToString();
+            txtTelefonoNuevo.Text = telefono_aleatorio.ToString();
+            txtAlturaNuevo.Text = altura.ToString();
+            txtNacimientoNuevo.Text = fechaJunta;
+            txtPiso.Text = piso.ToString();
+            txtDepto.Text = departamento;
+            textBox1.Text = localidad;
+        }
 
 
 

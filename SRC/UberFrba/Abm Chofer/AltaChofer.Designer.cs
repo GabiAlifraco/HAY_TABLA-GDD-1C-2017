@@ -30,6 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaChofer));
             this.panelDatosNuevoCliente = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDepto = new System.Windows.Forms.TextBox();
+            this.txtPiso = new System.Windows.Forms.TextBox();
+            this.txtLocalidad = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtApellidoNuevo = new System.Windows.Forms.TextBox();
             this.txtNombreNuevo = new System.Windows.Forms.TextBox();
             this.txtAlturaNuevo = new System.Windows.Forms.TextBox();
@@ -56,6 +62,12 @@
             // panelDatosNuevoCliente
             // 
             this.panelDatosNuevoCliente.BackColor = System.Drawing.Color.Transparent;
+            this.panelDatosNuevoCliente.Controls.Add(this.textBox1);
+            this.panelDatosNuevoCliente.Controls.Add(this.txtDepto);
+            this.panelDatosNuevoCliente.Controls.Add(this.txtPiso);
+            this.panelDatosNuevoCliente.Controls.Add(this.txtLocalidad);
+            this.panelDatosNuevoCliente.Controls.Add(this.label10);
+            this.panelDatosNuevoCliente.Controls.Add(this.label11);
             this.panelDatosNuevoCliente.Controls.Add(this.txtApellidoNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtNombreNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.txtAlturaNuevo);
@@ -76,10 +88,66 @@
             this.panelDatosNuevoCliente.Controls.Add(this.label21);
             this.panelDatosNuevoCliente.Controls.Add(this.txtNacimientoNuevo);
             this.panelDatosNuevoCliente.Controls.Add(this.btnCrear);
-            this.panelDatosNuevoCliente.Location = new System.Drawing.Point(51, 12);
+            this.panelDatosNuevoCliente.Location = new System.Drawing.Point(27, 12);
             this.panelDatosNuevoCliente.Name = "panelDatosNuevoCliente";
-            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(333, 217);
+            this.panelDatosNuevoCliente.Size = new System.Drawing.Size(329, 242);
             this.panelDatosNuevoCliente.TabIndex = 64;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(215, 172);
+            this.textBox1.MaxLength = 50;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(101, 20);
+            this.textBox1.TabIndex = 77;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetras);
+            // 
+            // txtDepto
+            // 
+            this.txtDepto.Location = new System.Drawing.Point(110, 172);
+            this.txtDepto.MaxLength = 10;
+            this.txtDepto.Name = "txtDepto";
+            this.txtDepto.Size = new System.Drawing.Size(100, 20);
+            this.txtDepto.TabIndex = 78;
+            // 
+            // txtPiso
+            // 
+            this.txtPiso.Location = new System.Drawing.Point(4, 172);
+            this.txtPiso.MaxLength = 50;
+            this.txtPiso.Name = "txtPiso";
+            this.txtPiso.Size = new System.Drawing.Size(101, 20);
+            this.txtPiso.TabIndex = 76;
+            this.txtPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloNumeros);
+            // 
+            // txtLocalidad
+            // 
+            this.txtLocalidad.AutoSize = true;
+            this.txtLocalidad.BackColor = System.Drawing.Color.LemonChiffon;
+            this.txtLocalidad.Location = new System.Drawing.Point(217, 156);
+            this.txtLocalidad.Name = "txtLocalidad";
+            this.txtLocalidad.Size = new System.Drawing.Size(56, 13);
+            this.txtLocalidad.TabIndex = 75;
+            this.txtLocalidad.Text = "Localidad:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label10.Location = new System.Drawing.Point(112, 156);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 13);
+            this.label10.TabIndex = 74;
+            this.label10.Text = "Departamento:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label11.Location = new System.Drawing.Point(4, 156);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 73;
+            this.label11.Text = "Piso:";
             // 
             // txtApellidoNuevo
             // 
@@ -128,11 +196,11 @@
             // 
             // btnCancelarCrear
             // 
-            this.btnCancelarCrear.Location = new System.Drawing.Point(156, 169);
+            this.btnCancelarCrear.Location = new System.Drawing.Point(149, 203);
             this.btnCancelarCrear.Name = "btnCancelarCrear";
-            this.btnCancelarCrear.Size = new System.Drawing.Size(101, 23);
+            this.btnCancelarCrear.Size = new System.Drawing.Size(151, 23);
             this.btnCancelarCrear.TabIndex = 60;
-            this.btnCancelarCrear.Text = "CANCELAR";
+            this.btnCancelarCrear.Text = "VOLVER A ABM CHOFER";
             this.btnCancelarCrear.UseVisualStyleBackColor = true;
             this.btnCancelarCrear.Click += new System.EventHandler(this.btnCancelarCrear_Click);
             // 
@@ -140,11 +208,12 @@
             // 
             this.label28.AutoSize = true;
             this.label28.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label28.Location = new System.Drawing.Point(8, 11);
+            this.label28.Location = new System.Drawing.Point(8, 6);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(92, 13);
             this.label28.TabIndex = 59;
             this.label28.Text = "CHOFER NUEVO";
+            this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // label25
             // 
@@ -186,7 +255,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label14.Location = new System.Drawing.Point(220, 115);
+            this.label14.Location = new System.Drawing.Point(223, 70);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 13);
             this.label14.TabIndex = 44;
@@ -254,7 +323,7 @@
             // 
             // txtNacimientoNuevo
             // 
-            this.txtNacimientoNuevo.Location = new System.Drawing.Point(222, 131);
+            this.txtNacimientoNuevo.Location = new System.Drawing.Point(222, 86);
             this.txtNacimientoNuevo.Mask = "00/00/0000";
             this.txtNacimientoNuevo.Name = "txtNacimientoNuevo";
             this.txtNacimientoNuevo.Size = new System.Drawing.Size(68, 20);
@@ -263,7 +332,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(49, 169);
+            this.btnCrear.Location = new System.Drawing.Point(42, 203);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(101, 23);
             this.btnCrear.TabIndex = 28;
@@ -276,7 +345,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(416, 247);
+            this.ClientSize = new System.Drawing.Size(382, 264);
             this.Controls.Add(this.panelDatosNuevoCliente);
             this.MaximizeBox = false;
             this.Name = "AltaChofer";
@@ -311,5 +380,11 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.MaskedTextBox txtNacimientoNuevo;
         private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDepto;
+        private System.Windows.Forms.TextBox txtPiso;
+        private System.Windows.Forms.Label txtLocalidad;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }
