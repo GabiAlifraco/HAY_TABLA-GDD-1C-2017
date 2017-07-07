@@ -353,9 +353,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(776, 354);
-            this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panelListaTurnos);
             this.MaximizeBox = false;
             this.Name = "AbmTurno";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

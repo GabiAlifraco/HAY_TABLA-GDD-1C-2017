@@ -241,8 +241,8 @@ namespace UberFrba.Abm_Turno
 
         private void altalogica()
         {
-            decimal horaInicio = numericHoraInicio.Value * 100 + numericMinutoInicio.Value;
-            decimal horaFin = numericHoraFin.Value * 100 + numericMinutoFin.Value;
+            decimal horaInicio = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value.ToString()) * 100 + Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value.ToString());
+            decimal horaFin = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value.ToString()) * 100 + Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value.ToString());
             if (ValidarAltaLogica(horaInicio, horaFin))
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
@@ -472,7 +472,7 @@ namespace UberFrba.Abm_Turno
 
         private void btnDescartarCambios_Click(object sender, EventArgs e)
         {
-            btnGuardarDatos.Visible = false;
+            //btnGuardarDatos.Visible = false;
             btnModificarTurno.Visible = true;
             panelListaTurnos.Visible = true;
             panelDatosSeleccionado.Visible = false;
