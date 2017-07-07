@@ -118,14 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>Para facutar se deben ingresar:
--Fecha de inicio de la factura
--Fecha de fin de la factura
+    <value>Funcionalidad que permite realizar la facturación de todos los viajes realizados por el cliente durante el mes en curso
+Para facutar se deben ingresar:
 -Cliente de la factura
 
 Al presionar el boton "FACTURAR"
-La facturacion sera registrada en la base de datos.
-Y se emitira un listado con los viajes correspondientes a la factura.Indicando por cada viaje:
+Se emitira un listado con los viajes correspondientes a la factura.Indicando por cada viaje:
 -La fecha
 -La cantidad de kms
 -El importe del viaje
@@ -135,7 +133,8 @@ Tambien se calculara:
 -La cantidad de kms que suman dichos viajes
 -El importe total de la factura
 
-Los viajes que conforman la factura son los que se realizaron entre las dos fechas ingresadas y todavia no fueron facturados todavia</value>
+Al hacer click en CONFIRMAR FACTURA se registrara la factura en el sistema haciendose efectiva.
+Si se encuentrar errores o discrepancias se puede cancelar la factura haciendo click en CANCELAR FACTURA</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

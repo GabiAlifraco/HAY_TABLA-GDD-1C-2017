@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFacturacion));
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtFechaI = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtFechaF = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvFactura = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,52 +39,16 @@
             this.btnFacturar = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFactura)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label14.Location = new System.Drawing.Point(6, 35);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 13);
-            this.label14.TabIndex = 46;
-            this.label14.Text = "Fecha Inicio:";
-            // 
-            // txtFechaI
-            // 
-            this.txtFechaI.Location = new System.Drawing.Point(8, 51);
-            this.txtFechaI.Mask = "00/00/0000";
-            this.txtFechaI.Name = "txtFechaI";
-            this.txtFechaI.Size = new System.Drawing.Size(68, 20);
-            this.txtFechaI.TabIndex = 45;
-            this.txtFechaI.ValidatingType = typeof(System.DateTime);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label1.Location = new System.Drawing.Point(6, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "Fecha Fin:";
-            // 
-            // txtFechaF
-            // 
-            this.txtFechaF.Location = new System.Drawing.Point(9, 107);
-            this.txtFechaF.Mask = "00/00/0000";
-            this.txtFechaF.Name = "txtFechaF";
-            this.txtFechaF.Size = new System.Drawing.Size(68, 20);
-            this.txtFechaF.TabIndex = 48;
-            this.txtFechaF.ValidatingType = typeof(System.DateTime);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label2.Location = new System.Drawing.Point(91, 35);
+            this.label2.Location = new System.Drawing.Point(91, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 49;
@@ -98,16 +58,16 @@
             // dgvFactura
             // 
             this.dgvFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFactura.Location = new System.Drawing.Point(287, 35);
+            this.dgvFactura.Location = new System.Drawing.Point(295, 35);
             this.dgvFactura.Name = "dgvFactura";
-            this.dgvFactura.Size = new System.Drawing.Size(381, 331);
+            this.dgvFactura.Size = new System.Drawing.Size(364, 331);
             this.dgvFactura.TabIndex = 50;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label3.Location = new System.Drawing.Point(284, 19);
+            this.label3.Location = new System.Drawing.Point(292, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 13);
             this.label3.TabIndex = 51;
@@ -116,7 +76,7 @@
             // txtCantKms
             // 
             this.txtCantKms.Enabled = false;
-            this.txtCantKms.Location = new System.Drawing.Point(287, 370);
+            this.txtCantKms.Location = new System.Drawing.Point(295, 370);
             this.txtCantKms.Name = "txtCantKms";
             this.txtCantKms.Size = new System.Drawing.Size(136, 20);
             this.txtCantKms.TabIndex = 89;
@@ -124,15 +84,15 @@
             // txtCantidadViajes
             // 
             this.txtCantidadViajes.Enabled = false;
-            this.txtCantidadViajes.Location = new System.Drawing.Point(287, 422);
+            this.txtCantidadViajes.Location = new System.Drawing.Point(295, 422);
             this.txtCantidadViajes.Name = "txtCantidadViajes";
-            this.txtCantidadViajes.Size = new System.Drawing.Size(381, 20);
+            this.txtCantidadViajes.Size = new System.Drawing.Size(364, 20);
             this.txtCantidadViajes.TabIndex = 90;
             // 
             // txtImporteTotal
             // 
             this.txtImporteTotal.Enabled = false;
-            this.txtImporteTotal.Location = new System.Drawing.Point(287, 396);
+            this.txtImporteTotal.Location = new System.Drawing.Point(295, 396);
             this.txtImporteTotal.Name = "txtImporteTotal";
             this.txtImporteTotal.Size = new System.Drawing.Size(136, 20);
             this.txtImporteTotal.TabIndex = 91;
@@ -140,9 +100,9 @@
             // listBoxCliente
             // 
             this.listBoxCliente.FormattingEnabled = true;
-            this.listBoxCliente.Location = new System.Drawing.Point(94, 51);
+            this.listBoxCliente.Location = new System.Drawing.Point(94, 38);
             this.listBoxCliente.Name = "listBoxCliente";
-            this.listBoxCliente.Size = new System.Drawing.Size(187, 316);
+            this.listBoxCliente.Size = new System.Drawing.Size(187, 329);
             this.listBoxCliente.TabIndex = 92;
             this.listBoxCliente.SelectedIndexChanged += new System.EventHandler(this.listBoxCliente_SelectedIndexChanged);
             // 
@@ -169,11 +129,33 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label5.Location = new System.Drawing.Point(671, 16);
+            this.label5.Location = new System.Drawing.Point(671, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 95;
             this.label5.Text = "Ayuda:";
+            // 
+            // btnConfirmar
+            // 
+            this.btnConfirmar.Location = new System.Drawing.Point(437, 370);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(108, 46);
+            this.btnConfirmar.TabIndex = 96;
+            this.btnConfirmar.Text = "CONFIRMAR FACTURA";
+            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Visible = false;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(551, 370);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(108, 46);
+            this.btnCancelar.TabIndex = 97;
+            this.btnCancelar.Text = "CANCELAR FACTURA";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Visible = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // frmFacturacion
             // 
@@ -181,6 +163,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(964, 507);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnFacturar);
@@ -191,10 +175,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvFactura);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtFechaF);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.txtFechaI);
             this.MaximizeBox = false;
             this.Name = "frmFacturacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -206,11 +186,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.MaskedTextBox txtFechaI;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MaskedTextBox txtFechaF;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvFactura;
         private System.Windows.Forms.Label label3;
@@ -221,5 +196,7 @@
         private System.Windows.Forms.Button btnFacturar;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

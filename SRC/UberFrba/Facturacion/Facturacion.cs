@@ -16,12 +16,18 @@ namespace UberFrba.Facturacion
         public DBAccess Access { get; set; }
         public string Conexion { get; set; }
         public ValidacionesAbm Validador { get; set; }
+        decimal totalFactura;
+        DateTime fechaInicio;
+        DateTime fechaFin;
         public frmFacturacion()
         {
             InitializeComponent();
             Access = new DBAccess();
             cargar_clientes();
             Validador = new ValidacionesAbm();
+
+            fechaInicio = new DateTime(Access.fechaAño(), Access.fechaMes(), 1);
+            fechaFin = fechaInicio.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
         }
 
 
@@ -49,10 +55,156 @@ namespace UberFrba.Facturacion
         }
 
 
-        void Facturar()
+        private void Facturar()
         {
-            DataTable dtFactura = new DataTable("Factura");
 
+
+            KeyValuePair<int, string> ClienteSeleccionado = (KeyValuePair<int, string>)listBoxCliente.SelectedItem;
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                conexion.Open();
+                string query = String.Format("INSERT INTO[HAY_TABLA].[Factura] (Factura_Fecha_Inicio,Factura_Fecha_Fin,Cli_Id,Factura_Total)  OUTPUT Inserted.Factura_Nro VALUES (@FechaI,@FechaFin,@ClienteId,@ImporteTotal)");
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                SqlParameter param = new SqlParameter("@FechaI", fechaInicio);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@FechaFin", fechaFin);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@ClienteId", ClienteSeleccionado.Key.ToString());
+                param.SqlDbType = System.Data.SqlDbType.Int;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@ImporteTotal", totalFactura);
+                param.SqlDbType = System.Data.SqlDbType.Decimal;
+                cmd.Parameters.Add(param);
+
+
+
+                Decimal nroFactura = (Decimal)cmd.ExecuteScalar();
+
+
+                
+                query = String.Format("SELECT Id_Viaje, [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM [HAY_TABLA].[Viaje] V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN @FechaInicio AND @FechaF");
+                cmd.CommandText = query;
+
+                DateTime fechaActual = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+                param = new SqlParameter("@FechaInicio", fechaInicio);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@FechaF", fechaFin);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                List<string> idsViajesFactura = new List<string>();
+                while (dr.Read())
+                {
+                    idsViajesFactura.Add(dr["Id_Viaje"].ToString());
+                }
+                dr.Close();
+
+                foreach (string idViaje in idsViajesFactura)
+                {
+                    query = String.Format("INSERT INTO [HAY_TABLA].[Detalle_Viaje_Facturacion] (Factura_Nro,Id_Viaje) VALUES (@NroFact,@IdVi)");
+                    SqlCommand cmd2 = new SqlCommand(query, conexion);
+
+                    param = new SqlParameter("@NroFact", nroFactura.ToString());
+                    param.SqlDbType = System.Data.SqlDbType.Int;
+                    cmd2.Parameters.Add(param);
+
+                    param = new SqlParameter("@IdVi", idViaje);
+                    param.SqlDbType = System.Data.SqlDbType.Int;
+                    cmd2.Parameters.Add(param);
+
+                    cmd2.ExecuteNonQuery();
+
+                }
+
+
+                MessageBox.Show("Factura creada exitosamente. Nro de factura:" + nroFactura + "  Importe Total:$" + totalFactura);
+                dgvFactura.DataSource = null;
+                btnConfirmar.Visible = false;
+                btnCancelar.Visible = false;
+                btnFacturar.Visible = true;
+                listBoxCliente.Enabled = true;
+
+                txtCantKms.Text = "";
+                txtCantidadViajes.Text = "";
+                txtImporteTotal.Text = "";
+
+            }
+        }
+
+
+        private void comboCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void btnFacturar_Click(object sender, EventArgs e)
+        {
+            mostrarFactura();
+        }
+
+        private void mostrarFactura() {
+
+            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            {
+                if (validarQueNoSeHayaFacturadoEsaFecha(conexion))
+                {
+                    cargarViajesDeLaFactura(conexion);
+
+                }
+                else
+                {
+
+                }
+
+            }
+        }
+
+        private bool validarQueNoSeHayaFacturadoEsaFecha(SqlConnection conexion) {
+
+            KeyValuePair<int, string> clienteSeleccionado = (KeyValuePair<int, string>)listBoxCliente.SelectedItem;
+            string query = String.Format("SELECT [Factura_Nro],[Factura_Fecha_Inicio],[Factura_Fecha_Fin],[Cli_Id],[Factura_Total] FROM [HAY_TABLA].[Factura] WHERE Cli_Id = " + clienteSeleccionado.Key.ToString() + " AND  @FechaActual BETWEEN [Factura_Fecha_Inicio] AND [Factura_Fecha_Fin]");
+
+            SqlCommand cmd2 = new SqlCommand(query, conexion);
+
+            DateTime fechaActual = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+            SqlParameter param = new SqlParameter("@FechaActual", fechaActual);
+            param.SqlDbType = System.Data.SqlDbType.DateTime;
+            cmd2.Parameters.Add(param);
+
+            try
+            {
+                conexion.Open();
+                SqlDataReader dr = cmd2.ExecuteReader();
+                while (dr.Read())
+                {
+                    MessageBox.Show("No se puede realizar factura. La factura del cliente '" + clienteSeleccionado.Value + "' ya fue realizada anteriormente (Fecha de inicio:" + fechaInicio.Day + "/" + fechaInicio.Month + "/" + fechaInicio.Year + " Fecha de fin: " + fechaFin.Day + "/" + fechaFin.Month + "/" + fechaFin.Year + " Total Factura: $ " + dr["Factura_Total"].ToString() + ")");
+                    return false;
+                }
+                dr.Close();
+                return true;
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void cargarViajesDeLaFactura(SqlConnection conexion) {
+
+            DataTable dtFactura = new DataTable("Factura");
             DataColumn cCantidadKms = new DataColumn("Kms");
             DataColumn cFecha = new DataColumn("Fecha");
             DataColumn cImporte = new DataColumn("Importe");
@@ -61,20 +213,26 @@ namespace UberFrba.Facturacion
             dtFactura.Columns.Add(cFecha);
             dtFactura.Columns.Add(cImporte);
 
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
-            {
-                decimal totalFactura = 0;
+                totalFactura = 0;
                 decimal totalKms = 0;
                 int totalViajes = 0;
-                DateTime FI = (DateTime.Parse(txtFechaI.Text));
-                DateTime FF = (DateTime.Parse(txtFechaF.Text));
 
                 KeyValuePair<int, string> ClienteSeleccionado = (KeyValuePair<int, string>)listBoxCliente.SelectedItem;
-                string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND Factura_nro IS NULL AND  Vi_Inicio BETWEEN '" + FI.Year +"-"+FI.Month+"-"+FI.Day + "' AND '" + FF.Year + "-" + FF.Month + "-"+FF.Day + "'");
+                string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM [HAY_TABLA].[Viaje] V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN @FechaInicio AND @FechaFin");
                 SqlCommand cmd = new SqlCommand(query, conexion);
+
+                DateTime fechaActual = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+                SqlParameter param = new SqlParameter("@FechaInicio", fechaInicio);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("@FechaFin", fechaFin);
+                param.SqlDbType = System.Data.SqlDbType.DateTime;
+                cmd.Parameters.Add(param);
+
+
                 try
                 {
-                    conexion.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
@@ -97,83 +255,28 @@ namespace UberFrba.Facturacion
                         dgvFactura.DataSource = dtFactura;
                         dgvFactura.AutoResizeColumns();
                         dgvFactura.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                        
+
                         txtCantidadViajes.Text = "Cantidad de viajes facturados:" + Convert.ToString(totalViajes);
                         txtCantKms.Text = "Cantidad total de kms:" + Convert.ToString(totalKms);
                         txtImporteTotal.Text = "Importe total:" + Convert.ToString(totalFactura);
-
-                        query = String.Format("INSERT INTO[HAY_TABLA].[Factura] (Factura_Fecha_Inicio,Factura_Fecha_Fin,Cli_Id,Factura_Total)  OUTPUT Inserted.Factura_Nro VALUES (@FechaI,@FechaFin,@ClienteId,@ImporteTotal)");
-                  
-                        cmd.CommandText = query;
-
-                        SqlParameter param = new SqlParameter("@FechaI", FI);
-                        param.SqlDbType = System.Data.SqlDbType.DateTime;
-                        cmd.Parameters.Add(param);
-
-                        param = new SqlParameter("@FechaFin", FF);
-                        param.SqlDbType = System.Data.SqlDbType.DateTime;
-                        cmd.Parameters.Add(param);
-
-                        param = new SqlParameter("@ImporteTotal", totalFactura);
-                        param.SqlDbType = System.Data.SqlDbType.Decimal;
-                        cmd.Parameters.Add(param);
-
-                        param = new SqlParameter("@ClienteId", ClienteSeleccionado.Key.ToString());
-                        param.SqlDbType = System.Data.SqlDbType.Int;
-                        cmd.Parameters.Add(param);
-
-                        Decimal nroFactura = (Decimal)cmd.ExecuteScalar();
-
-                        query = String.Format("UPDATE [HAY_TABLA].[Viaje] SET Factura_nro = " + nroFactura.ToString() + " WHERE Factura_nro IS NULL AND Vi_IdCliente = " + ClienteSeleccionado.Key.ToString() + " AND Vi_Inicio BETWEEN '" + FI.Year + "-" + FI.Month + "-" + FI.Day + "' AND '" + FF.Year + "-" + FF.Month + "-" + FF.Day + "'");
-                        cmd.CommandText = query;
-                        cmd.ExecuteNonQuery();
-
-
-                    }
-                    else {
-                        MessageBox.Show("No hay viajes para facturar entre esas fechas");
-                    }
-
-
-
+                    
+                        btnConfirmar.Visible = true;
+                        btnCancelar.Visible = true;
+                        btnFacturar.Visible = false;
+                        listBoxCliente.Enabled = false;
+                    
 
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                else
+                    {
+                        MessageBox.Show("No se puede realizar factura.El cliente '" + ClienteSeleccionado.Value + "' no realizo ningun viaje entre la fecha " + fechaInicio.Day + "/" + fechaInicio.Month + "/" + fechaInicio.Year + " y " + fechaFin.Day + "/" + fechaFin.Month + "/" + fechaFin.Year);
+                    }
+            }catch (Exception excep){
+                MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        private void comboCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void btnFacturar_Click(object sender, EventArgs e)
-        {
-
-            if (Validador.validarFechaCampo(txtFechaI.Text, "La fecha de inicio") && Validador.validarFechaCampo(txtFechaF.Text, "La fecha de fin")) {
-                DateTime inicio = DateTime.Parse(txtFechaI.Text);
-                DateTime final = DateTime.Parse(txtFechaF.Text);
-                if (final > inicio)
-                {
-                    if (listBoxCliente.SelectedIndex != -1)
-                    {
-                        Facturar();
-                    }else
-                    {
-                        MessageBox.Show("Debe seleccionar un cliente");
-                    }
-
-                }else {
-                    MessageBox.Show("La fecha de inicio debe ser menor que la fecha de fin");
-                }
-            }
-        }
 
         private void listBoxCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -183,6 +286,24 @@ namespace UberFrba.Facturacion
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            Facturar();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            dgvFactura.DataSource = null;
+            btnConfirmar.Visible = false;
+            btnCancelar.Visible = false;
+            btnFacturar.Visible = true;
+            listBoxCliente.Enabled = true;
+
+            txtCantKms.Text = "";
+            txtCantidadViajes.Text = "";
+            txtImporteTotal.Text = "";
         }
     }
 }
