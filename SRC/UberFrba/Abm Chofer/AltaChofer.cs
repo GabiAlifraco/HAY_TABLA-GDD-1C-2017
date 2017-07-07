@@ -188,6 +188,10 @@ VALUES('bob');
 
         private void label28_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void datosAleatorios() {
             Random rnd = new Random();
             string aleatorio1 = RandomPassword.Generate();
             string aleatorio2 = RandomPassword.Generate();
@@ -219,7 +223,9 @@ VALUES('bob');
             textBox1.Text = localidad;
         }
 
-
-
+        private void btnDatosAleatorios_Click(object sender, EventArgs e)
+        {
+            datosAleatorios();
+        }
     }
 }

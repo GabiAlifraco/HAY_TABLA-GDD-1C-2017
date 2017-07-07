@@ -56,12 +56,14 @@
             this.label21 = new System.Windows.Forms.Label();
             this.txtNacimientoNuevo = new System.Windows.Forms.MaskedTextBox();
             this.btnCrear = new System.Windows.Forms.Button();
+            this.btnDatosAleatorios = new System.Windows.Forms.Button();
             this.panelDatosNuevoCliente.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelDatosNuevoCliente
             // 
             this.panelDatosNuevoCliente.BackColor = System.Drawing.Color.Transparent;
+            this.panelDatosNuevoCliente.Controls.Add(this.btnDatosAleatorios);
             this.panelDatosNuevoCliente.Controls.Add(this.textBox1);
             this.panelDatosNuevoCliente.Controls.Add(this.txtDepto);
             this.panelDatosNuevoCliente.Controls.Add(this.txtPiso);
@@ -340,6 +342,16 @@
             this.btnCrear.UseVisualStyleBackColor = true;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
+            // btnDatosAleatorios
+            // 
+            this.btnDatosAleatorios.Location = new System.Drawing.Point(110, -2);
+            this.btnDatosAleatorios.Name = "btnDatosAleatorios";
+            this.btnDatosAleatorios.Size = new System.Drawing.Size(196, 23);
+            this.btnDatosAleatorios.TabIndex = 79;
+            this.btnDatosAleatorios.Text = "GENERAR DATOS ALEATORIOS";
+            this.btnDatosAleatorios.UseVisualStyleBackColor = true;
+            this.btnDatosAleatorios.Click += new System.EventHandler(this.btnDatosAleatorios_Click);
+            // 
             // AltaChofer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.Label txtLocalidad;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnDatosAleatorios;
     }
 }

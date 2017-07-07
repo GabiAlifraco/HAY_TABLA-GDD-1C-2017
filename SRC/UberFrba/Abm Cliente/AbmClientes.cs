@@ -45,12 +45,18 @@ namespace UberFrba.Abm_Cliente
                 {
 
 
-                    DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimientoNuevo.Text);
 
                     string query = String.Format("INSERT INTO [HAY_TABLA].[Cliente] (Cli_Nombre,Cli_Apellido,Cli_DNI,Cli_Mail,Cli_Telefono,Cli_Direccion,Cli_CodigoPostal,Cli_FechaNacimiento,Cli_Piso,Cli_Departamento,Cli_Localidad) VALUES (");
-                    query += "'" + txtClienteNombreNuevo.Text.Trim() + "','" + txtClienteApellidoNuevo.Text.Trim() + "'," + txtClienteDNINuevo.Text.Trim() + ",'" + txtClienteMailNuevo.Text.Trim() + "'," + txtClienteTelefonoNuevo.Text.Trim() + ",'" + txtClienteDireccionNuevo.Text.Trim() + " " + txtClienteAlturaNuevo.Text.Trim() + "'," + txtClienteCodigoPostalNuevo.Text.Trim() + ",'" + fechaNacimiento.Date.Day.ToString() + "/" + fechaNacimiento.Date.Month.ToString() + "/" + fechaNacimiento.Date.Year.ToString() + "'," + textBox3.Text.Trim() + ",'" + textBox1.Text.Trim() + "','"+ textBox1.Text.Trim() +"')";
-  
+                    query += "'" + txtClienteNombreNuevo.Text.Trim() + "','" + txtClienteApellidoNuevo.Text.Trim() + "'," + txtClienteDNINuevo.Text.Trim() + ",'" + txtClienteMailNuevo.Text.Trim() + "'," + txtClienteTelefonoNuevo.Text.Trim() + ",'" + txtClienteDireccionNuevo.Text.Trim() + " " + txtClienteAlturaNuevo.Text.Trim() + "'," + txtClienteCodigoPostalNuevo.Text.Trim() + ",@FechaNacimiento," + textBox3.Text.Trim() + ",'" + textBox1.Text.Trim() + "','"+ textBox1.Text.Trim() +"')";
+
                     SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    DateTime fechaNacimiento = DateTime.Parse(txtClienteNacimientoNuevo.Text);
+                    SqlParameter param = new SqlParameter("@FechaNacimiento", fechaNacimiento);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    cmd.Parameters.Add(param);
+
+                    
                     try
                     {
                         conexion.Open();
@@ -538,38 +544,9 @@ namespace UberFrba.Abm_Cliente
 
         private void label28_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            string aleatorio1 = RandomPassword.Generate();
-            string aleatorio2 = RandomPassword.Generate();
-            string aleatorio3 = RandomPassword.Generate();
-            int dni_aleatorio = rnd.Next(16000000,45000000);
-            int telefono_aleatorio = rnd.Next(1500000000, 1599999999);
-            int codigo_postal = rnd.Next(1000, 2000);
-            int altura = rnd.Next(0000, 9999);
-            int dia, mes, anno;
-            Random rand = new Random();
-            anno = 1 + rand.Next(1950,2016);
-            mes = 1 + rand.Next(10,12);
-            dia = 1 + rand.Next(10,28);
-            string fechaJunta = (dia.ToString() + mes.ToString() + anno.ToString());
-            //DateTime fechaNacimiento2 = DateTime.Parse(fechaJunta);
-            int piso = rnd.Next(0, 99);
-            string departamento = RandomPassword.Generate();
-            string localidad = RandomPassword.Generate();
 
-            txtClienteNombreNuevo.Text = aleatorio1;
-            txtClienteApellidoNuevo.Text = aleatorio2;
-            txtClienteMailNuevo.Text = aleatorio1 + "_" + aleatorio2 + "@gmail.com";
-            txtClienteDireccionNuevo.Text = aleatorio3;
-            txtClienteDNINuevo.Text = dni_aleatorio.ToString();
-            txtClienteTelefonoNuevo.Text = telefono_aleatorio.ToString();
-            txtClienteCodigoPostalNuevo.Text = codigo_postal.ToString();
-            txtClienteAlturaNuevo.Text = altura.ToString();
-            txtClienteNacimientoNuevo.Text = fechaJunta;
-            textBox3.Text = piso.ToString();
-            textBox1.Text = departamento;
-            textBox2.Text = localidad;
         }
+
 
         private void label7_Click(object sender, EventArgs e)
         {
@@ -591,5 +568,45 @@ namespace UberFrba.Abm_Cliente
 
         }
 
+        private void btnDatosAleatorios_Click(object sender, EventArgs e)
+        {
+            datosAletorios();
+        }
+
+
+        private void datosAletorios()
+        {
+            Random rnd = new Random();
+            string aleatorio1 = RandomPassword.Generate();
+            string aleatorio2 = RandomPassword.Generate();
+            string aleatorio3 = RandomPassword.Generate();
+            int dni_aleatorio = rnd.Next(16000000, 45000000);
+            int telefono_aleatorio = rnd.Next(1500000000, 1599999999);
+            int codigo_postal = rnd.Next(1000, 2000);
+            int altura = rnd.Next(0000, 9999);
+            int dia, mes, anno;
+            Random rand = new Random();
+            anno = 1 + rand.Next(1950, 2016);
+            mes = 1 + rand.Next(10, 12);
+            dia = 1 + rand.Next(10, 28);
+            string fechaJunta = (dia.ToString() + mes.ToString() + anno.ToString());
+            //DateTime fechaNacimiento2 = DateTime.Parse(fechaJunta);
+            int piso = rnd.Next(0, 99);
+            string departamento = RandomPassword.Generate();
+            string localidad = RandomPassword.Generate();
+
+            txtClienteNombreNuevo.Text = aleatorio1;
+            txtClienteApellidoNuevo.Text = aleatorio2;
+            txtClienteMailNuevo.Text = aleatorio1 + "_" + aleatorio2 + "@gmail.com";
+            txtClienteDireccionNuevo.Text = aleatorio3;
+            txtClienteDNINuevo.Text = dni_aleatorio.ToString();
+            txtClienteTelefonoNuevo.Text = telefono_aleatorio.ToString();
+            txtClienteCodigoPostalNuevo.Text = codigo_postal.ToString();
+            txtClienteAlturaNuevo.Text = altura.ToString();
+            txtClienteNacimientoNuevo.Text = fechaJunta;
+            textBox3.Text = piso.ToString();
+            textBox1.Text = departamento;
+            textBox2.Text = localidad;
+        }
     }
 }
