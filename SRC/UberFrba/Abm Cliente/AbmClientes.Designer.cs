@@ -96,14 +96,14 @@
             this.txtClienteDireccion = new System.Windows.Forms.TextBox();
             this.txtClienteAltura = new System.Windows.Forms.TextBox();
             this.panelDatosClienteSeleccionado = new System.Windows.Forms.Panel();
-            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
-            this.btnAltaLogica = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
+            this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.btnAltaLogica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panelDatosNuevoCliente.SuspendLayout();
             this.panelDatosClienteSeleccionado.SuspendLayout();
@@ -112,8 +112,10 @@
             // dgvClientes
             // 
             this.dgvClientes.AllowUserToAddRows = false;
+            this.dgvClientes.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Location = new System.Drawing.Point(12, 77);
+            this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.Size = new System.Drawing.Size(1034, 263);
             this.dgvClientes.TabIndex = 0;
@@ -810,28 +812,6 @@
             this.panelDatosClienteSeleccionado.TabIndex = 64;
             this.panelDatosClienteSeleccionado.Visible = false;
             // 
-            // checkVerInhabilitados
-            // 
-            this.checkVerInhabilitados.AutoSize = true;
-            this.checkVerInhabilitados.Location = new System.Drawing.Point(12, 54);
-            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
-            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
-            this.checkVerInhabilitados.TabIndex = 68;
-            this.checkVerInhabilitados.Text = "Ver inhabilitados";
-            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
-            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
-            // 
-            // btnAltaLogica
-            // 
-            this.btnAltaLogica.Location = new System.Drawing.Point(336, 346);
-            this.btnAltaLogica.Name = "btnAltaLogica";
-            this.btnAltaLogica.Size = new System.Drawing.Size(172, 23);
-            this.btnAltaLogica.TabIndex = 69;
-            this.btnAltaLogica.Text = "ALTA LOGICA SELECIONADO ";
-            this.btnAltaLogica.UseVisualStyleBackColor = true;
-            this.btnAltaLogica.Visible = false;
-            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
-            // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(246, 177);
@@ -885,6 +865,28 @@
             this.label34.Size = new System.Drawing.Size(30, 13);
             this.label34.TabIndex = 70;
             this.label34.Text = "Piso:";
+            // 
+            // checkVerInhabilitados
+            // 
+            this.checkVerInhabilitados.AutoSize = true;
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(12, 54);
+            this.checkVerInhabilitados.Name = "checkVerInhabilitados";
+            this.checkVerInhabilitados.Size = new System.Drawing.Size(103, 17);
+            this.checkVerInhabilitados.TabIndex = 68;
+            this.checkVerInhabilitados.Text = "Ver inhabilitados";
+            this.checkVerInhabilitados.UseVisualStyleBackColor = true;
+            this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
+            // 
+            // btnAltaLogica
+            // 
+            this.btnAltaLogica.Location = new System.Drawing.Point(336, 346);
+            this.btnAltaLogica.Name = "btnAltaLogica";
+            this.btnAltaLogica.Size = new System.Drawing.Size(172, 23);
+            this.btnAltaLogica.TabIndex = 69;
+            this.btnAltaLogica.Text = "ALTA LOGICA SELECIONADO ";
+            this.btnAltaLogica.UseVisualStyleBackColor = true;
+            this.btnAltaLogica.Visible = false;
+            this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
             // 
             // AbmClientes
             // 

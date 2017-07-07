@@ -27,6 +27,7 @@ namespace UberFrba.Abm_Rol
             MostrarRoles();
             txtIdSeleccionado.Text = "1";
             tbNombreRol.Text = "Administrador";
+            dgvRoles.CurrentCell = dgvRoles.Rows[0].Cells[0];
         }
 
         private void btnAltaDeRol_Click(object sender, EventArgs e)
@@ -42,9 +43,16 @@ namespace UberFrba.Abm_Rol
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            panelDatosRol.Visible = true;
-            panelAbmRol.Visible = false;
-            MostrarFuncionalidades();
+            if (dgvRoles.Rows.Count > 1)
+            {
+                panelDatosRol.Visible = true;
+                panelAbmRol.Visible = false;
+                MostrarFuncionalidades();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Rol para modificar");
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -119,16 +127,19 @@ namespace UberFrba.Abm_Rol
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtIdSeleccionado.Text = dgvRoles.CurrentRow.Cells[0].Value.ToString();
-            tbNombreRol.Text = dgvRoles.CurrentRow.Cells[1].Value.ToString();
-            MostrarFuncionalidades();
-            if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+            if (dgvRoles.CurrentRow.Cells[0].Value.ToString() != "")
             {
-                button2.Text = "Inhabilitar";
-            }
-            else
-            {
-                button2.Text = "Habilitar";
+                txtIdSeleccionado.Text = dgvRoles.CurrentRow.Cells[0].Value.ToString();
+                tbNombreRol.Text = dgvRoles.CurrentRow.Cells[1].Value.ToString();
+                MostrarFuncionalidades();
+                if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+                {
+                    button2.Text = "Inhabilitar";
+                }
+                else
+                {
+                    button2.Text = "Habilitar";
+                }
             }
         }
 
@@ -232,7 +243,7 @@ namespace UberFrba.Abm_Rol
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
-                        for (int i = 0; i < dgvRoles.Rows.Count; i++)
+                        for (int i = 0; i < dgvRoles.Rows.Count -1; i++)
                         {
                             DataGridViewRow row = dgvRoles.Rows[i];
                             if (row.Cells[2].Value.ToString() == "False")
@@ -269,32 +280,39 @@ namespace UberFrba.Abm_Rol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvRoles.Rows.Count > 1)
             {
-                string query;
-                if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
-                }
-                else
-                {
-                    query = String.Format("EXEC [HAY_TABLA].[altaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
-                }
-               
-                SqlCommand cmd = new SqlCommand(query, conexion);
+                    string query;
+                    if (dgvRoles.CurrentRow.Cells[2].Value.ToString().Equals("True"))
+                    {
+                        query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
+                    }
+                    else
+                    {
+                        query = String.Format("EXEC [HAY_TABLA].[altaLogicaRol] " + dgvRoles.CurrentRow.Cells[0].Value.ToString());
+                    }
 
-                try
-                {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand(query, conexion);
 
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MostrarRoles();
             }
-            MostrarRoles();
+            else
+            {
+                MessageBox.Show("Seleccione un Rol para inhabilitar");
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

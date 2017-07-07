@@ -33,9 +33,15 @@ namespace UberFrba.Abm_Chofer
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            panelChoferes.Visible = false;
-            panelDatosChoferSeleccionado.Visible = true;
-
+            if (dgvChoferes.Rows.Count > 1)
+            {
+                panelChoferes.Visible = false;
+                panelDatosChoferSeleccionado.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Chofer para modificar");
+            }
         }
 
      
@@ -379,50 +385,65 @@ namespace UberFrba.Abm_Chofer
 
         private void btnEliminarChofer_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvChoferes.Rows.Count > 1)
             {
-                string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
-
-                SqlCommand cmd = new SqlCommand(query, conexion);
-
-                try
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    MostrarChoferes();
-                    btnEliminarChofer.Visible = false;
-                    btnModificar.Visible = false;
+                    string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
+
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        MostrarChoferes();
+                        btnEliminarChofer.Visible = false;
+                        btnModificar.Visible = false;
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Chofer para dar de baja");
             }
         }
 
         private void btnAltaLogica_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvChoferes.Rows.Count > 1)
             {
-                string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
-
-                SqlCommand cmd = new SqlCommand(query, conexion);
-
-                try
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    MostrarChoferes();
-                    btnAltaLogica.Visible = false;
-                    btnModificar.Visible = false;
+                    string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
+
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        MostrarChoferes();
+                        btnAltaLogica.Visible = false;
+                        btnModificar.Visible = false;
 
 
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Seleccione un Chofer para dar de alta");
+            }
+
         }
 
         private void checkVerInhabilitados_CheckedChanged(object sender, EventArgs e)

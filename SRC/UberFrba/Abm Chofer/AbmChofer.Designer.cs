@@ -168,6 +168,7 @@
             this.dgvChoferes.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvChoferes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChoferes.Location = new System.Drawing.Point(3, 79);
+            this.dgvChoferes.MultiSelect = false;
             this.dgvChoferes.Name = "dgvChoferes";
             this.dgvChoferes.Size = new System.Drawing.Size(1226, 263);
             this.dgvChoferes.TabIndex = 68;

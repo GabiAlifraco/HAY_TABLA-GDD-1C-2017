@@ -98,10 +98,10 @@
             // 
             // dgvRoles
             // 
-            this.dgvRoles.AllowUserToAddRows = false;
             this.dgvRoles.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRoles.Location = new System.Drawing.Point(42, 30);
+            this.dgvRoles.MultiSelect = false;
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.ReadOnly = true;
             this.dgvRoles.Size = new System.Drawing.Size(261, 161);

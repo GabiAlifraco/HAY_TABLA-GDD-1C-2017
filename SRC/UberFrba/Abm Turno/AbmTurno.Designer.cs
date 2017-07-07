@@ -329,6 +329,7 @@
             this.dgvTurnos.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTurnos.Location = new System.Drawing.Point(14, 37);
+            this.dgvTurnos.MultiSelect = false;
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.Size = new System.Drawing.Size(710, 176);
             this.dgvTurnos.TabIndex = 77;

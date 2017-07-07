@@ -212,16 +212,20 @@ namespace UberFrba.Abm_Turno
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dgvTurnos.CurrentRow.Cells[0].Value.ToString() != "")
+            if (dgvTurnos.Rows.Count > 1)
             {
-                 if (dgvTurnos.CurrentRow.Cells[8].Value.ToString().Equals("True"))
-                 {
+                if (dgvTurnos.CurrentRow.Cells[8].Value.ToString().Equals("True"))
+                {
                     bajalogica();
-                 }
-                 else
-                 {
+                }
+                else
+                {
                     altalogica();
-                 }        
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Turno para inhabilitar");
             }
 
             if (checkVerInhabilitados.Checked == true)
@@ -281,26 +285,32 @@ namespace UberFrba.Abm_Turno
 
         private void btnModificarTurno_Click(object sender, EventArgs e)
         {
-            panelListaTurnos.Visible = false;
-            panelDatosSeleccionado.Visible = true;
+            if (dgvTurnos.Rows.Count > 1)
+            {
+                panelListaTurnos.Visible = false;
+                panelDatosSeleccionado.Visible = true;
 
-            txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
-            txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
-            numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
-            numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
-            numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
-            numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
-            numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
-            numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
+                txtIdTurno.Text = dgvTurnos.CurrentRow.Cells[0].Value.ToString();
+                txtDescripcionTurno.Text = dgvTurnos.CurrentRow.Cells[1].Value.ToString();
+                numericHoraInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[2].Value);
+                numericMinutoInicio.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[3].Value);
+                numericHoraFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[4].Value);
+                numericMinutoFin.Value = Convert.ToInt32(dgvTurnos.CurrentRow.Cells[5].Value);
+                numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
+                numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
 
-            //panelDatosSeleccionado.Enabled = true;
-            //button1.Visible = false;
-            //btnCrearTurno.Visible = false;
-            //btnAltaLogica.Visible = false;
-            //btnModificarTurno.Visible = false;
+                //panelDatosSeleccionado.Enabled = true;
+                //button1.Visible = false;
+                //btnCrearTurno.Visible = false;
+                //btnAltaLogica.Visible = false;
+                //btnModificarTurno.Visible = false;
 
-            //btnGuardarDatos.Visible = true;
-    
+                //btnGuardarDatos.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Turno para modificar");
+            }
         }
 
         private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)

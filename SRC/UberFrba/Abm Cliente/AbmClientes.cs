@@ -75,25 +75,31 @@ namespace UberFrba.Abm_Cliente
 
         private void btnEliminarCliente_Click(object sender, EventArgs e)
         {
-
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvClientes.Rows.Count > 1)
             {
-                string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
-    
-                SqlCommand cmd = new SqlCommand(query, conexion);
-
-                try
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
 
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                estadoInicial();
             }
-            estadoInicial();
+            else
+            {
+                MessageBox.Show("Seleccione un Cliente para inhabilitar");
+            }
         }
 
         private void btnGuardarDatos_Click(object sender, EventArgs e)
@@ -433,16 +439,26 @@ namespace UberFrba.Abm_Cliente
             txtClienteAlturaNuevo.Text = "";
             txtClienteCodigoPostalNuevo.Text = "";
             txtClienteNacimientoNuevo.Text = "";
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            camposHabilitados(true);
-            panelDatosClienteSeleccionado.Visible = true;
-            btnModificar.Visible = false;
-            btnEliminarCliente.Visible = false;
-            btnGuardarDatos.Visible = true;
-            btnDescartarCambios.Visible = true;
+            if (dgvClientes.Rows.Count > 1)
+            {
+                camposHabilitados(true);
+                panelDatosClienteSeleccionado.Visible = true;
+                btnModificar.Visible = false;
+                btnEliminarCliente.Visible = false;
+                btnGuardarDatos.Visible = true;
+                btnDescartarCambios.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Cliente para modificar");
+            }
 
         }
 
@@ -493,24 +509,31 @@ namespace UberFrba.Abm_Cliente
 
         private void btnAltaLogica_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexion = new SqlConnection(Access.Conexion))
+            if (dgvClientes.Rows.Count > 1)
             {
-                string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
-                
-                SqlCommand cmd = new SqlCommand(query, conexion);
-
-                try
+                using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    conexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
 
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                    }
+                    catch (Exception excep)
+                    {
+                        MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                estadoInicial();
             }
-            estadoInicial();
+            else
+            {
+                MessageBox.Show("Seleccione un Cliente para habilitar");
+            }
         }
 
         private void label28_Click(object sender, EventArgs e)
