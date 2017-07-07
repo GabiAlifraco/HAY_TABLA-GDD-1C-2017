@@ -309,12 +309,16 @@ namespace UberFrba.Abm_Automovil
         private void button4_Click(object sender, EventArgs e)
         {
 
+            for (int i = 0; i < listaTurnos.Items.Count; i++)
+                listaTurnos.SetItemChecked(i, false); 
+            
             txtPatente.Text = "";
             comboMarca.Text = "";
             txtModelo.Text = "";
             txtLicencia.Text = "";
             txtRodado.Text = "";
-            comboChofer.Text = "";
+            comboMarca.SelectedItem = null;
+            comboChofer.SelectedItem = null;
 
         }
 
