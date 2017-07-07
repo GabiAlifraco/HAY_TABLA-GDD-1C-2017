@@ -186,7 +186,8 @@ namespace UberFrba.Abm_Automovil
                         }
                     }
 
-
+                    if (dgvAutomovil.Rows.Count > 1){ btn_eliminar.Visible = true;}
+                    else { btn_eliminar.Visible = false; }
                 }
                 catch (Exception excep)
                 {
@@ -606,10 +607,6 @@ namespace UberFrba.Abm_Automovil
                         sqlTransact.Rollback();
                     }
                 }
-            }
-            for (int i = listaTurnos.Items.Count - 1; i >= 0; i--)
-            {
-                listaTurnos.Items.RemoveAt(i);
             }
         }
 
