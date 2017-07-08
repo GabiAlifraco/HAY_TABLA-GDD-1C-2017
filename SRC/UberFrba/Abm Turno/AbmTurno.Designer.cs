@@ -51,13 +51,13 @@
             this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
             this.panelListaTurnos = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnFiltrar = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.txtFiltroPatente = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnFiltrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
@@ -334,6 +334,29 @@
             this.panelListaTurnos.Size = new System.Drawing.Size(738, 272);
             this.panelListaTurnos.TabIndex = 23;
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(348, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 33);
+            this.button2.TabIndex = 82;
+            this.button2.Text = "Vaciar filtros";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnFiltrar.Location = new System.Drawing.Point(230, 8);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(103, 33);
+            this.btnFiltrar.TabIndex = 81;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
             // label32
             // 
             this.label32.AutoSize = true;
@@ -388,29 +411,6 @@
             this.checkVerInhabilitados.UseVisualStyleBackColor = true;
             this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
             // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(348, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 33);
-            this.button2.TabIndex = 82;
-            this.button2.Text = "Vaciar filtros";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // btnFiltrar
-            // 
-            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFiltrar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnFiltrar.Location = new System.Drawing.Point(230, 8);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(103, 33);
-            this.btnFiltrar.TabIndex = 81;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
-            // 
             // AbmTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,8 +418,8 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(776, 354);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panelListaTurnos);
             this.Controls.Add(this.panelDatosSeleccionado);
+            this.Controls.Add(this.panelListaTurnos);
             this.MaximizeBox = false;
             this.Name = "AbmTurno";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

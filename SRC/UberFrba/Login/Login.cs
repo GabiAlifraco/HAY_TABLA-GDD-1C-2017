@@ -222,7 +222,7 @@ namespace UberFrba.Login
                         }
                     }else
                     {
-                        MessageBox.Show("Usuario incorrecto");
+                        MessageBox.Show("Usuario inhabilitado", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }

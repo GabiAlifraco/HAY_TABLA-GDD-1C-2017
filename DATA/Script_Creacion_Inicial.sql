@@ -270,15 +270,14 @@ SELECT  3,Ch.Cho_Usuario FROM [HAY_TABLA].[Chofer] AS Ch
 /* INSERTS A FUNCIONALIDAD */	
 
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD] (Descripcion)
-VALUES  ('ABM de Rol'), ('ABM de Cliente'), ('ABM de Automóvil'),
-		('ABM de Chofer'), ('Registro de Viajes'), ('Rendición de cuenta del chofer'),
-		('Facturación a Cliente'), ('Listado Estadístico'), ('Ver Viajes'),
-		('Ver Redenciones'), ('Ver Facturación'), ('Abm Turno') 
+VALUES  ('ABM de Rol'),('ABM de Turno'),('ABM de Cliente'), ('ABM de Automóvil'),
+		('ABM de Chofer'), ('Registro de Viajes'), ('Rendición de viajes (Pago al Chofer)'),
+		('Facturación de Clientes'), ('Listado Estadístico'), ('Ver Viajes')
 		
 /* INSERTS A FUNCIONALIDAD POR ROL */	
 		
 INSERT INTO [HAY_TABLA].[FUNCIONALIDAD_POR_ROL] (Id_Funcionalidad, Id_Rol)
-VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,2),(9,3),(10,3),(11,2),(12,1)
+VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,2),(10,3)
 
 /* INSERTS A ASIGNACION DE TURNOS */	
 

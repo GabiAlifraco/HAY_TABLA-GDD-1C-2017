@@ -100,7 +100,7 @@ namespace UberFrba.Menu
                     AbmAutomovil formularioAutomovil = new AbmAutomovil();
                     formularioAutomovil.Show();
                     break;
-                case "Abm Turno":
+                case "ABM de Turno":
                     AbmTurno formTurnos = new AbmTurno();
                     formTurnos.Show();
                     break;
@@ -123,9 +123,9 @@ namespace UberFrba.Menu
                         MessageBox.Show("No se puede REGISTRAR UN VIAJE si el ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
                     }
                     break;
-                    
-                    
-                case "Facturación a Cliente":
+
+
+                case "Facturación de Clientes":
                     if (Validador.VerificarActivoRol(2))
                     {
                         frmFacturacion formFacutracion = new frmFacturacion();
@@ -137,7 +137,7 @@ namespace UberFrba.Menu
                     }
                     
                     break;
-                case "Rendición de cuenta del chofer":
+                case "Rendición de viajes (Pago al Chofer)":
                     if (Validador.VerificarActivoRol(3))
                     {
                         frmRendicion formRendicion = new frmRendicion();

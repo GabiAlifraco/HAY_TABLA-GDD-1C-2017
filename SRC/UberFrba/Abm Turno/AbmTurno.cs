@@ -299,13 +299,6 @@ namespace UberFrba.Abm_Turno
                 numericPrecioBase.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[6].Value);
                 numericValorKm.Value = Convert.ToDecimal(dgvTurnos.CurrentRow.Cells[7].Value);
 
-                //panelDatosSeleccionado.Enabled = true;
-                //button1.Visible = false;
-                //btnCrearTurno.Visible = false;
-                //btnAltaLogica.Visible = false;
-                //btnModificarTurno.Visible = false;
-
-                //btnGuardarDatos.Visible = true;
             }
             else
             {
@@ -379,7 +372,7 @@ namespace UberFrba.Abm_Turno
                         else {
                             MostrarTurnos();
                         }
-                        btnGuardarDatos.Visible = false;
+                        
                         btnModificarTurno.Visible = false;
                         panelListaTurnos.Visible = true;
                         panelDatosSeleccionado.Visible = false;
@@ -472,7 +465,7 @@ namespace UberFrba.Abm_Turno
 
         private void btnDescartarCambios_Click(object sender, EventArgs e)
         {
-            //btnGuardarDatos.Visible = false;
+            
             btnModificarTurno.Visible = true;
             panelListaTurnos.Visible = true;
             panelDatosSeleccionado.Visible = false;
