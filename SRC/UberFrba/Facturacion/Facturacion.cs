@@ -39,7 +39,7 @@ namespace UberFrba.Facturacion
         {
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT Cli_Id,CLI_Nombre,Cli_Apellido FROM [HAY_TABLA].[Cliente]");
+                string query = String.Format("SELECT* FROM[HAY_TABLA].[Cliente] C JOIN[HAY_TABLA].[Usuarios] U on Cli_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] UR ON UR.Nombre_Usuario = U.Usu_Username WHERE UR.Id_Rol = 2 AND UR.Habilitado = 1");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {

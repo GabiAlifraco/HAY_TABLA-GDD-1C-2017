@@ -313,7 +313,7 @@ namespace UberFrba.Rendicion_Viajes
                     }
 
 
-
+                    MessageBox.Show("Rendicion creada exitosamente. NRO Rendicon: " + nroRendicon + " Importe total:$" + Math.Round(totalRendicion, 2).ToString());
                     dgvRendicion.DataSource = null;
                     btnConfirmarRendicion.Visible = false;
                     btnCancelarRendicion.Visible = false;

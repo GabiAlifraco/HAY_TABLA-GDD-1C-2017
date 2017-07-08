@@ -40,8 +40,19 @@ namespace UberFrba.Abm_Automovil
             txtRodado.Text = dgvAutomovil.CurrentRow.Cells[5].Value.ToString();
             comboChofer.Text = dgvAutomovil.CurrentRow.Cells[6].Value.ToString();
             comboChofer.SelectedItem = dgvAutomovil.CurrentRow.Cells[6].Value.ToString();
-            //comboTurno.Text = dgvAutomovil.CurrentRow.Cells[7].Value.ToString();
-            //comboTurno.SelectedItem = dgvAutomovil.CurrentRow.Cells[7].Value.ToString();
+
+            if (Validador.VerificarActivoRol(3))
+            {
+                comboChofer.Enabled = true;
+                btn_nuevo.Enabled = true;
+            }
+            else
+            {
+                comboChofer.Enabled = false;
+                btn_nuevo.Enabled = false;
+                MessageBox.Show("El ROL CHOFER esta INHABILITADO por lo cual no hay choferes HABILITADOS, por favor habilitelo desde la seccion ABM-ROL para poder crear automoviles y/o modificar la asignacion de sus choferes");
+            }
+           
         }
 
         private void MostrarAutomoviles()
