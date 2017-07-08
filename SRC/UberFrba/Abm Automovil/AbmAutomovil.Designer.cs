@@ -311,6 +311,7 @@
             this.txtRodado.Name = "txtRodado";
             this.txtRodado.Size = new System.Drawing.Size(100, 20);
             this.txtRodado.TabIndex = 66;
+            this.txtRodado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetrasYnumeros_noCaracteresEspeciales);
             // 
             // txtPatente
             // 
@@ -319,6 +320,7 @@
             this.txtPatente.Name = "txtPatente";
             this.txtPatente.Size = new System.Drawing.Size(100, 20);
             this.txtPatente.TabIndex = 66;
+            this.txtPatente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetrasYnumeros_noCaracteresEspeciales);
             // 
             // txtLicencia
             // 
@@ -327,6 +329,7 @@
             this.txtLicencia.Name = "txtLicencia";
             this.txtLicencia.Size = new System.Drawing.Size(100, 20);
             this.txtLicencia.TabIndex = 66;
+            this.txtLicencia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetrasYnumeros_noCaracteresEspeciales);
             // 
             // txtModelo
             // 
@@ -335,6 +338,7 @@
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(100, 20);
             this.txtModelo.TabIndex = 66;
+            this.txtModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soloLetrasYnumeros_noCaracteresEspeciales);
             // 
             // label27
             // 

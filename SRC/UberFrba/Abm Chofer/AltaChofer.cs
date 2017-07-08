@@ -176,6 +176,19 @@ VALUES('bob');
             }
         }
 
+        private void soloLetrasYnumeros_noCaracteresEspeciales(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsWhiteSpace(e.KeyChar)))
+            {
+                if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && !(char.IsNumber(e.KeyChar)))
+                {
+                    MessageBox.Show("No se permiten caracteres especiales", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+
+            }
+        }
 
 
 

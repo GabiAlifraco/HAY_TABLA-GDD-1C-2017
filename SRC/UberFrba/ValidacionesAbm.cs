@@ -33,30 +33,39 @@ namespace UberFrba
         public bool validarFecha(string fecha)
         {
             DateTime value;
-            if (!DateTime.TryParse(fecha, out value))
+            if (fecha.Length == 10)
             {
-                MessageBox.Show("La fecha de nacimiento no es valida");
-                return false;
-            }
-            else
-            {
-                if (value.Year > 1753)
+                if (!DateTime.TryParse(fecha, out value))
                 {
-                    DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
-                    if (hoy > value)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("La fecha de nacimiento es mayor al la fecha actual");
-                        return false;
-                    }
-                }
-                else {
                     MessageBox.Show("La fecha de nacimiento no es valida");
                     return false;
                 }
+                else
+                {
+                    if (value.Year > 1753)
+                    {
+                        DateTime hoy = new DateTime(Access.fechaAño(), Access.fechaMes(), Access.fechaDia());
+                        if (hoy > value)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("La fecha de nacimiento es mayor al la fecha actual");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("La fecha de nacimiento no es valida");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("La fecha ingresada NO esta completa");
+                return false;
             }
         }
 

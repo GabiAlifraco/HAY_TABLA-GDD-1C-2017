@@ -147,56 +147,60 @@ namespace UberFrba.Abm_Cliente
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvClientes.CurrentRow.Cells[12].Value.ToString() == "False")
+            if (dgvClientes.Rows.Count > 1)
             {
-                panelDatosClienteSeleccionado.Visible = false;
-                btnModificar.Visible = false;
-                btnEliminarCliente.Visible = false;
-                btnAltaLogica.Visible = true;
-            }else
-            {
-                txtIdSeleccionado.Text = dgvClientes.CurrentRow.Cells[0].Value.ToString();
-                txtClienteNombre.Text = dgvClientes.CurrentRow.Cells[1].Value.ToString();
-                txtClienteApellido.Text = dgvClientes.CurrentRow.Cells[2].Value.ToString();
-                txtClienteDNI.Text = dgvClientes.CurrentRow.Cells[3].Value.ToString();
-                txtClienteMail.Text = dgvClientes.CurrentRow.Cells[4].Value.ToString();
-                txtClienteTelefono.Text = dgvClientes.CurrentRow.Cells[5].Value.ToString();
-                string dir = dgvClientes.CurrentRow.Cells[6].Value.ToString();
-                txtClienteDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
-                txtClienteAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-                textBox5.Text=dgvClientes.CurrentRow.Cells[7].Value.ToString();
-                textBox6.Text=dgvClientes.CurrentRow.Cells[8].Value.ToString();
-                textBox4.Text=dgvClientes.CurrentRow.Cells[9].Value.ToString();
-                txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[10].Value.ToString();
-                DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[11].Value.ToString());
-                string fNacimiento;
-                if (fechaNacimiento.Date.Day < 10)
+                if (dgvClientes.CurrentRow.Cells[12].Value.ToString() == "False")
                 {
-                    fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                    panelDatosClienteSeleccionado.Visible = false;
+                    btnModificar.Visible = false;
+                    btnEliminarCliente.Visible = false;
+                    btnAltaLogica.Visible = true;
                 }
                 else
                 {
-                    fNacimiento = fechaNacimiento.Date.Day.ToString();
+                    txtIdSeleccionado.Text = dgvClientes.CurrentRow.Cells[0].Value.ToString();
+                    txtClienteNombre.Text = dgvClientes.CurrentRow.Cells[1].Value.ToString();
+                    txtClienteApellido.Text = dgvClientes.CurrentRow.Cells[2].Value.ToString();
+                    txtClienteDNI.Text = dgvClientes.CurrentRow.Cells[3].Value.ToString();
+                    txtClienteMail.Text = dgvClientes.CurrentRow.Cells[4].Value.ToString();
+                    txtClienteTelefono.Text = dgvClientes.CurrentRow.Cells[5].Value.ToString();
+                    string dir = dgvClientes.CurrentRow.Cells[6].Value.ToString();
+                    txtClienteDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
+                    txtClienteAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
+                    textBox5.Text = dgvClientes.CurrentRow.Cells[7].Value.ToString();
+                    textBox6.Text = dgvClientes.CurrentRow.Cells[8].Value.ToString();
+                    textBox4.Text = dgvClientes.CurrentRow.Cells[9].Value.ToString();
+                    txtClienteCodigoPostal.Text = dgvClientes.CurrentRow.Cells[10].Value.ToString();
+                    DateTime fechaNacimiento = DateTime.Parse(dgvClientes.CurrentRow.Cells[11].Value.ToString());
+                    string fNacimiento;
+                    if (fechaNacimiento.Date.Day < 10)
+                    {
+                        fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                    }
+                    else
+                    {
+                        fNacimiento = fechaNacimiento.Date.Day.ToString();
+                    }
+                    if (fechaNacimiento.Date.Month < 10)
+                    {
+                        fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
+                    }
+                    else
+                    {
+                        fNacimiento += fechaNacimiento.Date.Month.ToString();
+                    }
+                    fNacimiento += fechaNacimiento.Date.Year.ToString();
+                    txtClienteNacimiento.Text = fNacimiento;
+                    panelDatosClienteSeleccionado.Visible = true;
+                    panelDatosNuevoCliente.Visible = false;
+                    btnCrearCliente.Visible = true;
+                    btnAltaLogica.Visible = false;
+                    btnEliminarCliente.Visible = true;
+                    btnModificar.Visible = true;
+                    btnGuardarDatos.Visible = false;
+                    btnDescartarCambios.Visible = false;
+                    camposHabilitados(false);
                 }
-                if (fechaNacimiento.Date.Month < 10)
-                {
-                    fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
-                }
-                else
-                {
-                    fNacimiento += fechaNacimiento.Date.Month.ToString();
-                }
-                fNacimiento += fechaNacimiento.Date.Year.ToString();
-                txtClienteNacimiento.Text = fNacimiento;
-                panelDatosClienteSeleccionado.Visible = true;
-                panelDatosNuevoCliente.Visible = false;
-                btnCrearCliente.Visible = true;
-                btnAltaLogica.Visible = false;
-                btnEliminarCliente.Visible = true;
-                btnModificar.Visible = true;
-                btnGuardarDatos.Visible = false;
-                btnDescartarCambios.Visible = false;
-                camposHabilitados(false);
             }
         }
 

@@ -147,54 +147,56 @@ namespace UberFrba.Abm_Chofer
 
         private void dgvChoferes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvChoferes.CurrentRow.Cells[11].Value.ToString() == "False")
+            if (dgvChoferes.Rows.Count > 1)
             {
-                panelDatosChoferSeleccionado.Visible = false;
-                btnModificar.Visible = false;
-                btnEliminarChofer.Visible = false;
-                btnAltaLogica.Visible = true;
-            }
-            else
-            {
-                txtIdSeleccionado.Text = dgvChoferes.CurrentRow.Cells[0].Value.ToString();
-                txtChoferNombre.Text = dgvChoferes.CurrentRow.Cells[1].Value.ToString();
-                txtChoferApellido.Text = dgvChoferes.CurrentRow.Cells[2].Value.ToString();
-                txtChoferDNI.Text = dgvChoferes.CurrentRow.Cells[3].Value.ToString();
-                txtChoferMail.Text = dgvChoferes.CurrentRow.Cells[4].Value.ToString();
-                txtChoferTelefono.Text = dgvChoferes.CurrentRow.Cells[5].Value.ToString();
-                string dir = dgvChoferes.CurrentRow.Cells[6].Value.ToString();
-                txtChoferDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
-                txtChoferAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
-                txtPiso.Text = dgvChoferes.CurrentRow.Cells[7].Value.ToString();
-                txtDepto.Text = dgvChoferes.CurrentRow.Cells[8].Value.ToString();
-                textBox1.Text = dgvChoferes.CurrentRow.Cells[9].Value.ToString();
-                DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[10].Value.ToString());
-                string fNacimiento;
-                if (fechaNacimiento.Date.Day < 10)
+                if (dgvChoferes.CurrentRow.Cells[11].Value.ToString() == "False")
                 {
-                    fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                    panelDatosChoferSeleccionado.Visible = false;
+                    btnModificar.Visible = false;
+                    btnEliminarChofer.Visible = false;
+                    btnAltaLogica.Visible = true;
                 }
                 else
                 {
-                    fNacimiento = fechaNacimiento.Date.Day.ToString();
-                }
-                if (fechaNacimiento.Date.Month < 10)
-                {
-                    fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
-                }
-                else
-                {
-                    fNacimiento += fechaNacimiento.Date.Month.ToString();
-                }
-                fNacimiento += fechaNacimiento.Date.Year.ToString();
-                txtChoferNacimiento.Text = fNacimiento;
+                    txtIdSeleccionado.Text = dgvChoferes.CurrentRow.Cells[0].Value.ToString();
+                    txtChoferNombre.Text = dgvChoferes.CurrentRow.Cells[1].Value.ToString();
+                    txtChoferApellido.Text = dgvChoferes.CurrentRow.Cells[2].Value.ToString();
+                    txtChoferDNI.Text = dgvChoferes.CurrentRow.Cells[3].Value.ToString();
+                    txtChoferMail.Text = dgvChoferes.CurrentRow.Cells[4].Value.ToString();
+                    txtChoferTelefono.Text = dgvChoferes.CurrentRow.Cells[5].Value.ToString();
+                    string dir = dgvChoferes.CurrentRow.Cells[6].Value.ToString();
+                    txtChoferDireccion.Text = dir.Substring(0, dir.LastIndexOf(" "));
+                    txtChoferAltura.Text = dir.Substring(dir.LastIndexOf(" "), (dir.Length - dir.LastIndexOf(" ")));
+                    txtPiso.Text = dgvChoferes.CurrentRow.Cells[7].Value.ToString();
+                    txtDepto.Text = dgvChoferes.CurrentRow.Cells[8].Value.ToString();
+                    textBox1.Text = dgvChoferes.CurrentRow.Cells[9].Value.ToString();
+                    DateTime fechaNacimiento = DateTime.Parse(dgvChoferes.CurrentRow.Cells[10].Value.ToString());
+                    string fNacimiento;
+                    if (fechaNacimiento.Date.Day < 10)
+                    {
+                        fNacimiento = "0" + fechaNacimiento.Date.Day.ToString();
+                    }
+                    else
+                    {
+                        fNacimiento = fechaNacimiento.Date.Day.ToString();
+                    }
+                    if (fechaNacimiento.Date.Month < 10)
+                    {
+                        fNacimiento += "0" + fechaNacimiento.Date.Month.ToString();
+                    }
+                    else
+                    {
+                        fNacimiento += fechaNacimiento.Date.Month.ToString();
+                    }
+                    fNacimiento += fechaNacimiento.Date.Year.ToString();
+                    txtChoferNacimiento.Text = fNacimiento;
 
-                btnModificar.Visible = true;
+                    btnModificar.Visible = true;
 
-                btnEliminarChofer.Visible = true;
-                btnAltaLogica.Visible = false;
+                    btnEliminarChofer.Visible = true;
+                    btnAltaLogica.Visible = false;
+                }
             }
-         
         }
 
         private void btnGuardarDatos_Click(object sender, EventArgs e)

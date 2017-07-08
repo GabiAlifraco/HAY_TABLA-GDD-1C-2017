@@ -157,7 +157,7 @@ namespace UberFrba.Abm_Automovil
                     dgvAutomovil.AutoResizeColumns();
                     dgvAutomovil.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     btn_modificar.Visible = false;
-                    //dgvAutomovil.CurrentCell = dgvAutomovil.Rows[0].Cells[0];
+                    dgvAutomovil.CurrentCell = dgvAutomovil.Rows[0].Cells[0];
 
                     if (checkVerInhabilitados.Checked)
                     {/// ver todos       
@@ -171,21 +171,17 @@ namespace UberFrba.Abm_Automovil
                             else
                             {
                                 row.DefaultCellStyle.BackColor = Color.LimeGreen;
-                            }
-
-
-
-                            if (dgvAutomovil.CurrentRow.Cells[7].Value.ToString().Equals("True"))
-                            {
-                                btn_eliminar.Text = "Inhabilitar";
-                            }
-                            else
-                            {
-                                btn_eliminar.Text = "Habilitar";
-                            }
+                            }      
                         }
                     }
-
+                    if (dgvAutomovil.CurrentRow.Cells[7].Value.ToString().Equals("True"))
+                    {
+                        btn_eliminar.Text = "Inhabilitar";
+                    }
+                    else
+                    {
+                        btn_eliminar.Text = "Habilitar";
+                    }
                     if (dgvAutomovil.Rows.Count > 1){ btn_eliminar.Visible = true;}
                     else { btn_eliminar.Visible = false; }
                 }
@@ -815,6 +811,19 @@ namespace UberFrba.Abm_Automovil
             }
 
 
+        }
+        private void soloLetrasYnumeros_noCaracteresEspeciales(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsWhiteSpace(e.KeyChar)))
+            {
+                if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && !(char.IsNumber(e.KeyChar)))
+                {
+                    MessageBox.Show("No se permiten caracteres especiales", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Handled = true;
+                    return;
+                }
+
+            }
         }
 
     }
