@@ -147,7 +147,7 @@ namespace UberFrba.Abm_Cliente
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvClientes.Rows.Count > 1)
+            if (dgvClientes.Rows.Count >= 1)
             {
                 if (dgvClientes.CurrentRow.Cells[12].Value.ToString() == "False")
                 {

@@ -86,7 +86,7 @@ namespace UberFrba.Abm_Chofer
                 }
                 else
                 {//ver solo habilitados
-                    query = String.Format("SELECT * FROM [HAY_TABLA].[Chofer] c  JOIN[HAY_TABLA].[Usuarios] U ON c.Cho_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 3 AND Cho_DNI LIKE '" + txtFiltroDNI.Text.Trim() + "%' AND Cho_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cho_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
+                    query = String.Format("SELECT * FROM [HAY_TABLA].[Chofer] c  JOIN[HAY_TABLA].[Usuarios] U ON c.Cho_Usuario = U.Usu_Username JOIN[HAY_TABLA].[USUARIO_POR_ROL] ur ON u.Usu_Username = ur.Nombre_Usuario WHERE Habilitado = 1  AND Id_Rol = 3 AND Cho_DNI LIKE '%" + txtFiltroDNI.Text.Trim() + "%' AND Cho_Nombre LIKE '%" + txtFiltroNombre.Text.Trim() + "%' AND Cho_Apellido LIKE '%" + txtFiltroApellido.Text.Trim() + "%' ");
                 }
 
 
@@ -147,7 +147,7 @@ namespace UberFrba.Abm_Chofer
 
         private void dgvChoferes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvChoferes.Rows.Count > 1)
+            if (dgvChoferes.Rows.Count >= 1)
             {
                 if (dgvChoferes.CurrentRow.Cells[11].Value.ToString() == "False")
                 {

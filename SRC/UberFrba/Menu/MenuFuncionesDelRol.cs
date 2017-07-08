@@ -109,9 +109,22 @@ namespace UberFrba.Menu
                     formRoles.Show();
                     break;
                 case "Registro de Viajes":
-                    AltaViajes formAltaViajes = new AltaViajes();
-                    formAltaViajes.Show();
+                    if (Validador.VerificarActivoRol(2) && Validador.VerificarActivoRol(3))
+                    {
+                        AltaViajes formAltaViajes = new AltaViajes();
+                        formAltaViajes.Show();
+                    }
+                    else if (!Validador.VerificarActivoRol(3))
+                    {
+                        MessageBox.Show("No se puede registrar un viaje si el ROL CHOFER esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
+                    else if (!Validador.VerificarActivoRol(2))
+                    {
+                        MessageBox.Show("No se puede registrar un viaje si el ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
                     break;
+                    
+                    
                 case "Facturación a Cliente":
                     frmFacturacion formFacutracion = new frmFacturacion();
                     formFacutracion.Show();

@@ -44,6 +44,7 @@
             this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
+            this.checkBoxHabilitado = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutoFin)).BeginInit();
@@ -138,7 +139,7 @@
             // 
             this.btnCrearTurno.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnCrearTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearTurno.Location = new System.Drawing.Point(110, 337);
+            this.btnCrearTurno.Location = new System.Drawing.Point(110, 369);
             this.btnCrearTurno.Name = "btnCrearTurno";
             this.btnCrearTurno.Size = new System.Drawing.Size(120, 36);
             this.btnCrearTurno.TabIndex = 22;
@@ -217,7 +218,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.LemonChiffon;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(1, 382);
+            this.button1.Location = new System.Drawing.Point(-1, 411);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(224, 36);
             this.button1.TabIndex = 40;
@@ -225,13 +226,26 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // checkBoxHabilitado
+            // 
+            this.checkBoxHabilitado.AutoSize = true;
+            this.checkBoxHabilitado.BackColor = System.Drawing.Color.LemonChiffon;
+            this.checkBoxHabilitado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(119, 338);
+            this.checkBoxHabilitado.Name = "checkBoxHabilitado";
+            this.checkBoxHabilitado.Size = new System.Drawing.Size(99, 24);
+            this.checkBoxHabilitado.TabIndex = 41;
+            this.checkBoxHabilitado.Text = "Habilitado";
+            this.checkBoxHabilitado.UseVisualStyleBackColor = false;
+            // 
             // AltaTurnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(344, 420);
+            this.ClientSize = new System.Drawing.Size(344, 449);
+            this.Controls.Add(this.checkBoxHabilitado);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numericMinutoFin);
             this.Controls.Add(this.numericHoraFin);
@@ -278,5 +292,6 @@
         private System.Windows.Forms.NumericUpDown numericMinutoInicio;
         private System.Windows.Forms.NumericUpDown numericHoraInicio;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxHabilitado;
     }
 }

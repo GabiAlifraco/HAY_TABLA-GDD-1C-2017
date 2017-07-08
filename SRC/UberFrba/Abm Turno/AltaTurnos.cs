@@ -20,18 +20,32 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
             Access = new DBAccess();
             Validador = new ValidacionesAbm();
+            checkBoxHabilitado.Checked = true;
         }
 
         private void btnCrearTurno_Click(object sender, EventArgs e)
         {
             decimal horaInicio = numericHoraInicio.Value * 100 + numericMinutoInicio.Value;
             decimal horaFin = numericHoraFin.Value * 100 + numericMinutoFin.Value;
-            if (ValidarTurno(txtDescripcionTurno.Text, horaInicio, horaFin, numericPrecioBase.Value, numericValorKm.Value))
-            {
+       
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + horaInicio.ToString() + "," + horaFin.ToString() + ",'" + txtDescripcionTurno.Text + "'," + numericValorKm.Value.ToString().Replace(",", ".") + "," + numericPrecioBase.Value.ToString().Replace(",", ".") + ")");
-
+                    string query;
+                    if (checkBoxHabilitado.Checked)
+                    {
+                        if (ValidarTurno(txtDescripcionTurno.Text, horaInicio, horaFin, numericPrecioBase.Value, numericValorKm.Value))
+                        {
+                            query = String.Format("INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase) VALUES (" + horaInicio.ToString() + "," + horaFin.ToString() + ",'" + txtDescripcionTurno.Text + "'," + numericValorKm.Value.ToString().Replace(",", ".") + "," + numericPrecioBase.Value.ToString().Replace(",", ".") + ")");
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                         query = String.Format("INSERT INTO [HAY_TABLA].Turno (Turno_HoraInicio, Turno_HoraFin, Turno_Descripcion, Turno_ValorKM, Turno_PrecioBase,Turno_Habilitado) VALUES (" + horaInicio.ToString() + "," + horaFin.ToString() + ",'" + txtDescripcionTurno.Text + "'," + numericValorKm.Value.ToString().Replace(",", ".") + "," + numericPrecioBase.Value.ToString().Replace(",", ".") + ",0" + ")");
+                    }
      
                     SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -49,7 +63,7 @@ namespace UberFrba.Abm_Turno
                         MessageBox.Show(excep.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
+            
 
         }
 

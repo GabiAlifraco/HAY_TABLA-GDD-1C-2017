@@ -28,6 +28,9 @@ namespace UberFrba.Facturacion
 
             fechaInicio = new DateTime(Access.fechaAño(), Access.fechaMes(), 1);
             fechaFin = fechaInicio.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
+            fecha_inicio.Text = fechaInicio.Day + "/" + fechaInicio.Month + "/" + fechaInicio.Year;
+            fecha_fin.Text = fechaFin.Day + "/" + fechaFin.Month + "/" + fechaFin.Year;
+
         }
 
 

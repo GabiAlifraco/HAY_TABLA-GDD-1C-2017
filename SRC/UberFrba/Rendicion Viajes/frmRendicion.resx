@@ -136,7 +136,7 @@ Tambien se calculara:
 -El importe total de la rendicion
 
 Una vez emitido el listado, si se hace click en 'CONFIRMAR RENDICION':
-La rendicion sera registrada en la base de datos y se hara efectica.
+La rendicion sera registrada en la base de datos y se hara efectiva.
 Si se encuentran discrepancias o errores se puede cancelar la rendicion.
 </value>
   </data>
