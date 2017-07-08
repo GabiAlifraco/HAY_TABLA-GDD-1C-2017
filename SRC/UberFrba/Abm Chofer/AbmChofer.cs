@@ -387,18 +387,33 @@ namespace UberFrba.Abm_Chofer
 
         private void btnEliminarChofer_Click(object sender, EventArgs e)
         {
+            string cho_usuario = "";
             if (dgvChoferes.Rows.Count > 1)
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
 
-                    SqlCommand cmd = new SqlCommand(query, conexion);
+
 
                     try
                     {
+
+                        string query = String.Format("SELECT [Cho_Usuario] FROM [HAY_TABLA].[Chofer] WHERE Cho_DNI = " + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+
                         conexion.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            cho_usuario = dr["Cho_Usuario"].ToString();
+                        }
+                        dr.Close();
+
+                        query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 3," + cho_usuario);
+
+                        cmd = new SqlCommand(query, conexion);
+
+                        dr = cmd.ExecuteReader();
                         MostrarChoferes();
                         btnEliminarChofer.Visible = false;
                         btnModificar.Visible = false;
@@ -417,18 +432,30 @@ namespace UberFrba.Abm_Chofer
 
         private void btnAltaLogica_Click(object sender, EventArgs e)
         {
+            string cho_usuario = "";
             if (dgvChoferes.Rows.Count > 1)
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 3," + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
 
-                    SqlCommand cmd = new SqlCommand(query, conexion);
 
                     try
                     {
+                        string query = String.Format("SELECT [Cho_Usuario] FROM [HAY_TABLA].[Chofer] WHERE Cho_DNI = " + dgvChoferes.CurrentRow.Cells[3].Value.ToString());
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+
                         conexion.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            cho_usuario = dr["Cho_Usuario"].ToString();
+                        }
+                        dr.Close();
+
+                        query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 3," + cho_usuario);
+
+                        cmd = new SqlCommand(query, conexion);
+                        dr = cmd.ExecuteReader();
                         MostrarChoferes();
                         btnAltaLogica.Visible = false;
                         btnModificar.Visible = false;

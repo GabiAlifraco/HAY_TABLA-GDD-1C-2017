@@ -81,18 +81,34 @@ namespace UberFrba.Abm_Cliente
 
         private void btnEliminarCliente_Click(object sender, EventArgs e)
         {
+
+            string cli_Usuario = "";
             if (dgvClientes.Rows.Count > 1)
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
 
-                    SqlCommand cmd = new SqlCommand(query, conexion);
 
                     try
                     {
+                        string query = String.Format("SELECT [Cli_Usuario] FROM [HAY_TABLA].[Cliente] WHERE Cli_DNI = " + dgvClientes.CurrentRow.Cells[3].Value.ToString());
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+
                         conexion.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+
+                            cli_Usuario = dr["Cli_Usuario"].ToString();
+
+                        }
+                        dr.Close();
+
+                        query = String.Format("EXEC [HAY_TABLA].[bajaLogicaRolDelUsuario] 2," + cli_Usuario);
+
+                        cmd = new SqlCommand(query, conexion);
+    
+                         dr = cmd.ExecuteReader();
 
                     }
                     catch (Exception excep)
@@ -519,18 +535,32 @@ namespace UberFrba.Abm_Cliente
 
         private void btnAltaLogica_Click(object sender, EventArgs e)
         {
+            string cli_usuario = "";
             if (dgvClientes.Rows.Count > 1)
             {
                 using (SqlConnection conexion = new SqlConnection(Access.Conexion))
                 {
-                    string query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 2," + dgvClientes.CurrentRow.Cells[3].Value.ToString());
 
-                    SqlCommand cmd = new SqlCommand(query, conexion);
 
                     try
                     {
+                        string query = String.Format("SELECT [Cli_Usuario] FROM [HAY_TABLA].[Cliente] WHERE Cli_DNI = " + dgvClientes.CurrentRow.Cells[3].Value.ToString());
+                        SqlCommand cmd = new SqlCommand(query, conexion);
+
                         conexion.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+
+                            cli_usuario = dr["Cli_Usuario"].ToString();
+
+                        }
+                        dr.Close();
+                        query = String.Format("EXEC [HAY_TABLA].[altaLogicaRolDelUsuario] 2," + cli_usuario);
+
+                        cmd = new SqlCommand(query, conexion);
+
+                        dr = cmd.ExecuteReader();
 
                     }
                     catch (Exception excep)
