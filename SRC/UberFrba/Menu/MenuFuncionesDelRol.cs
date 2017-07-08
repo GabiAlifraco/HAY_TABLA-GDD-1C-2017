@@ -116,22 +116,37 @@ namespace UberFrba.Menu
                     }
                     else if (!Validador.VerificarActivoRol(3))
                     {
-                        MessageBox.Show("No se puede registrar un viaje si el ROL CHOFER esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                        MessageBox.Show("No se puede REGISTRAR UN VIAJE si el ROL CHOFER esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
                     }
                     else if (!Validador.VerificarActivoRol(2))
                     {
-                        MessageBox.Show("No se puede registrar un viaje si el ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                        MessageBox.Show("No se puede REGISTRAR UN VIAJE si el ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
                     }
                     break;
                     
                     
                 case "Facturación a Cliente":
-                    frmFacturacion formFacutracion = new frmFacturacion();
-                    formFacutracion.Show();
+                    if (Validador.VerificarActivoRol(2))
+                    {
+                        frmFacturacion formFacutracion = new frmFacturacion();
+                        formFacutracion.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede realizar la FACTURACION porque el ROL CLIENTE esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
+                    
                     break;
                 case "Rendición de cuenta del chofer":
-                    frmRendicion formRendicion = new frmRendicion();
-                    formRendicion.Show();
+                    if (Validador.VerificarActivoRol(3))
+                    {
+                        frmRendicion formRendicion = new frmRendicion();
+                        formRendicion.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede realizar la RENDICION porque el ROL CHOFER esta INHABILITADO, por favor habilitelo desde la seccion ABM-ROL");
+                    }
                     break;
                 case "Listado Estadístico":
                     ListadoEstadistico formListadoEstadistico = new ListadoEstadistico();

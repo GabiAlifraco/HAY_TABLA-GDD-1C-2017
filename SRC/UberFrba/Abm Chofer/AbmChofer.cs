@@ -479,5 +479,14 @@ namespace UberFrba.Abm_Chofer
         {
             MostrarChoferes(); 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtFiltroApellido.Text = "";
+            txtFiltroDNI.Text = "";
+            txtFiltroNombre.Text = "";
+            MostrarChoferes();
+        }
+
     }
 }

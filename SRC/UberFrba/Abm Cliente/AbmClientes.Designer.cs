@@ -49,6 +49,7 @@
             this.btnEliminarCliente = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.panelDatosNuevoCliente = new System.Windows.Forms.Panel();
+            this.btnDatosAleatorios = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -104,7 +105,7 @@
             this.label34 = new System.Windows.Forms.Label();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             this.btnAltaLogica = new System.Windows.Forms.Button();
-            this.btnDatosAleatorios = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panelDatosNuevoCliente.SuspendLayout();
             this.panelDatosClienteSeleccionado.SuspendLayout();
@@ -336,6 +337,16 @@
             this.panelDatosNuevoCliente.Size = new System.Drawing.Size(356, 292);
             this.panelDatosNuevoCliente.TabIndex = 63;
             this.panelDatosNuevoCliente.Visible = false;
+            // 
+            // btnDatosAleatorios
+            // 
+            this.btnDatosAleatorios.Location = new System.Drawing.Point(107, 6);
+            this.btnDatosAleatorios.Name = "btnDatosAleatorios";
+            this.btnDatosAleatorios.Size = new System.Drawing.Size(196, 23);
+            this.btnDatosAleatorios.TabIndex = 70;
+            this.btnDatosAleatorios.Text = "GENERAR DATOS ALEATORIOS";
+            this.btnDatosAleatorios.UseVisualStyleBackColor = true;
+            this.btnDatosAleatorios.Click += new System.EventHandler(this.btnDatosAleatorios_Click);
             // 
             // textBox1
             // 
@@ -890,15 +901,16 @@
             this.btnAltaLogica.Visible = false;
             this.btnAltaLogica.Click += new System.EventHandler(this.btnAltaLogica_Click);
             // 
-            // btnDatosAleatorios
+            // button2
             // 
-            this.btnDatosAleatorios.Location = new System.Drawing.Point(107, 6);
-            this.btnDatosAleatorios.Name = "btnDatosAleatorios";
-            this.btnDatosAleatorios.Size = new System.Drawing.Size(196, 23);
-            this.btnDatosAleatorios.TabIndex = 70;
-            this.btnDatosAleatorios.Text = "GENERAR DATOS ALEATORIOS";
-            this.btnDatosAleatorios.UseVisualStyleBackColor = true;
-            this.btnDatosAleatorios.Click += new System.EventHandler(this.btnDatosAleatorios_Click);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(523, 49);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 24);
+            this.button2.TabIndex = 84;
+            this.button2.Text = "VACIAR FILTROS";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // AbmClientes
             // 
@@ -907,6 +919,7 @@
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1069, 690);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnAltaLogica);
             this.Controls.Add(this.checkVerInhabilitados);
             this.Controls.Add(this.txtFiltroDNI);
@@ -1017,5 +1030,6 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button btnDatosAleatorios;
+        private System.Windows.Forms.Button button2;
     }
 }

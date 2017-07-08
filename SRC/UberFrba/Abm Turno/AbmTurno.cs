@@ -60,7 +60,7 @@ namespace UberFrba.Abm_Turno
             dtTurnos.Columns.Add(cHabilitado);
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [HAY_TABLA].[Turno] WHERE Turno_Habilitado = 1");
+                string query = String.Format("SELECT * FROM [HAY_TABLA].[Turno] WHERE Turno_Habilitado = 1 AND Turno_Descripcion LIKE '%" + txtFiltroPatente.Text.Trim() + "%'");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -136,7 +136,7 @@ namespace UberFrba.Abm_Turno
             dtTurnos.Columns.Add(cHabilitado);
             using (SqlConnection conexion = new SqlConnection(Access.Conexion))
             {
-                string query = String.Format("SELECT * FROM [HAY_TABLA].[Turno]");
+                string query = String.Format("SELECT * FROM [HAY_TABLA].[Turno] WHERE Turno_Descripcion LIKE '%" + txtFiltroPatente.Text.Trim() + "%'");
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 try
                 {
@@ -510,6 +510,33 @@ namespace UberFrba.Abm_Turno
                 }
             }
         }
+
+               private void button2_Click(object sender, EventArgs e)
+               {
+                   txtFiltroPatente.Text = "";
+                   if (checkVerInhabilitados.Checked == true)
+                   {
+                       MostrarTurnosInhabilitados();
+                   }
+                   else
+                   {
+                       MostrarTurnos();
+
+                   }
+               }
+
+               private void btnFiltrar_Click(object sender, EventArgs e)
+               {
+                   if (checkVerInhabilitados.Checked == true)
+                   {
+                       MostrarTurnosInhabilitados();
+                   }
+                   else
+                   {
+                       MostrarTurnos();
+
+                   }
+               }
 
     }
 }

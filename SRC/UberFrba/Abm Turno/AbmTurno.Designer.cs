@@ -51,8 +51,13 @@
             this.numericMinutoInicio = new System.Windows.Forms.NumericUpDown();
             this.numericHoraInicio = new System.Windows.Forms.NumericUpDown();
             this.panelListaTurnos = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtFiltroPatente = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.dgvTurnos = new System.Windows.Forms.DataGridView();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnFiltrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericValorKm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioBase)).BeginInit();
             this.panelDatosSeleccionado.SuspendLayout();
@@ -79,7 +84,7 @@
             // 
             this.btnCrearTurno.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnCrearTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearTurno.Location = new System.Drawing.Point(14, 219);
+            this.btnCrearTurno.Location = new System.Drawing.Point(14, 232);
             this.btnCrearTurno.Name = "btnCrearTurno";
             this.btnCrearTurno.Size = new System.Drawing.Size(170, 36);
             this.btnCrearTurno.TabIndex = 3;
@@ -91,7 +96,7 @@
             // 
             this.btnModificarTurno.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnModificarTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarTurno.Location = new System.Drawing.Point(541, 219);
+            this.btnModificarTurno.Location = new System.Drawing.Point(541, 232);
             this.btnModificarTurno.Name = "btnModificarTurno";
             this.btnModificarTurno.Size = new System.Drawing.Size(169, 36);
             this.btnModificarTurno.TabIndex = 4;
@@ -103,7 +108,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.LemonChiffon;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(190, 219);
+            this.button1.Location = new System.Drawing.Point(190, 232);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(170, 36);
             this.button1.TabIndex = 5;
@@ -314,21 +319,57 @@
             // panelListaTurnos
             // 
             this.panelListaTurnos.BackColor = System.Drawing.Color.Transparent;
+            this.panelListaTurnos.Controls.Add(this.button2);
+            this.panelListaTurnos.Controls.Add(this.btnFiltrar);
+            this.panelListaTurnos.Controls.Add(this.label32);
+            this.panelListaTurnos.Controls.Add(this.txtFiltroPatente);
+            this.panelListaTurnos.Controls.Add(this.label29);
             this.panelListaTurnos.Controls.Add(this.dgvTurnos);
             this.panelListaTurnos.Controls.Add(this.checkVerInhabilitados);
             this.panelListaTurnos.Controls.Add(this.btnModificarTurno);
             this.panelListaTurnos.Controls.Add(this.button1);
             this.panelListaTurnos.Controls.Add(this.btnCrearTurno);
-            this.panelListaTurnos.Location = new System.Drawing.Point(7, 62);
+            this.panelListaTurnos.Location = new System.Drawing.Point(7, 54);
             this.panelListaTurnos.Name = "panelListaTurnos";
-            this.panelListaTurnos.Size = new System.Drawing.Size(738, 264);
+            this.panelListaTurnos.Size = new System.Drawing.Size(738, 272);
             this.panelListaTurnos.TabIndex = 23;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label32.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.label32.Location = new System.Drawing.Point(115, 5);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(66, 13);
+            this.label32.TabIndex = 79;
+            this.label32.Text = "Descripcion:";
+            // 
+            // txtFiltroPatente
+            // 
+            this.txtFiltroPatente.Location = new System.Drawing.Point(113, 20);
+            this.txtFiltroPatente.MaxLength = 10;
+            this.txtFiltroPatente.Name = "txtFiltroPatente";
+            this.txtFiltroPatente.Size = new System.Drawing.Size(100, 20);
+            this.txtFiltroPatente.TabIndex = 80;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.label29.Location = new System.Drawing.Point(5, 19);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(95, 20);
+            this.label29.TabIndex = 78;
+            this.label29.Text = "Busqueda:";
             // 
             // dgvTurnos
             // 
             this.dgvTurnos.BackgroundColor = System.Drawing.Color.LemonChiffon;
             this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTurnos.Location = new System.Drawing.Point(14, 37);
+            this.dgvTurnos.Location = new System.Drawing.Point(14, 50);
             this.dgvTurnos.MultiSelect = false;
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.Size = new System.Drawing.Size(710, 176);
@@ -339,7 +380,7 @@
             // 
             this.checkVerInhabilitados.AutoSize = true;
             this.checkVerInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkVerInhabilitados.Location = new System.Drawing.Point(14, 4);
+            this.checkVerInhabilitados.Location = new System.Drawing.Point(476, 13);
             this.checkVerInhabilitados.Name = "checkVerInhabilitados";
             this.checkVerInhabilitados.Size = new System.Drawing.Size(145, 24);
             this.checkVerInhabilitados.TabIndex = 7;
@@ -347,15 +388,38 @@
             this.checkVerInhabilitados.UseVisualStyleBackColor = true;
             this.checkVerInhabilitados.CheckedChanged += new System.EventHandler(this.checkVerInhabilitados_CheckedChanged);
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(348, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 33);
+            this.button2.TabIndex = 82;
+            this.button2.Text = "Vaciar filtros";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnFiltrar.Location = new System.Drawing.Point(230, 8);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(103, 33);
+            this.btnFiltrar.TabIndex = 81;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
             // AbmTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(776, 354);
-            this.Controls.Add(this.panelDatosSeleccionado);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelListaTurnos);
+            this.Controls.Add(this.panelDatosSeleccionado);
             this.MaximizeBox = false;
             this.Name = "AbmTurno";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -401,5 +465,10 @@
         private System.Windows.Forms.CheckBox checkVerInhabilitados;
         private System.Windows.Forms.Button btnDescartarCambios;
         private System.Windows.Forms.DataGridView dgvTurnos;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox txtFiltroPatente;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnFiltrar;
     }
 }

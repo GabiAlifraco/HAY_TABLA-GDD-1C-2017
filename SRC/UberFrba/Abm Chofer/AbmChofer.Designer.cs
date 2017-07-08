@@ -72,6 +72,7 @@
             this.btnEliminarChofer = new System.Windows.Forms.Button();
             this.btnCrearCliente = new System.Windows.Forms.Button();
             this.panelChoferes = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnAltaLogica = new System.Windows.Forms.Button();
             this.checkVerInhabilitados = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoferes)).BeginInit();
@@ -511,6 +512,7 @@
             // panelChoferes
             // 
             this.panelChoferes.BackColor = System.Drawing.Color.Transparent;
+            this.panelChoferes.Controls.Add(this.button2);
             this.panelChoferes.Controls.Add(this.btnAltaLogica);
             this.panelChoferes.Controls.Add(this.checkVerInhabilitados);
             this.panelChoferes.Controls.Add(this.dgvChoferes);
@@ -529,6 +531,17 @@
             this.panelChoferes.Name = "panelChoferes";
             this.panelChoferes.Size = new System.Drawing.Size(1232, 405);
             this.panelChoferes.TabIndex = 82;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(542, 52);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 24);
+            this.button2.TabIndex = 83;
+            this.button2.Text = "VACIAR FILTROS";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnAltaLogica
             // 
@@ -559,9 +572,9 @@
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1273, 491);
-            this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.Controls.Add(this.panelChoferes);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panelDatosChoferSeleccionado);
             this.MaximizeBox = false;
             this.Name = "AbmChofer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -623,5 +636,6 @@
         private System.Windows.Forms.Label txtLocalidad;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button2;
     }
 }

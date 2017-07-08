@@ -642,5 +642,13 @@ namespace UberFrba.Abm_Cliente
             textBox1.Text = departamento;
             textBox2.Text = localidad;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtFiltroApellido.Text = "";
+            txtFiltroDNI.Text = "";
+            txtFiltroNombre.Text = "";
+            MostrarClientes();
+        }
     }
 }
