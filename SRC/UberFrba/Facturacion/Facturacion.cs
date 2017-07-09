@@ -154,7 +154,14 @@ namespace UberFrba.Facturacion
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
-            mostrarFactura();
+            if (listBoxCliente.SelectedIndex != -1)
+            {
+                mostrarFactura();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un cliente");
+            }
         }
 
         private void mostrarFactura() {
