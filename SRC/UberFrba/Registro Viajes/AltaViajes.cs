@@ -323,15 +323,20 @@ namespace UberFrba.Registro_Viajes
                 try
                 {
 
-                    string fechaInicio = inicio.Year.ToString() + "-" + inicio.Month.ToString() + "-" + inicio.Day.ToString() + " " + inicio.Hour.ToString() + ":" + inicio.Minute.ToString();
-                    string fechaFin = final.Year.ToString() + "-" + final.Month.ToString() + "-" + final.Day.ToString() + " " + final.Hour.ToString() + ":" + final.Minute.ToString();
-                    //string fechaFin = inicio.Date.ToString("yyyy-MM-dd HH:mm");
                     KeyValuePair<int, string> ChoferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
                     string query = "SELECT count(*) FROM HAY_TABLA.Viaje V WHERE Vi_IdChofer = " + ChoferSeleccionado.Key;
-                    query += " AND ((Vi_Inicio BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "') OR  (Vi_Fin BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "')";
-                    query += " OR ('" + fechaInicio + "' BETWEEN Vi_Inicio AND Vi_Fin) OR ('" + fechaFin + "' BETWEEN Vi_Inicio AND Vi_Fin))";
-
+                    query += " AND ((Vi_Inicio BETWEEN @FechaInicio AND @FechaFin) OR  (Vi_Fin BETWEEN @FechaInicio AND @FechaFin)";
+                    query += " OR (@FechaInicio BETWEEN Vi_Inicio AND Vi_Fin) OR (@FechaFin BETWEEN Vi_Inicio AND Vi_Fin))";
                     command.CommandText = query;
+
+                    SqlParameter param = new SqlParameter("@FechaInicio", inicio);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    command.Parameters.Add(param);
+
+                    SqlParameter param2 = new SqlParameter("@FechaFin", final);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    command.Parameters.Add(param2);
+
 
                     int cantFilas = (int)command.ExecuteScalar();
                     if (cantFilas > 0) {
@@ -361,17 +366,19 @@ namespace UberFrba.Registro_Viajes
                 command.Transaction = sqlTransact;
                 try
                 {
-
-                    string fechaInicio = inicio.Year.ToString() + "-" + inicio.Month.ToString() + "-" + inicio.Day.ToString() + " " + inicio.Hour.ToString() + ":" + inicio.Minute.ToString();
-                    string fechaFin = fin.Year.ToString() + "-" + fin.Month.ToString() + "-" + fin.Day.ToString() + " " + fin.Hour.ToString() + ":" + fin.Minute.ToString();
-                    //string fechaFin = inicio.Date.ToString("yyyy-MM-dd HH:mm");
                     KeyValuePair<int, string> ClienteSeleccionado = (KeyValuePair<int, string>)listBoxCliente.SelectedItem;
                     string query = "SELECT count(*) FROM HAY_TABLA.Viaje V WHERE Vi_IdCliente = " + ClienteSeleccionado.Key.ToString();
-                    query += " AND ((Vi_Inicio BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "') OR  (Vi_Fin BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "')";
-                    query += " OR ('" + fechaInicio + "' BETWEEN Vi_Inicio AND Vi_Fin) OR ('" + fechaFin + "' BETWEEN Vi_Inicio AND Vi_Fin))";
+                    query += " AND ((Vi_Inicio BETWEEN @FechaInicio AND @FechaFin) OR  (Vi_Fin BETWEEN @FechaInicio AND @FechaFin)";
+                    query += " OR (@FechaInicio BETWEEN Vi_Inicio AND Vi_Fin) OR (@FechaFin BETWEEN Vi_Inicio AND Vi_Fin))";
 
                     command.CommandText = query;
+                    SqlParameter param = new SqlParameter("@FechaInicio", inicio);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    command.Parameters.Add(param);
 
+                    SqlParameter param2 = new SqlParameter("@FechaFin", fin);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    command.Parameters.Add(param2);
                     int cantFilas = (int)command.ExecuteScalar();
                     if (cantFilas > 0)
                     {
