@@ -293,8 +293,20 @@ namespace UberFrba.Rendicion_Viajes
                     decimal nroRendicon =(decimal)cmd.ExecuteScalar();
 
 
-                    query = String.Format("SELECT [Id_Viaje] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
-                    cmd.CommandText = query;
+                    query = String.Format("SELECT Id_Viaje,[Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN @FechaInicio AND @FechaFin");
+                    cmd = new SqlCommand(query, conexion);
+
+                    DateTime fechaInicio = DateTime.Parse(txtFechaRendicion.Text);
+                    param = new SqlParameter("@FechaInicio", fechaInicio);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    cmd.Parameters.Add(param);
+
+                    DateTime fechaFin = DateTime.Parse(txtFechaRendicion.Text);
+                    fechaFin = fechaInicio.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    SqlParameter param2 = new SqlParameter("@FechaFin", fechaFin);
+                    param.SqlDbType = System.Data.SqlDbType.DateTime;
+                    cmd.Parameters.Add(param2);
+
                     SqlDataReader dr = cmd.ExecuteReader();
                     List<string> idsViajesRendicion = new List<string>();
                     while (dr.Read())
@@ -316,7 +328,7 @@ namespace UberFrba.Rendicion_Viajes
                         param.SqlDbType = System.Data.SqlDbType.Int;
                         cmd2.Parameters.Add(param);
                         
-                        param = new SqlParameter("@PorcentajePago", Math.Round(totalRendicion, 2));
+                        param = new SqlParameter("@PorcentajePago", Convert.ToDecimal(txtPorcentajeDePago.Text));
                         param.SqlDbType = System.Data.SqlDbType.Decimal;
                         cmd2.Parameters.Add(param);
 
