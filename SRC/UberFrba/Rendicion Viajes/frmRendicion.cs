@@ -178,8 +178,20 @@ namespace UberFrba.Rendicion_Viajes
             DateTime FR = (DateTime.Parse(txtFechaRendicion.Text));
             KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
             KeyValuePair<int, string> turnoSeleccionado = (KeyValuePair<int, string>)listBoxTurnos.SelectedItem;
-            string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
+            string query = String.Format("SELECT [Vi_CantKilometros], Vi_Inicio AS fecha ,[Vi_ImporteTotal] FROM[HAY_TABLA].[Viaje] V WHERE Vi_IdChofer = " + choferSeleccionado.Key.ToString() + " AND Vi_IdTurno = " + turnoSeleccionado.Key.ToString() + " AND  Vi_Inicio BETWEEN @FechaInicio AND @FechaFin");
             SqlCommand cmd = new SqlCommand(query, conexion);
+
+            DateTime fechaInicio = DateTime.Parse(txtFechaRendicion.Text);
+            SqlParameter param = new SqlParameter("@FechaInicio", fechaInicio);
+            param.SqlDbType = System.Data.SqlDbType.DateTime;
+            cmd.Parameters.Add(param);
+
+            DateTime fechaFin = DateTime.Parse(txtFechaRendicion.Text);
+            fechaFin = fechaInicio.AddHours(23).AddMinutes(59).AddSeconds(59);
+            SqlParameter param2 = new SqlParameter("@FechaFin", fechaFin);
+            param.SqlDbType = System.Data.SqlDbType.DateTime;
+            cmd.Parameters.Add(param2);
+            
             try
             {
                 conexion.Close();
