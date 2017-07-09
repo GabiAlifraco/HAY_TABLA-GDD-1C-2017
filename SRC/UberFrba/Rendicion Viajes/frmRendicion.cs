@@ -132,9 +132,23 @@ namespace UberFrba.Rendicion_Viajes
 
             KeyValuePair<int, string> choferSeleccionado = (KeyValuePair<int, string>)listBoxChoferes.SelectedItem;
             KeyValuePair<int, string> turnoSeleccionado = (KeyValuePair<int, string>)listBoxTurnos.SelectedItem;
-            string query = String.Format("SELECT [Rendicion_Nro],[Cho_Id],[Turno_Id],[Rendicion_Fecha],[Rendicion_Total] FROM [HAY_TABLA].[Rendicion] WHERE Cho_Id = " + choferSeleccionado.Key.ToString() + " AND Turno_Id = " + turnoSeleccionado.Key.ToString() + " AND  Rendicion_Fecha BETWEEN '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 00:00:00.000' AND '" + FR.Year + "-" + FR.Month + "-" + FR.Day + " 23:59:59.000'");
+            string query = String.Format("SELECT [Rendicion_Nro],[Cho_Id],[Turno_Id],[Rendicion_Fecha],[Rendicion_Total] FROM [HAY_TABLA].[Rendicion] WHERE Cho_Id = " + choferSeleccionado.Key.ToString() + " AND Turno_Id = " + turnoSeleccionado.Key.ToString() + " AND  Rendicion_Fecha BETWEEN @FechaInicio AND @FechaFin");
+
 
             SqlCommand cmd2 = new SqlCommand(query, conexion);
+
+
+            DateTime fechaInicio = DateTime.Parse(txtFechaRendicion.Text);
+            SqlParameter param = new SqlParameter("@FechaInicio", fechaInicio);
+            param.SqlDbType = System.Data.SqlDbType.DateTime;
+            cmd2.Parameters.Add(param);
+
+            DateTime fechaFin = DateTime.Parse(txtFechaRendicion.Text).AddHours(23).AddMinutes(59);
+            fechaFin = fechaInicio.AddHours(23).AddMinutes(59).AddSeconds(59);
+            SqlParameter param2 = new SqlParameter("@FechaFin", fechaFin);
+            param.SqlDbType = System.Data.SqlDbType.DateTime;
+            cmd2.Parameters.Add(param2);
+
             try
             {
                 conexion.Open();
